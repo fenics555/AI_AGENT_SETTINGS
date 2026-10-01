@@ -52,35 +52,46 @@ HOUSE_FALLBACK = (
 
 RULES_PATH = os.environ.get("HOUSE_RULES", r"D:\AI\.clinerules")
 RULES_KEYS = ("ВОСКРЕШЕНИЕ", "АНТИ-ПЕТЛЯ", "АНТИ-ГАЛЛЮЦИНАЦИИ")
+# 01.10.2026 (дистилляция): (1) rfind по слову «АНТИ-ПЕТЛЯ» находил УПОМИНАНИЕ внутри
+# другого раздела — блок АНТИ-ГАЛЛЮЦИНАЦИИ попадал в промпт ДВАЖДЫ, а АНТИ-ПЕТЛЯ ни разу;
+# (2) раздел «КРАШ И ВОСКРЕШЕНИЕ» (11.7 КБ) целиком съедал лимит, и блоки поведения
+# не влезали. Теперь режем по трём нужным заголовкам, каждый — от своего до следующего.
+SECTION_HEADS = ("ВОСКРЕШЕНИЕ: REVIVE", "АНТИ-ПЕТЛЯ (", "АНТИ-ГАЛЛЮЦИНАЦИИ (")
+SECTION_MAX = 7000
 
 
-def load_house_rules(max_chars=14000):
+def load_house_rules(max_chars=20000):
     """Read the real house rules (master file) instead of a frozen copy.
 
-    Sections are cut from the file text, so a rule change is visible to the very
-    next run. Returns (text_or_None, source_note).
+    Sections are cut from the file text by their HEADINGS, so a rule change is visible
+    to the very next run and no section is taken twice. Returns (text_or_None, note).
     """
     try:
         with open(RULES_PATH, encoding="utf-8-sig") as fh:
             raw = fh.read()
     except OSError as exc:
         return None, "rules-missing(%s)" % exc
-    parts = []
-    for key in RULES_KEYS:
-        idx = raw.rfind(key)
-        if idx < 0:
-            continue
-        head = raw.rfind("\n\n", 0, idx)
-        head = 0 if head < 0 else head + 2
-        tail = raw.find("\n\n", idx)
-        tail = len(raw) if tail < 0 else tail
-        # 01.10.2026: лимит 3200 ОБРЕЗЫВАЛ правила — п.15/п.16/few-shot v6.9 не доходили
-        # до модели (проба probe_house_text_20261001.py показала «ПРИОРИТЕТ МАРКЕРОВ: НЕТ»).
-        # Проверять, что раздел целиком, теперь обязательно после каждой правки .clinerules.
-        parts.append(raw[head:tail].strip()[:8000])
-    if not parts:
+    marks = []
+    for head in SECTION_HEADS:
+        # ищем заголовок В НАЧАЛЕ СТРОКИ: «АНТИ-ГАЛЛЮЦИНАЦИИ (» встречается и в тексте
+        # ссылок, и первый такой hit уводил срез не туда (найдено 01.10.2026).
+        idx = raw.find("\n" + head)
+        if idx >= 0:
+            marks.append((idx + 1, head))
+    if not marks:
         return None, "rules-sections-not-found"
-    return "\n\n".join(parts)[:max_chars], "rules=%s" % RULES_PATH
+    marks.sort()
+    parts = []
+    for n, (idx, head) in enumerate(marks):
+        stop = marks[n + 1][0] if n + 1 < len(marks) else len(raw)
+        parts.append(raw[idx:stop].strip()[:SECTION_MAX])
+    seen = set()
+    uniq = []
+    for p in parts:
+        if p not in seen:
+            seen.add(p)
+            uniq.append(p)
+    return "\n\n".join(uniq)[:max_chars], "rules=%s sections=%d" % (RULES_PATH, len(uniq))
 
 
 _RULES_TEXT, _RULES_SRC = load_house_rules()
