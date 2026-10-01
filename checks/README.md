@@ -16,7 +16,9 @@
 | `RUN_speed_check.bat` | запуск `speed_check.py` |
 | `RUN_all_checks.bat` | полный прогон всех локальных моделей (кроме embedding), ~10 мин |
 | `RUN_models_v3.bat` | замер честности на 5 моделях (эксперимент v3), think=OFF |
-| `RUN_battery_v3.bat` | полная батарея: A strict → B loop/revive (11 предметов) → C experiment v3, на 5 моделях |
+| `RUN_battery_v3.bat` | полная батарея: A strict → B loop/revive (13 предметов) → C experiment v3, на 5 моделях |
+| `tests/checkers_regression.py` | регрессия чекеров на РЕАЛЬНЫХ ответах; запускать ДО и ПОСЛЕ каждой правки чекера |
+| `tests/rescore_run.py` | пересчёт готового прогона текущими чекерами (старый вердикт результатом не является) |
 | `LOG_tuning.md` | журнал замысла «модель сама пишет свои локальные правила и тестирует себя петлёй» (без кода, слово владельца 01.10.2026) |
 
 Вывод прогонов идёт в дом-лог: `D:\AI\log\ollama_checks\` (см. `retention.json`, ключ `ollama_checks` = 56 дней).
