@@ -56,7 +56,13 @@ RULES_KEYS = ("ВОСКРЕШЕНИЕ", "АНТИ-ПЕТЛЯ", "АНТИ-ГАЛ�
 # другого раздела — блок АНТИ-ГАЛЛЮЦИНАЦИИ попадал в промпт ДВАЖДЫ, а АНТИ-ПЕТЛЯ ни разу;
 # (2) раздел «КРАШ И ВОСКРЕШЕНИЕ» (11.7 КБ) целиком съедал лимит, и блоки поведения
 # не влезали. Теперь режем по трём нужным заголовкам, каждый — от своего до следующего.
-SECTION_HEADS = ("ВОСКРЕШЕНИЕ: REVIVE", "АНТИ-ПЕТЛЯ (", "АНТИ-ГАЛЛЮЦИНАЦИИ (")
+# ПОРЯДОК ПОДАЧИ = кортеж ниже. 01.10.2026, замер: перенос ВОСКРЕШЕНИЯ в начало дал
+# laguna 8 → 12 (+4), но 26b 15 → 13 и glm 12 → 10. Итог: лечит одну модель, ломает две.
+# Поэтому оставляем порядок файла (АНТИ-ПЕТЛЯ → ВОСКРЕШЕНИЕ → АНТИ-ГАЛЛЮЦИНАЦИИ):
+# при нём эталон 26b держит 15/15 PASS. Вопрос «можно ли выиграть laguna без потери эталона»
+# остался открытым — вероятно, нужен третий вариант (например, короткий якорный блок ВОСКРЕШЕНИЯ
+# в начале + полный в середине), но это отдельная нога.
+SECTION_HEADS = ("АНТИ-ПЕТЛЯ (", "ВОСКРЕШЕНИЕ: REVIVE", "АНТИ-ГАЛЛЮЦИНАЦИИ (")
 SECTION_MAX = 7000
 
 
@@ -71,6 +77,9 @@ def load_house_rules(max_chars=20000):
             raw = fh.read()
     except OSError as exc:
         return None, "rules-missing(%s)" % exc
+    # ПОРЯДОК ПОДАЧИ задаётся самим SECTION_HEADS, а не позицией в файле.
+    # 01.10.2026: laguna теряет блок ВОСКРЕШЕНИЕ, который физически стоял на 28 % промпта
+    # (зона lost in the middle). Подаём критичный блок ПЕРВЫМ, честность — второй.
     marks = []
     for head in SECTION_HEADS:
         # ищем заголовок В НАЧАЛЕ СТРОКИ: «АНТИ-ГАЛЛЮЦИНАЦИИ (» встречается и в тексте
@@ -80,17 +89,19 @@ def load_house_rules(max_chars=20000):
             marks.append((idx + 1, head))
     if not marks:
         return None, "rules-sections-not-found"
-    marks.sort()
+    by_pos = sorted(marks)                      # границы реза — по позиции в файле
     parts = []
-    for n, (idx, head) in enumerate(marks):
-        stop = marks[n + 1][0] if n + 1 < len(marks) else len(raw)
-        parts.append(raw[idx:stop].strip()[:SECTION_MAX])
+    for n, (idx, head) in enumerate(by_pos):
+        stop = by_pos[n + 1][0] if n + 1 < len(by_pos) else len(raw)
+        parts.append((head, raw[idx:stop].strip()[:SECTION_MAX]))
     seen = set()
     uniq = []
-    for p in parts:
-        if p not in seen:
-            seen.add(p)
-            uniq.append(p)
+    by_head = dict((h, t) for h, t in parts)
+    for head in SECTION_HEADS:                  # порядок вывода — задан SECTION_HEADS
+        text = by_head.get(head, "").strip()
+        if text and text not in seen:
+            seen.add(text)
+            uniq.append(text)
     return "\n\n".join(uniq)[:max_chars], "rules=%s sections=%d" % (RULES_PATH, len(uniq))
 
 
@@ -187,7 +198,7 @@ RULES_TOKENS = len(HOUSE_SYSTEM) // 4  # грубая оценка: будущи
 # на урезанном тексте — молча. Теперь прогон с обрезанными правилами ПАДАЕТ.
 RULES_MIN_CHARS = 6500
 RULES_REQUIRED = ("БЕЗОПАСНАЯ ДЕГРАДАЦИЯ", "ПУТИ И ИМЕНА", "ПРИОРИТЕТ МАРКЕРОВ",
-                  "ИМИТАЦИИ ПРОВЕРКИ", "ОТКАЗ ИНСТРУМЕНТА",
+                  "ИМИТАЦИИ ПРОВЕРКИ", "ОТКАЗ ИНСТРУМЕНТА", "ПРЕЗУМПЦИЯ СУЩЕСТВОВАНИЯ",
                   "ПРЕДПОЛОЖЕНИЕ", "REVIVE", "АНТИ-ПЕТЛЯ")
 
 
@@ -200,6 +211,16 @@ def check_rules_health():
                         % (len(HOUSE_SYSTEM), RULES_MIN_CHARS))
     if missing:
         problems.append("в правилах НЕТ обязательных пунктов: %s" % ", ".join(missing))
+    # НАБЛЮДЕНИЕ, НЕ ЗАКОН (01.10.2026): при файловом порядке блок ВОСКРЕШЕНИЕ стоит на 28 %
+    # промпта, и laguna теряет слова-состояния (r1-r3[R]). Перенос его в начало лечит laguna
+    # (8 → 12), но ломает эталон (15 → 13) и glm (12 → 10), поэтому сейчас НЕ применяется.
+    # Проверка оставлена как предупреждение: если блок уедет за 40 % — это новая гипотеза к замеру.
+    pos = HOUSE_SYSTEM.find("ВОСКРЕШЕНИЕ: REVIVE")
+    if pos < 0:
+        problems.append("блок ВОСКРЕШЕНИЕ не найден в промпте")
+    elif pos > len(HOUSE_SYSTEM) * 0.40:
+        problems.append("ВОСКРЕШЕНИЕ на %.0f%% промпта — проверить замер: изменился ли порядок?"
+                        % (100.0 * pos / len(HOUSE_SYSTEM)))
     if problems:
         return False, "ASSERTION FAILED: rules truncated/incomplete -> " + "; ".join(problems)
     return True, ("rules ok: %d символов, ~%d токенов, все пункты на месте"
