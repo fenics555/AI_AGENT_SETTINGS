@@ -13,9 +13,21 @@ echo ===== %date% %time% ===== >> "%SLOG%"
 echo message: %MSG% >> "%SLOG%"
 git add -A
 git diff --cached --quiet
-if %errorlevel% equ 0 echo nothing to commit, working tree clean >> "%SLOG%"
-if %errorlevel% equ 0 exit /b 0
+if %errorlevel% equ 0 (
+  echo [settings] nothing to commit, working tree clean
+  echo nothing to commit, working tree clean >> "%SLOG%"
+  exit /b 0
+)
 git commit -m "%MSG%" >> "%SLOG%" 2>&1
-if %errorlevel% neq 0 exit /b %errorlevel%
+if %errorlevel% neq 0 (
+  echo [settings] COMMIT FAILED - see %SLOG%
+  exit /b 1
+)
+echo [settings] committed: %MSG%
 git push origin master >> "%SLOG%" 2>&1
-exit /b %errorlevel%
+if %errorlevel% neq 0 (
+  echo [settings] PUSH FAILED - see %SLOG%
+  exit /b 1
+)
+echo [settings] PUSHED to AI_AGENT_SETTINGS (log: %SLOG%)
+exit /b 0
