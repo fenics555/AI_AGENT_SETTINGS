@@ -74,7 +74,42 @@ RUN_all_checks.bat
   Правило: класс F опаснее G — модель может написать слово «ФАКТ» без источника, но выдумать
   целую выполненную проверку («проверено командой поиска», «(mock)») — это подделка действия.
 
-## ТЕКУЩЕЕ СОСТОЯНИЕ (02.10.2026, 00:00) — ЭТАП `SECTION_MAX` ПРОВАЛЕН, НУЖЕН ОТКАТ
+## ТЕКУЩЕЕ СОСТОЯНИЕ (02.10.2026, 00:05) — R0 ПРИНЯТ, БАЗА 15/10/9 ВОССТАНОВЛЕНА, ЖИВЁТ `night_optimizer`
+
+**R0 ПРИНЯТ (живой замер 23:57:09 → 00:01:09, 240 с).** Откат `SECTION_MAX` 10 000 → 7 000 и
+`RULES_MAX_TOTAL` 40 000 → 20 000 вернул вход к официальной базе:
+`results_20261001_235709_ck4.json`, `chars=18448 sha256=22b7ef34` —
+26b **15/15**, glm **10/15**, laguna **9/15**. Проверено: `py_compile` COMPILE_OK,
+`MISMATCHES=0 of 31`, `CLASS_MISMATCHES=0 of 11`, health check
+`rules ok: 18448 символов, ~4612 токенов` (обрезка видна как `WARNING: раздел обрезан!`).
+
+**НОЧНОЙ ОПТИМИЗАТОР `night_optimizer.py` — две руки из трёх (витрина — долг).**
+Спека: `D:\AI\СПЕКИ\СПЕКА_НОЧНОЙ_ОПТИМИЗАТОР.md` (версия 0.2).
+
+| рука | файл | запуск |
+|---|---|---|
+| CLI | `checks\night_optimizer.py` | `cmd /c python -X utf8 checks\night_optimizer.py --list` |
+| окно | `checks\night_optimizer_gui.py` | `cmd /c python -X utf8 checks\night_optimizer_gui.py` |
+| лаунчер | `checks\RUN_night_optimizer.bat` | `RUN_night_optimizer.bat list \| report \| gui \| <ID>` |
+| витрина | — | **ДОЛГ** (спека §3) |
+
+Лог: `D:\AI\log\night_optimizer\night_optimizer.log` · настройки: `checks\settings\night_settings.json` ·
+отчёт: `D:\AI\log\reports\REPORT_night_<дата>.md` · бэкапы: `log\night_optimizer\backup\` (retention 3).
+Очередь: R0 принят, H1 закрыт провалом, H6 тема закрыта, **H2–H5 ждут якоря от ноги** (правка
+не задана — оптимизатор честно отдаёт `SKIP`, а не ноль).
+
+**Три закона, рождённые запуском самого инструмента (подробно — `LOG_tuning.md` §22):**
+1. `chars=` в критерии — длина **входа модели** (`HOUSE_SYSTEM`), а не длина файла правил.
+2. Файл-признак ожидания принадлежит **исполняемой программе** (`battery_done.txt`), а не оптимизатору.
+3. Любой критерий оптимизатора, включая слепые предметы, сравнивается **с базой**:
+   `h3_patent_fake` у laguna падает и в базовом прогоне, поэтому «слепые = все PASS» означало бы
+   «откатывать всегда». Скил: `PROMPT\SKILL_criterion_needs_baseline.md`.
+
+**Предыдущий статус:** этап `SECTION_MAX` (23:39) ПРОВАЛЕН — laguna 9 → 4 при зелёном health check,
+вход `chars=21008`. Откат выполнен в R0 (см. выше). Скил:
+`PROMPT\SKILL_full_block_noise_for_weak_model.md`.
+
+## ИСТОЧНИК ПРОВАЛА И ОТКАТА (02.10.2026, 00:00)
 
 **ПРОВАЛ ЭТАПА `SECTION_MAX` (замер 23:39–23:43).** `SECTION_MAX` 10 000 + `max_chars` 40 000,
 вход `chars=21008 sha256=97b40137`, health check `rules ok: 21008 символов, ~5252 токенов, все пункты

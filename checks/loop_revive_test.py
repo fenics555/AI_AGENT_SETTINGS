@@ -63,10 +63,22 @@ RULES_KEYS = ("ВОСКРЕШЕНИЕ", "АНТИ-ПЕТЛЯ", "АНТИ-ГАЛ�
 # остался открытым — вероятно, нужен третий вариант (например, короткий якорный блок ВОСКРЕШЕНИЯ
 # в начале + полный в середине), но это отдельная нога.
 SECTION_HEADS = ("АНТИ-ПЕТЛЯ (", "ВОСКРЕШЕНИЕ: REVIVE", "АНТИ-ГАЛЛЮЦИНАЦИИ (")
+# ОТКАТ R0 (02.10.2026, ночной оптимизатор, спека СПЕКА_НОЧНОЙ_ОПТИМИЗАТОР.md §4).
+# ПОПЫТКА ПОДЪЁМА ПРОВАЛЕНА ЖИВЫМ ЗАМЕРОМ 01.10.2026 23:39 (results_20261001_233902_ck4.json):
+#   вход chars=21008 sha256=97b40137, health check ЗЕЛЁНЫЙ («rules ok: 21008 символов, все пункты
+#   на месте»), обрезки нет — а модель упала: 26b 15/15 PASS, glm 10/15 FAIL, laguna 9 -> 4/15
+#   (l3_scenario[B], l5_engineering[G]).
+# ЗАПРЕТ НА ПОВТЕР: поднимать SECTION_MAX без нового замера. Причина провала НЕ в обрезке
+# (обрезка чинилась верно), а в объёме: 2 560 символов хвоста ВОСКРЕШЕНИЕ для слабой модели —
+# шум, laguna начала открывать ритуал там, где требовался ответ.
+# Закон: скилл PROMPT\SKILL_full_block_noise_for_weak_model.md. Эталон для сравнения:
+# 15/10/9 при chars=18448 sha256=6de029ed.
+# num_ctx НЕ трогаем: 8192 нужно для честного сравнения с базой.
 SECTION_MAX = 7000
+RULES_MAX_TOTAL = 20000
 
 
-def load_house_rules(max_chars=20000):
+def load_house_rules(max_chars=RULES_MAX_TOTAL):
     """Read the real house rules (master file) instead of a frozen copy.
 
     Sections are cut from the file text by their HEADINGS, so a rule change is visible
@@ -102,6 +114,9 @@ def load_house_rules(max_chars=20000):
         if text and text not in seen:
             seen.add(text)
             uniq.append(text)
+    total = len("\n\n".join(uniq))
+    # Сумма ДО среза: нужна health check, чтобы видеть обрезку по сумме, а не только по разделу.
+    globals()["_RULES_TOTAL_RAW"] = total
     return "\n\n".join(uniq)[:max_chars], "rules=%s sections=%d" % (RULES_PATH, len(uniq))
 
 
@@ -272,6 +287,12 @@ def check_rules_health():
         if seg > SECTION_MAX:
             log("WARNING: раздел обрезан! %s: %d символов при SECTION_MAX=%d — в модель ушло %d"
                 % (head, seg, SECTION_MAX, SECTION_MAX))
+    # ВТОРОЙ НОЖ (23:31): суммарный лимит max_chars режет хвост ВОСКРЕШЕНИЯ, даже когда
+    # каждый раздел в отдельности укладывается в SECTION_MAX. Молчаливую обрезку суммы
+    # тоже делаем видимой — иначе «разделы не обрезаны» перестанет означать «промпт полный».
+    if _RULES_TOTAL_RAW > RULES_MAX_TOTAL:
+        log("WARNING: сумма правил обрезана! %d символов при RULES_MAX_TOTAL=%d — потеряно %d"
+            % (_RULES_TOTAL_RAW, RULES_MAX_TOTAL, _RULES_TOTAL_RAW - RULES_MAX_TOTAL))
     if problems:
         return False, "ASSERTION FAILED: rules truncated/incomplete -> " + "; ".join(problems)
     return True, ("rules ok: %d символов, ~%d токенов, все пункты на месте"
