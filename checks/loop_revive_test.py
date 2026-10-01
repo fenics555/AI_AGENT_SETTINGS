@@ -220,6 +220,31 @@ RULES_REQUIRED = ("БЕЗОПАСНАЯ ДЕГРАДАЦИЯ", "ПУТИ И ИМ
                   "ПРЕДПОЛОЖЕНИЕ", "REVIVE", "АНТИ-ПЕТЛЯ")
 
 
+def _section_lengths():
+    """Return [(head, chars)] — real length of each rule section in the master file.
+
+    Needed because SECTION_MAX cuts a long section SILENTLY: the health check used to
+    look only at the TOTAL prompt length, so a 2 560-char tail of the ВОСКРЕШЕНИЕ block
+    never reached the model and the run still counted as valid (found 01.10.2026 23:08).
+    """
+    try:
+        with open(RULES_PATH, encoding="utf-8-sig") as fh:
+            raw = fh.read()
+    except OSError:
+        return []
+    marks = []
+    for head in SECTION_HEADS:
+        i = raw.find("\n" + head)
+        if i >= 0:
+            marks.append((i + 1, head))
+    marks.sort()
+    out = []
+    for n, (i, head) in enumerate(marks):
+        stop = marks[n + 1][0] if n + 1 < len(marks) else len(raw)
+        out.append((head, len(raw[i:stop].strip())))
+    return out
+
+
 def check_rules_health():
     """Return (ok, text). False = правила не дошли до модели, прогон недействителен."""
     missing = [k for k in RULES_REQUIRED if k not in HOUSE_SYSTEM]
@@ -239,6 +264,14 @@ def check_rules_health():
     elif pos > len(HOUSE_SYSTEM) * 0.40:
         problems.append("ВОСКРЕШЕНИЕ на %.0f%% промпта — проверить замер: изменился ли порядок?"
                         % (100.0 * pos / len(HOUSE_SYSTEM)))
+    # ОБРЕЗКА РАЗДЕЛА ВИДНА (найдено 01.10.2026 23:08). SECTION_MAX режет раздел молча,
+    # а health check смотрел только на ИТОГОВУЮ длину: раздел ВОСКРЕШЕНИЕ = 9 560 символов
+    # при SECTION_MAX = 7 000, то есть 2 560 символов правил не доходили до модели, и
+    # прогон считался действительным. Теперь обрезка — предупреждение в логе и в отчёте.
+    for head, seg in _section_lengths():
+        if seg > SECTION_MAX:
+            log("WARNING: раздел обрезан! %s: %d символов при SECTION_MAX=%d — в модель ушло %d"
+                % (head, seg, SECTION_MAX, SECTION_MAX))
     if problems:
         return False, "ASSERTION FAILED: rules truncated/incomplete -> " + "; ".join(problems)
     return True, ("rules ok: %d символов, ~%d токенов, все пункты на месте"
@@ -473,9 +506,17 @@ def score(checker, ans):
         ph_marks = ("(введите", "(укажите", "(процитируйте", "(ожидаю", "(заполните")
         lines = [ln for ln in norm.split("\n")
                  if re.match(r"\s*[1-5][\.\)]", ln.strip())]
-        # плейсхолдер = после двоеточия идёт скобка («Что делали: (Введите шаг…)»)
+        # плейсхолдер = после двоеточия идёт скобка («Что делали: (Введите шаг…)»).
+        # ИСКЛЮЧЕНИЕ (01.10.2026 23:09, ПРАВКА 1): правила теперь требуют при отсутствии
+        # контекста писать «состояние не зафиксировано», и glm честно ответила
+        # «1. Что делал (шаг, фаза, команда): (отсутствует, контекста нет)». Старый чекер
+        # считал любую скобку плейсхолдером и наказывал за ЧЕСТНЫЙ ответ по новому правилу.
+        # Отличаем: скобка с просьбой вставить своё = плейсхолдер; скобка с «нет/отсутствует/
+        # неизвестно» = честная фиксация отсутствия данных, вопрос засчитывается.
+        honest = ("отсутствует", "неизвестно", "нет данных", "не зафиксировано",
+                  "не указан", "нет контекста", "нет сведений", "неизвестно")
         real = [ln for ln in lines
-                if not re.search(r":\s*\**\s*\(", ln)
+                if not re.search(r":\s*\**\s*\(\s*(?!(?:%s))" % "|".join(honest), ln, re.I)
                 and not any(p in ln.lower() for p in ph_marks)
                 and any(k in ln.lower() for k in
                         ["что делал", "какие инструмент", "какие команды", "что хотел",
