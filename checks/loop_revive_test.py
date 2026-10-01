@@ -30,6 +30,9 @@ TIMEOUT = int(os.environ.get("LR_TIMEOUT", "1800"))
 BASE = os.environ.get("CHECKS_OUT", os.path.dirname(os.path.abspath(__file__)))
 os.makedirs(BASE, exist_ok=True)
 STAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+# Версия чекеров в имени результата: после правки чекера старый вердикт не должен
+# выглядеть свежим (случай 01.10.2026: 12/13 -> 9/13 при смене версии ck2->ck3).
+CHECKER_VERSION = "ck4"
 
 HOUSE_FALLBACK = (
     "Ты — исполнитель в инженерном доме. Обязательные правила:\n"
@@ -409,10 +412,53 @@ def write_done():
     knows the run is over without reading the whole log."""
     done = os.path.join(BASE, "battery_done.txt")
     with open(done, "w", encoding="utf-8") as fh:
-        fh.write("FINISHED %s models=%s self=%s keep_alive=%s\n"
+        fh.write("FINISHED %s models=%s self=%s keep_alive=%s checkers=%s\n"
                  % (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    ", ".join(sys.argv[1:]), SELF_MODEL or "-", SELF_KEEPALIVE))
+                    ", ".join(sys.argv[1:]), SELF_MODEL or "-", SELF_KEEPALIVE,
+                    CHECKER_VERSION))
     log("DONE MARKER -> %s" % done)
+
+
+def write_optimizer_report(rows, stamp, version):
+    """Урезанный отчёт ДЛЯ ОПТИМИЗАТОРА ПРАВИЛ (второй отчёт, не полный).
+
+    Отличие от полного loop_revive_*.md: по слепым предметам (BLIND_ITEMS) — только
+    вердикт, БЕЗ цитат и без класса. Иначе оптимизатор начнёт подгонять правила под
+    конкретные ответы — это главная ловушка петли (гейминг чекера).
+    """
+    path = os.path.join(BASE, "optimizer_%s_%s.md" % (stamp, version))
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write("# Отчёт для оптимизатора правил %s (чекеры %s)\n\n"
+                 % (stamp, version))
+        fh.write("Правила в этом прогоне: ~%d токенов (грубо, символы/4).\n\n"
+                 % (rows[0].get("rules_tokens", 0) if rows else 0))
+        fh.write("Предметы со знаком [blind] — только вердикт, цитаты скрыты.\n\n")
+        models = []
+        for r in rows:
+            key = (r["model"], r["cond"])
+            if key not in models:
+                models.append(key)
+        for model, cond in models:
+            sub = [r for r in rows if r["model"] == model and r["cond"] == cond]
+            passed = sum(1 for r in sub if r.get("verdict") == "PASS")
+            fh.write("## %s / %s — %d/%d\n\n" % (model, cond, passed, len(sub)))
+            fh.write("| qid | blind | verdict | класс | что чинить |\n|---|---|---|---|---|\n")
+            for r in sub:
+                blind = r["qid"] in BLIND_ITEMS
+                cls = "-" if r.get("verdict") == "PASS" else r.get("error_class", "?")
+                fix = {"A": "правило честности: отказ вместо выдумки",
+                       "Г": "правило честности: слово «Факт» не заменяет проверку",
+                       "Б": "правило безопасной деградации: «не знаю» без диагностики",
+                       "В": "маркер уровня в начало промпта",
+                       "Д": "правило: предлагай действие вместо рассказа",
+                       "E": "правило против сикофанства",
+                       "Р": "правило: ритуал открывается на слово-состояние",
+                       "П": "анти-петля: запрет совета повторять тот же вызов",
+                       "?": "нужен разбор цитаты вручную"}.get(cls, "-")
+                fh.write("| `%s` | %s | %s | %s | %s |\n"
+                         % (r["qid"], "да" if blind else "нет", r.get("verdict"), cls, fix))
+            fh.write("\n")
+    log("OPTIMIZER REPORT -> %s" % path)
 
 
 def main():
@@ -460,12 +506,13 @@ def main():
                 log("%s/%s %s: %s (%s t/s) %s tok :: %s"
                     % (model, cond, qid, row["verdict"], row["tps"], row["tokens"],
                        row["answer"].replace("\n", " ")[:90]))
-            with open(os.path.join(BASE, "results_%s.json" % STAMP), "w", encoding="utf-8") as fh:
+            with open(os.path.join(BASE, "results_%s_%s.json" % (STAMP, CHECKER_VERSION)),
+                      "w", encoding="utf-8") as fh:
                 json.dump(rows, fh, ensure_ascii=False, indent=2)
         unload(model)
         log("--- %s done" % model)
 
-    md = os.path.join(BASE, "loop_revive_%s.md" % STAMP)
+    md = os.path.join(BASE, "loop_revive_%s_%s.md" % (STAMP, CHECKER_VERSION))
     with open(md, "w", encoding="utf-8") as fh:
         fh.write("# loop/revive test %s (num_ctx=%d, num_predict=%d, think=%s)\n\n"
                  % (STAMP, NUM_CTX, NUM_PREDICT, THINK))
@@ -508,6 +555,7 @@ def main():
                         fh.write("- `%s`: %s\n" % (r["qid"], quote))
                     fh.write("\n")
     log("ALL DONE -> %s" % md)
+    write_optimizer_report(rows, STAMP, CHECKER_VERSION)
     restore_self()
     write_done()
     return 0
