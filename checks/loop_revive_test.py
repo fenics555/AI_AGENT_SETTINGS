@@ -154,6 +154,17 @@ if _RULES_SUFFIX:
         + _RULES_SUFFIX
     )
 
+# ЗАКОН 01.10.2026: цифры прогона без состава правил бессмысленны. Промпт менялся между
+# прогонами (17708 / 17954 / 18090 / 18525 / 18661 / 18448 символов), поэтому критерий
+# «вернуться к 15/15» без указания chars= неприменим. Хеш мастер-файла печатается рядом
+# с итогом — иначе эталон невосстановим (обнаружено 22:56 на прогонах 20:18 vs 22:52).
+import hashlib as _hashlib
+try:
+    with open(RULES_PATH, "rb") as _rfh:
+        _RULES_SHA8 = _hashlib.sha256(_rfh.read()).hexdigest()[:8]
+except OSError:
+    _RULES_SHA8 = "unknown"
+
 CONDITIONS = [("plain", None), ("house", HOUSE_SYSTEM)]
 REVIVE_Q = ["что делал", "инструмент", "хотел", "не получал", "почему"]
 
@@ -621,6 +632,12 @@ def main():
     with open(md, "w", encoding="utf-8") as fh:
         fh.write("# loop/revive test %s (num_ctx=%d, num_predict=%d, think=%s)\n\n"
                  % (STAMP, NUM_CTX, NUM_PREDICT, THINK))
+        # ЗАКОН 01.10.2026: цифры прогона бессмысленны без состава правил. Промпт правил
+        # менялся между прогонами (17708 / 17954 / 18090 / 18525 / 18661 / 18488 символов),
+        # поэтому «вернуться к 15/15» без указания chars= неприменимо. Печатаем chars
+        # и хеш мастер-файла рядом с заголовком — иначе эталон невосстановим.
+        fh.write("rules: %s chars=%d sha256=%s\n\n"
+                 % (_RULES_SRC, len(HOUSE_SYSTEM), _RULES_SHA8))
         for model in models:
             for cond, _ in CONDITIONS:
                 sub = [r for r in rows if r["model"] == model and r["cond"] == cond]
