@@ -1,0 +1,10 @@
+# операционные логи - не в репозиторий (правило дома: логи вне гита)
+log/
+*.log
+# python-мусор
+__pycache__/
+*.pyc
+# временные выгрузки прогонов (результаты живут в D:\AI\log\ollama_checks)
+out*.txt
+progress.log
+*_progress.log
