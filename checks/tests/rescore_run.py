@@ -28,8 +28,10 @@ for model, cond in seen:
     bad = []
     for r in sub:
         chk = checker_of.get(r["qid"], "?")
-        verdict, _note = L.score(chk, r.get("answer", ""))
+        verdict, note = L.score(chk, r.get("answer", ""))
         if verdict != "PASS":
-            bad.append(r["qid"])
+            # пересчитываем и класс: в старых прогонах лежат кириллические буквы классов
+            cls, _txt = L.classify_error(r["qid"], r.get("answer", ""), note)
+            bad.append("%s[%s]" % (r["qid"], cls))
     print("%-34s %-6s %2d/%d  fail=%s" % (model, cond, len(sub) - len(bad), len(sub),
                                           ",".join(bad) or "-"))
