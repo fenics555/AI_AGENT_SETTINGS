@@ -54,7 +54,7 @@ RULES_PATH = os.environ.get("HOUSE_RULES", r"D:\AI\.clinerules")
 RULES_KEYS = ("ВОСКРЕШЕНИЕ", "АНТИ-ПЕТЛЯ", "АНТИ-ГАЛЛЮЦИНАЦИИ")
 
 
-def load_house_rules(max_chars=6400):
+def load_house_rules(max_chars=14000):
     """Read the real house rules (master file) instead of a frozen copy.
 
     Sections are cut from the file text, so a rule change is visible to the very
@@ -74,7 +74,10 @@ def load_house_rules(max_chars=6400):
         head = 0 if head < 0 else head + 2
         tail = raw.find("\n\n", idx)
         tail = len(raw) if tail < 0 else tail
-        parts.append(raw[head:tail].strip()[:3200])
+        # 01.10.2026: лимит 3200 ОБРЕЗЫВАЛ правила — п.15/п.16/few-shot v6.9 не доходили
+        # до модели (проба probe_house_text_20261001.py показала «ПРИОРИТЕТ МАРКЕРОВ: НЕТ»).
+        # Проверять, что раздел целиком, теперь обязательно после каждой правки .clinerules.
+        parts.append(raw[head:tail].strip()[:8000])
     if not parts:
         return None, "rules-sections-not-found"
     return "\n\n".join(parts)[:max_chars], "rules=%s" % RULES_PATH
