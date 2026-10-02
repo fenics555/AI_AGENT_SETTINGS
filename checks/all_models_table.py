@@ -98,30 +98,55 @@ for m in order:
     add("%-30s %s" % (m, "; ".join(bad) if bad else "барьеров нет"))
 
 add("")
-add("--- 6. ТОКЕНЫ И ВРЕМЯ (house) ---")
-add("prompt_tokens — сколько токенов Ollama посчитал в ПРОМПТЕ (проверка окна);")
-add("tokens — токены ответа; tps — скорость генерации; wall_s — время на предмет.")
-add("%-30s %12s %10s %8s %9s %10s %9s"
-    % ("модель", "prompt_tok", "ans_tok", "t/s", "время, с", "на предм.", "в окне"))
+add("--- 6. ОКНО И ПРОИЗВОДИТЕЛЬНОСТЬ (единый формат вывода, закон 02.10.2026) ---")
+add("budget = num_ctx − ответ − запас 400; скорость в % от самой быстрой модели = 100 %")
+add("%-30s %6s %11s %8s %8s %7s %8s %8s"
+    % ("модель", "house", "prompt_tok", "т/симв", "запас", "t/s", "%макс", "в окне"))
+tok_rows = {}
+_pt = os.path.join(os.path.dirname(os.path.abspath(path)), "prompt_tokens.json")
+if os.path.exists(_pt):
+    with open(_pt, encoding="utf-8") as _fh:
+        for rec in json.load(_fh).get("models", []):
+            tok_rows[rec["model"]] = rec
+
+chars = None
+try:
+    import loop_revive_test as _L
+    chars = len(_L.HOUSE_SYSTEM)
+except Exception:                                     # noqa: BLE001
+    chars = 0
 budget = 8192 - 260 - 400
+avg = {}
 for m in order:
-    rows_m = [r for r in rows if r["model"] == m and r.get("cond") == "house"]
-    if not rows_m:
+    rm = [r for r in rows if r["model"] == m and r.get("cond") == "house"]
+    if rm:
+        avg[m] = sum(r.get("tps") or 0 for r in rm) / float(len(rm))
+best = max(avg.values()) if avg else 0
+for m in sorted(order, key=lambda x: -avg.get(x, 0)):
+    rm = [r for r in rows if r["model"] == m and r.get("cond") == "house"]
+    if not rm:
         continue
-    pt = [r.get("prompt_tokens") for r in rows_m if r.get("prompt_tokens")]
-    at = sum(r.get("tokens") or 0 for r in rows_m)
-    tps = [r.get("tps") or 0 for r in rows_m]
-    wall = sum(r.get("wall_s") or 0 for r in rows_m)
-    n = len(rows_m)
-    ptxt = str(pt[0]) if pt else "нет в json"
-    if pt:
-        fits = "да" if max(pt) <= budget else "НЕТ (+%d)" % (max(pt) - budget)
-    else:
-        fits = "проверить серией"
-    add("%-30s %12s %10d %8.1f %9.1f %10.1f %9s"
-        % (m, ptxt, at, (sum(tps) / len(tps)) if tps else 0, wall, wall / float(n), fits))
+    hp = sum(1 for r in rm if r.get("verdict") == "PASS")
+    rec = tok_rows.get(m) or {}
+    n = rec.get("prompt_tokens")
+    if n is None:
+        pt = [r.get("prompt_tokens") for r in rm if r.get("prompt_tokens")]
+        n = pt[0] if pt else None
+    tps = avg.get(m, 0.0)
+    add("%-30s %5d/%-3d %11s %8s %8s %7.1f %7.0f%% %8s" % (
+        m, hp, len(rm),
+        n if n else "н/д",
+        ("%.4f" % (n / float(chars))) if n and chars else "н/д",
+        ("%+d" % (budget - n)) if n else "н/д",
+        tps, (100.0 * tps / best) if best else 0,
+        ("да" if n and n <= budget else "НЕТ" if n else "н/д")))
 add("")
-add("бюджет под промпт: num_ctx %d − ответ 260 − запас 400 = %d токенов" % (8192, budget))
+add("бюджет под промпт = num_ctx 8192 − ответ 260 − запас 400 = %d токенов; промпт %s символов"
+    % (budget, chars or "н/д"))
+add("«%макс» — скорость в процентах от самой быстрой модели стека; 100 % у лидера, у остальных ниже.")
+if not tok_rows:
+    add("токены промпта взяты из prompt_tokens.json; если файла нет — запустите "
+        "checks\\prompt_tokens_probe.py")
 
 dest = os.path.splitext(path)[0] + "_TABLE.md"
 with open(dest, "w", encoding="utf-8") as fh:

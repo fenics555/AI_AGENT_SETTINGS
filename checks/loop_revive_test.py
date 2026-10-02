@@ -650,6 +650,58 @@ def write_optimizer_report(rows, stamp, version):
     log("OPTIMIZER REPORT -> %s" % path)
 
 
+def window_budget(num_ctx=None, num_predict=None):
+    """Бюджет токенов под промпт: окно минус ответ минус запас."""
+    return (num_ctx or NUM_CTX) - (num_predict or NUM_PREDICT) - 400
+
+
+def speed_vs_fastest(stats):
+    """Проценты скорости от самой быстрой модели: 100 % у лидера, остальные ниже."""
+    if not stats:
+        return {}
+    best = max(s for s in stats.values() if s)
+    return {m: (100.0 * s / best if best else 0.0) for m, s in stats.items()}
+
+
+def _window_and_speed_block(rows):
+    """Блок «ОКНО И ПРОИЗВОДИТЕЛЬНОСТЬ» для отчёта стенда — единый формат вывода.
+
+    Поля: prompt_tokens, токенов/символ, запас до бюджета окна, t/s генерации и скорость
+    в процентах от самой быстрой модели. Пустое «н/д» честнее выдуманного числа.
+    """
+    budget = window_budget()
+    chars = len(HOUSE_SYSTEM)
+    stats = {}
+    for r in rows:
+        if r.get("cond") != "house":
+            continue
+        stats.setdefault(r["model"], []).append(r)
+    if not stats:
+        return ""
+    avg_tps = {m: sum(x.get("tps") or 0 for x in v) / float(len(v)) for m, v in stats.items()}
+    pct = speed_vs_fastest(avg_tps)
+    out = ["## ОКНО И ПРОИЗВОДИТЕЛЬНОСТЬ",
+           "бюджет под промпт = num_ctx %d − ответ %d − запас 400 = **%d токенов**;"
+           " промпт = %d символов" % (NUM_CTX, NUM_PREDICT, budget, chars),
+           "",
+           "| модель | house | prompt_tok | т/симв | запас | в окне | t/s | % от макс. |",
+           "|---|---|---|---|---|---|---|---|"]
+    for m in sorted(stats, key=lambda x: -avg_tps[x]):
+        v = stats[m]
+        pt = [x.get("prompt_tokens") for x in v if x.get("prompt_tokens")]
+        passed = sum(1 for x in v if x.get("verdict") == "PASS")
+        n = pt[0] if pt else None
+        out.append("| %s | %d/%d | %s | %s | %s | %s | %.1f | %.0f%% |" % (
+            m, passed, len(v),
+            n if n else "н/д",
+            ("%.4f" % (n / float(chars))) if n else "н/д",
+            ("%+d" % (budget - n)) if n else "н/д",
+            ("да" if n <= budget else "НЕТ (%+d)" % (n - budget)) if n else "н/д",
+            avg_tps[m], pct.get(m, 0.0)))
+    out.append("")
+    return "\n".join(out)
+
+
 def main():
     models = sys.argv[1:]
     if not models:
@@ -719,6 +771,11 @@ def main():
         # и хеш мастер-файла рядом с заголовком — иначе эталон невосстановим.
         fh.write("rules: %s chars=%d sha256=%s\n\n"
                  % (_RULES_SRC, len(HOUSE_SYSTEM), _RULES_SHA8))
+        # БЛОК ОКНА И ПРОИЗВОДИТЕЛЬНОСТИ (закон вывода от 02.10.2026, слово владельца):
+        # любая таблица замеров обязана идти с prompt_tokens, токеном на символ, запасом
+        # до бюджета окна и скоростью генерации, а скорость — ещё и в процентах от самой
+        # быстрой модели стека. Без этого цифры нельзя ни сравнить, ни перенести.
+        fh.write(_window_and_speed_block(rows))
         for model in models:
             for cond, _ in CONDITIONS:
                 sub = [r for r in rows if r["model"] == model and r["cond"] == cond]
