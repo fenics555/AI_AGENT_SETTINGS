@@ -41,28 +41,28 @@ BACKUP_DIR = os.path.join(LOG_DIR, "backup")
 # Слово владельца через помощника: «ядро + информаторы — перестаём угадывать, какая модель
 # лучше, и собираем метаданные о том, как разные архитектуры реагируют на одни и те же правила».
 BASE = {
-    # ЯДРО (5) — эти задают критерий приёмки
+    # ЯДРО (5) — лучшее качество стека, все быстрые (суммарно ~6 мин)
     "gemma4:26b": 15,                      # эталон дисциплины
     "gemma4:12b": 14,                      # компактная и быстрая
     "glm-4.7-flash:q4_K_M": 13,            # честная, без неврозов
     "qwen3.8:latest": 13,                  # другая архитектура токенизатора
-    "granite4.2:30b": 13,                  # канарейка: запас окна всего 363 токена
-    # ИНФОРМАТОРЫ (7) — дают карту влияния, но не блокируют
-    "gemma4:31b": 13,
-    "laguna-xs-2.1:latest": 12,
+    "laguna-xs-2.1:latest": 12,            # КАНАРЕЙКА окна (запас 505) и самая быстрая
+    # ИНФОРМАТОРЫ (4) — карта влияния, не барьер
     "laguna-xs.2:q4_K_M": 11,
     "nemotron-3.5-lightning:30b": 10,
     "gpt-oss:20b": 8,
-    "deepseek-r1:32b": 6,
     # ВНИМАНИЕ: deepseek-r1:14b в записке помощника стоял как 12/15 — на диске 4/15
     # (results_20261002_064128_ck4.json: 11 провалов из 15, класс R на r1-r3).
     "deepseek-r1:14b": 4,
 }
+# УДАЛЕНЫ С ДИСКА ПО СЛОВУ ВЛАДЕЛЬЦА 02.10.2026 08:45 (55 ГБ; 38,4 мин прогона из 55,3):
+# deepseek-r1:32b (19 ГБ), gemma4:31b (19 ГБ), granite4.2:30b (17 ГБ) — три самые медленные.
+# Роль канарейки окна перешла с granite (запас 363) на laguna-xs-2.1 (запас 505).
+REMOVED_MODELS = ["deepseek-r1:32b", "gemma4:31b", "granite4.2:30b"]
 CORE_MODELS = ["gemma4:26b", "gemma4:12b", "glm-4.7-flash:q4_K_M",
-               "qwen3.8:latest", "granite4.2:30b"]
-INFORMER_MODELS = ["gemma4:31b", "laguna-xs-2.1:latest", "laguna-xs.2:q4_K_M",
-                   "nemotron-3.5-lightning:30b", "gpt-oss:20b", "deepseek-r1:32b",
-                   "deepseek-r1:14b"]
+               "qwen3.8:latest", "laguna-xs-2.1:latest"]
+INFORMER_MODELS = ["laguna-xs.2:q4_K_M", "nemotron-3.5-lightning:30b",
+                   "gpt-oss:20b", "deepseek-r1:14b"]
 BASE_CHARS = 14556
 BASE_SHA8 = "22b7ef34"        # sha256 промпта стенда на этом входе
 BLOAT_LIMIT = int(BASE_CHARS * 1.20)      # §5 спеки: +20 %
