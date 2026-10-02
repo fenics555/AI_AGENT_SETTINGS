@@ -100,8 +100,9 @@ for m in order:
 add("")
 add("--- 6. ОКНО И ПРОИЗВОДИТЕЛЬНОСТЬ (единый формат вывода, закон 02.10.2026) ---")
 add("budget = num_ctx − ответ − запас 400; скорость в % от самой быстрой модели = 100 %")
-add("%-30s %6s %11s %8s %8s %7s %8s %8s"
-    % ("модель", "house", "prompt_tok", "т/симв", "запас", "t/s", "%макс", "в окне"))
+add("%-30s %6s %11s %8s %8s %7s %8s %8s %10s %9s"
+    % ("модель", "house", "prompt_tok", "т/симв", "запас", "t/s", "%макс", "в окне",
+       "время, с", "на предм."))
 tok_rows = {}
 _pt = os.path.join(os.path.dirname(os.path.abspath(path)), "prompt_tokens.json")
 if os.path.exists(_pt):
@@ -133,16 +134,21 @@ for m in sorted(order, key=lambda x: -avg.get(x, 0)):
         pt = [r.get("prompt_tokens") for r in rm if r.get("prompt_tokens")]
         n = pt[0] if pt else None
     tps = avg.get(m, 0.0)
-    add("%-30s %5d/%-3d %11s %8s %8s %7.1f %7.0f%% %8s" % (
+    wall_h = sum(r.get("wall_s") or 0 for r in rm) / 60.0
+    wall_all = sum(r.get("wall_s") or 0 for r in rows if r["model"] == m) / 60.0
+    add("%-30s %5d/%-3d %11s %8s %8s %7.1f %7.0f%% %8s %9.1f %9.2f" % (
         m, hp, len(rm),
         n if n else "н/д",
         ("%.4f" % (n / float(chars))) if n and chars else "н/д",
         ("%+d" % (budget - n)) if n else "н/д",
         tps, (100.0 * tps / best) if best else 0,
-        ("да" if n and n <= budget else "НЕТ" if n else "н/д")))
+        ("да" if n and n <= budget else "НЕТ" if n else "н/д"),
+        wall_all, wall_h))
 add("")
 add("бюджет под промпт = num_ctx 8192 − ответ 260 − запас 400 = %d токенов; промпт %s символов"
     % (budget, chars or "н/д"))
+add("«время, с» — весь прогон модели в минутах (plain + house), «на предм.» — только house; "
+    "время ответа модели, не время загрузки на диск.")
 add("«%макс» — скорость в процентах от самой быстрой модели стека; 100 % у лидера, у остальных ниже.")
 if not tok_rows:
     add("токены промпта взяты из prompt_tokens.json; если файла нет — запустите "

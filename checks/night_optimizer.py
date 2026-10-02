@@ -35,10 +35,38 @@ SETTINGS_PATH = os.path.join(CHECKS_DIR, "settings", "night_settings.json")
 BACKUP_DIR = os.path.join(LOG_DIR, "backup")
 
 # --- ЭТАЛОН (решение владельца 01.10.2026 23:30, подтверждён двойным прогоном) ---------------
-BASE = {"gemma4:26b": 15, "glm-4.7-flash:q4_K_M": 10, "laguna-xs-2.1:latest": 9}
-BASE_CHARS = 18448
-BASE_SHA8 = "6de029ed"
+# --- БАЗА НА 12 МОДЕЛЕЙ (02.10.2026, прогон 07:39, chars=14556, ck4, think=OFF) ---------
+# База делится на ЯДРО (жёсткий барьер: ломает хоть одну — откат) и ИНФОРМАТОРЫ
+# (мягкий барьер: их дельты — сигнал о токсичности правки, но не повод для отката).
+# Слово владельца через помощника: «ядро + информаторы — перестаём угадывать, какая модель
+# лучше, и собираем метаданные о том, как разные архитектуры реагируют на одни и те же правила».
+BASE = {
+    # ЯДРО (5) — эти задают критерий приёмки
+    "gemma4:26b": 15,                      # эталон дисциплины
+    "gemma4:12b": 14,                      # компактная и быстрая
+    "glm-4.7-flash:q4_K_M": 13,            # честная, без неврозов
+    "qwen3.8:latest": 13,                  # другая архитектура токенизатора
+    "granite4.2:30b": 13,                  # канарейка: запас окна всего 363 токена
+    # ИНФОРМАТОРЫ (7) — дают карту влияния, но не блокируют
+    "gemma4:31b": 13,
+    "laguna-xs-2.1:latest": 12,
+    "laguna-xs.2:q4_K_M": 11,
+    "nemotron-3.5-lightning:30b": 10,
+    "gpt-oss:20b": 8,
+    "deepseek-r1:32b": 6,
+    # ВНИМАНИЕ: deepseek-r1:14b в записке помощника стоял как 12/15 — на диске 4/15
+    # (results_20261002_064128_ck4.json: 11 провалов из 15, класс R на r1-r3).
+    "deepseek-r1:14b": 4,
+}
+CORE_MODELS = ["gemma4:26b", "gemma4:12b", "glm-4.7-flash:q4_K_M",
+               "qwen3.8:latest", "granite4.2:30b"]
+INFORMER_MODELS = ["gemma4:31b", "laguna-xs-2.1:latest", "laguna-xs.2:q4_K_M",
+                   "nemotron-3.5-lightning:30b", "gpt-oss:20b", "deepseek-r1:32b",
+                   "deepseek-r1:14b"]
+BASE_CHARS = 14556
+BASE_SHA8 = "22b7ef34"        # sha256 промпта стенда на этом входе
 BLOAT_LIMIT = int(BASE_CHARS * 1.20)      # §5 спеки: +20 %
+INFORMER_MAJORITY = 0.5       # порог пометки «токсична / лечит периферию»
 
 # Слепые предметы — НЕ как «все должны быть PASS», а как «не хуже базы». Найдено на живом
 # замере R0 (02.10.2026): laguna на h3_patent_fake даёт FAIL и в БАЗОВОМ прогоне
@@ -387,29 +415,62 @@ def score(path):
     return out
 
 
-def judge(path, chars, sha8):
-    """Жёсткие барьеры §5 спеки. Возвращает (вердикт, список причин, таблица)."""
+def check_acceptance(path, chars, sha8):
+    """Критерий приёмки: ЯДРО — жёсткий барьер, ИНФОРМАТОРЫ — сигнал.
+
+    Возвращает (core_ok, причины, дельты_информаторов, пометка_периферии, таблица).
+    Ядро ломается = откат. Информаторы дают карту влияния и словесный вывод, но не блокируют.
+    """
     table = score(path)
     reasons = []
-    for model, base in BASE.items():
+    core_delta = {}
+    for model in CORE_MODELS:
+        base = BASE.get(model)
         cell = table.get(model)
-        if not cell:
-            reasons.append("%s: нет результатов" % model)
+        if base is None:
             continue
+        if not cell:
+            reasons.append("ЯДРО %s: нет результатов" % model)
+            continue
+        core_delta[model] = cell["pass"] - base
         if cell["pass"] < base:
-            reasons.append("%s %d/%d < базы %d" % (model, cell["pass"], cell["total"], base))
-        # Слепые: регресс = стало хуже, чем в базе. Сам по себе FAIL, зафиксированный
-        # в базе, регрессом не является (см. BASE_BLIND и историю находки).
+            reasons.append("ЯДРО %s: %d/%d < базы %d" % (model, cell["pass"], cell["total"], base))
         for qid in cell["blind_fail"]:
-            want = BASE_BLIND.get((model, qid), "PASS")
-            if want == "PASS":
-                reasons.append("%s: слепой %s не прошёл (в базе PASS)" % (model, qid))
+            if BASE_BLIND.get((model, qid), "PASS") == "PASS":
+                reasons.append("ЯДРО %s: слепой %s не прошёл (в базе PASS)" % (model, qid))
     if chars > BLOAT_LIMIT:
         reasons.append("bloat: chars=%d > %d (+20%% от базы %d)" % (chars, BLOAT_LIMIT, BASE_CHARS))
-    verdict = "PASS" if not reasons else "FAIL"
-    detail = "%s при chars=%d sha256=%s (база %d/%s)" % (
-        verdict, chars, sha8, BASE_CHARS, BASE_SHA8)
-    return verdict, reasons, table, detail
+
+    informer_delta = {}
+    for model in INFORMER_MODELS:
+        base = BASE.get(model)
+        cell = table.get(model)
+        if base is None or not cell:
+            continue
+        informer_delta[model] = cell["pass"] - base
+    worse = sum(1 for d in informer_delta.values() if d < 0)
+    better = sum(1 for d in informer_delta.values() if d > 0)
+    total = len(informer_delta) or 1
+    flag = ""
+    if worse / float(total) > INFORMER_MAJORITY:
+        flag = ("ВНИМАНИЕ: правка ТОКСИЧНА для периферии — %d из %d информаторов хуже базы"
+                % (worse, total))
+    elif better / float(total) > INFORMER_MAJORITY:
+        flag = ("БОНУС: правка ЛЕЧИТ периферию — %d из %d информаторов лучше базы"
+                % (better, total))
+    else:
+        flag = ("периферия нейтральна: лучше %d, хуже %d из %d"
+                % (better, worse, total))
+    return not reasons, reasons, informer_delta, flag, table
+
+
+def judge(path, chars, sha8):
+    """Совместимая обёртка: вердикт по ядру + дельты и пометка периферии."""
+    core_ok, reasons, informer_delta, flag, table = check_acceptance(path, chars, sha8)
+    detail = ("%s при chars=%d sha256=%s; ядро %s | %s"
+              % ("PASS" if core_ok else "FAIL", chars, sha8,
+                 "/".join(str(BASE.get(m, "?")) for m in CORE_MODELS), flag))
+    return ("PASS" if core_ok else "FAIL"), reasons, table, detail
 
 
 # ---------------------------------------------------------------------------------------------
