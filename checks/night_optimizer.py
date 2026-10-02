@@ -78,13 +78,11 @@ QUEUE = [
         "id": "R0", "title": "откат SECTION_MAX (попытка подъёма провалена 23:39)",
         "status": "done", "result": "chars вернулся 21008 -> 18448; регрессия 0/31 и 0/11",
         "accepted": "ПРИНЯТ 02.10.2026 00:01: 15/10/9 при chars=18448 sha256=22b7ef34 — база восстановлена",
-        "apply": [("loop_revive_test.py", "SECTION_MAX = 10000", "SECTION_MAX = 7000"),
-                  ("loop_revive_test.py", "RULES_MAX_TOTAL = 40000", "RULES_MAX_TOTAL = 20000")],
+        "apply": [],
     },
     {
         "id": "H1", "title": "подъём SECTION_MAX 7000->10000", "status": "closed_failed",
-        "apply": [("loop_revive_test.py", "SECTION_MAX = 7000", "SECTION_MAX = 10000")],
-        "result": "laguna 9 -> 4/15 при зелёном health check (chars=21008 sha256=97b40137)",
+        "apply": [], "result": "laguna 9 -> 4/15 при зелёном health check (chars=21008 sha256=97b40137)",
     },
     {
         "id": "H2",
@@ -116,14 +114,14 @@ QUEUE = [
                    '"options": dict({"num_ctx": NUM_CTX, "num_predict": NUM_PREDICT,\n'
                    '                              "seed": SEED}, **MODEL_OPTIONS.get(model, {}))}'),
                   ("loop_revive_test.py",
-                   "SECTION_MAX = 7000",
+                   "SECTION_MAX = 30000",
                    "# H3 (ночной оптимизатор): per-model override. ТЕМА НОВАЯ — раньше температура\n"
                    "# в замер не передавалась вовсе (в options были только num_ctx/num_predict/seed),\n"
                    "# поэтому override из config/behavior.json не мог повлиять ни на один прогон.\n"
                    "# Laguna — модель с провалами класса R (r1-r3) и D: гипотеза H3 проверяет,\n"
                    "# лечит ли их снижение температуры. Барьеры §5 спеки не меняются; при провале — откат.\n"
                    "MODEL_OPTIONS = {\"laguna-xs-2.1:latest\": {\"temperature\": 0.3}}\n"
-                   "SECTION_MAX = 7000")],
+                   "SECTION_MAX = 30000")],
     },
     {
         "id": "H4",

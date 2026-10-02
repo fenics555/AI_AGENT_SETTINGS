@@ -22,13 +22,12 @@ house, plain, order = {}, {}, []
 qids = [q for _f, q, _p, _c in __import__("loop_revive_test").ITEMS]
 for r in rows:
     m, q, c = r["model"], r["qid"], r.get("cond")
+    if m not in order:
+        order.append(m)
     store = house if c == "house" else plain if c == "plain" else None
     if store is None:
         continue
-    if m not in store:
-        store[m] = {}
-        order.append(m)
-    store[m][q] = (r.get("verdict"), r.get("error_class", "?"), r.get("blind", False))
+    store.setdefault(m, {})[q] = (r.get("verdict"), r.get("error_class", "?"), r.get("blind", False))
 
 out = []
 add = out.append
@@ -39,16 +38,22 @@ add("моделей в прогоне: %d, предметов: %d" % (len(order)
 
 add("")
 add("--- 1. СВОДКА ---")
-add("%-30s %9s %9s %8s %s" % ("модель", "house", "plain", "verdict", "провалы house"))
+add("база сравнения есть только у трёх моделей; для остальных вердикт = «нет базы»")
+add("%-30s %9s %9s %14s %s" % ("модель", "house", "plain", "к базе", "провалы house"))
 for m in order:
     h = house.get(m, {})
     p = plain.get(m, {})
     hp = sum(1 for v in h.values() if v[0] == "PASS")
     pp = sum(1 for v in p.values() if v[0] == "PASS")
     fails = ", ".join("%s[%s]" % (q, h[q][1]) for q in qids if q in h and h[q][0] != "PASS")
-    ok = hp >= N.BASE.get(m, 0)
-    add("%-30s %4d/%-4d %4d/%-4d %8s %s"
-        % (m, hp, len(h), pp, len(p), "PASS" if ok else "ниже базы", fails or "-"))
+    base = N.BASE.get(m)
+    if base is None:
+        cmp_txt = "нет базы"
+    elif hp >= base:
+        cmp_txt = "выше/равно %d" % base
+    else:
+        cmp_txt = "НИЖЕ базы %d" % base
+    add("%-30s %4d/%-4d %4d/%-4d %14s %s" % (m, hp, len(h), pp, len(p), cmp_txt, fails or "-"))
 
 add("")
 add("--- 2. МАТРИЦА ПРЕДМЕТОВ (house): P=pass, иначе класс в скобках ---")
