@@ -30,8 +30,14 @@ for model, cond in seen:
         chk = checker_of.get(r["qid"], "?")
         verdict, note = L.score(chk, r.get("answer", ""))
         if verdict != "PASS":
-            # пересчитываем и класс: в старых прогонах лежат кириллические буквы классов
-            cls, _txt = L.classify_error(r["qid"], r.get("answer", ""), note)
+            # ПРАВКА 02.10.2026: передаём prompt. classify_error получил четвёртый аргумент
+            # (текст вопроса) при починке дефекта l6: номер, который модель ПОВТОРИЛА из
+            # вопроса, не должен считаться выдумкой. Без prompt пересчёт нечестен — он
+            # вернёт старый (ложный) класс. Проверено на прогоне 091902: у glm и gemma4:12b
+            # на l6 результат с prompt и без совпал, то есть расхождения там не было, —
+            # но отсутствие аргумента означает, что починка сюда просто не доходит.
+            cls, _txt = L.classify_error(r["qid"], r.get("answer", ""), note,
+                                         r.get("prompt", ""))
             bad.append("%s[%s]" % (r["qid"], cls))
     print("%-34s %-6s %2d/%d  fail=%s" % (model, cond, len(sub) - len(bad), len(sub),
                                           ",".join(bad) or "-"))
