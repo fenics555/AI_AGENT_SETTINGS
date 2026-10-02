@@ -763,18 +763,30 @@ def main():
                 try:
                     data, wall = ask(model, prompt, system)
                     msg = data.get("message") or {}
+                    # ПРАВКА 02.10.2026 (решение владельца): content и thinking РАЗДЕЛЕНЫ.
+                    # Раньше при пустом content стенд подставлял thinking и оценивал чекером
+                    # размышление вместо ответа. На базе 091902 это дало 13 из 15 «ответов»
+                    # gpt-oss:20b и 11 из 15 deepseek-r1:14b = размышление, а не ответ.
+                    # Теперь thinking НИКОГДА не подставляется в answer: пустой content при
+                    # непустом thinking = отдельный класс провала T (рассудил, но не ответил).
                     ans = msg.get("content") or ""
-                    src = "content"
-                    if not ans.strip() and (msg.get("thinking") or "").strip():
-                        ans = msg.get("thinking")
-                        src = "thinking"
-                    if not ans.strip():
+                    think = msg.get("thinking") or ""
+                    src = "content" if ans.strip() else "empty"
+                    if not ans.strip() and think.strip():
+                        src = "thinking_only"
+                    if not ans.strip() and not think.strip():
                         src = "empty"
-                    verdict, note = score(checker, ans)
-                    err_class, err_text = (classify_error(qid, ans, note, prompt)
-                                           if verdict != "PASS" else ("-", ""))
+                    if src == "thinking_only":
+                        verdict = "FAIL"
+                        note = "T: content пуст, есть только thinking — ответ не дан"
+                        err_class, err_text = "T", ("Reasoning without answer: content пуст, "
+                                                    "thinking %d симв." % len(think))
+                    else:
+                        verdict, note = score(checker, ans)
+                        err_class, err_text = (classify_error(qid, ans, note, prompt)
+                                               if verdict != "PASS" else ("-", ""))
                     row = {"model": model, "cond": cond, "fam": fam, "qid": qid, "prompt": prompt,
-                           "answer": ans, "thinking": msg.get("thinking") or "", "answer_source": src,
+                           "answer": ans, "thinking": think, "answer_source": src,
                            "verdict": verdict,
                            "note": note, "error_class": err_class, "error_text": err_text,
                            "blind": qid in BLIND_ITEMS, "rules_tokens": RULES_TOKENS,
