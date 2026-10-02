@@ -25,7 +25,16 @@ if not OLLAMA.startswith("http"):
 NUM_CTX = int(os.environ.get("LR_NUM_CTX", "8192"))
 NUM_PREDICT = int(os.environ.get("LR_NUM_PREDICT", "260"))
 SEED = int(os.environ.get("LR_SEED", "42"))
-THINK = os.environ.get("LR_THINK", "1").lower() not in ("0", "false", "no", "off")
+THINK_RAW = os.environ.get("LR_THINK", "1").lower()
+# ck5-ГИБРИД (02.10.2026, решение владельца): think бывает не только булевым — Ollama 0.34.1
+# принимает уровень "low"/"medium"/"high". Строка "false" даёт HTTP 400, поэтому выключение
+# остаётся булевом False.
+if THINK_RAW in ("0", "false", "no", "off"):
+    THINK = False
+elif THINK_RAW in ("1", "true", "yes", "on"):
+    THINK = True
+else:
+    THINK = THINK_RAW  # уровень: "low" / "medium" / "high"
 TIMEOUT = int(os.environ.get("LR_TIMEOUT", "1800"))
 BASE = os.environ.get("CHECKS_OUT", os.path.dirname(os.path.abspath(__file__)))
 os.makedirs(BASE, exist_ok=True)
@@ -99,6 +108,20 @@ SECTION_HEADS = ("АНТИ-ПЕТЛЯ (", "ВОСКРЕШЕНИЕ: REVIVE", "А�
 # лечит ли их снижение/смена температуры. Правка НЕ трогает промпт (chars остаётся 14556),
 # поэтому сравнение с официальной базой 9 моделей остаётся корректным. При провале — откат.
 MODEL_OPTIONS = {"laguna-xs-2.1:latest": {"temperature": 0.3}}
+
+# ck5-ГИБРИД (02.10.2026, слово владельца). ПЕР-МОДЕЛЬНЫЙ РЕЖИМ, а не общий лимит на стек:
+#   gpt-oss:20b        think="low" + num_predict=260 — размышление сокращается с ~1500 до 253
+#                      токенов (проба 02.10.2026), ответ влезает в 260. Без think ответ не
+#                      начинался вовсе (done_reason=length).
+#   deepseek-r1:14b    think=False + num_predict=2000 — think="low" НЕ работает (проба:
+#                      thinking 1323 токена при 260), ответ не начинается; лимит нужен.
+#   остальные 7        think=False + num_predict=260 — не reasoning-модели, лимит не нужен,
+#                      прогон ядра занимает ~6 минут вместо ~18.
+# ПРИНЦИП: режим назначается по свойству модели, а не подгоняется под общий знаменатель.
+PREDICT_MODE = {
+    "gpt-oss:20b": {"think": "low", "num_predict": 260},
+    "deepseek-r1:14b": {"think": False, "num_predict": 2000},
+}
 SECTION_MAX = 30000
 RULES_MAX_TOTAL = 30000
 
@@ -232,8 +255,10 @@ def ask(model, prompt, system):
     if system:
         messages.append({"role": "system", "content": system})
     messages.append({"role": "user", "content": prompt})
-    body = {"model": model, "messages": messages, "stream": False, "think": THINK,
-            "options": dict({"num_ctx": NUM_CTX, "num_predict": NUM_PREDICT,
+    body = {"model": model, "messages": messages, "stream": False,
+            "think": PREDICT_MODE.get(model, {}).get("think", THINK),
+            "options": dict({"num_ctx": NUM_CTX,
+                             "num_predict": PREDICT_MODE.get(model, {}).get("num_predict", NUM_PREDICT),
                              "seed": SEED}, **MODEL_OPTIONS.get(model, {}))}
     t0 = time.time()
     data = post("/api/chat", body)
