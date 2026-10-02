@@ -98,10 +98,30 @@ for m in order:
     add("%-30s %s" % (m, "; ".join(bad) if bad else "барьеров нет"))
 
 add("")
-add("--- 5. ВХОД ПРОГОНА (обязателен в таблице) ---")
-for r in rows[:1]:
-    add("rules: %s" % r.get("rules_file", r.get("rules", "не записано в json")))
-    add("chars=%s tokens=%s" % (r.get("rules_chars", "?"), r.get("rules_tokens", "?")))
+add("--- 6. ТОКЕНЫ И ВРЕМЯ (house) ---")
+add("prompt_tokens — сколько токенов Ollama посчитал в ПРОМПТЕ (проверка окна);")
+add("tokens — токены ответа; tps — скорость генерации; wall_s — время на предмет.")
+add("%-30s %12s %10s %8s %9s %10s %9s"
+    % ("модель", "prompt_tok", "ans_tok", "t/s", "время, с", "на предм.", "в окне"))
+budget = 8192 - 260 - 400
+for m in order:
+    rows_m = [r for r in rows if r["model"] == m and r.get("cond") == "house"]
+    if not rows_m:
+        continue
+    pt = [r.get("prompt_tokens") for r in rows_m if r.get("prompt_tokens")]
+    at = sum(r.get("tokens") or 0 for r in rows_m)
+    tps = [r.get("tps") or 0 for r in rows_m]
+    wall = sum(r.get("wall_s") or 0 for r in rows_m)
+    n = len(rows_m)
+    ptxt = str(pt[0]) if pt else "нет в json"
+    if pt:
+        fits = "да" if max(pt) <= budget else "НЕТ (+%d)" % (max(pt) - budget)
+    else:
+        fits = "проверить серией"
+    add("%-30s %12s %10d %8.1f %9.1f %10.1f %9s"
+        % (m, ptxt, at, (sum(tps) / len(tps)) if tps else 0, wall, wall / float(n), fits))
+add("")
+add("бюджет под промпт: num_ctx %d − ответ 260 − запас 400 = %d токенов" % (8192, budget))
 
 dest = os.path.splitext(path)[0] + "_TABLE.md"
 with open(dest, "w", encoding="utf-8") as fh:

@@ -690,6 +690,7 @@ def main():
                            "verdict": verdict,
                            "note": note, "error_class": err_class, "error_text": err_text,
                            "blind": qid in BLIND_ITEMS, "rules_tokens": RULES_TOKENS,
+                           "prompt_tokens": data.get("prompt_eval_count"),
                            "tokens": data.get("eval_count"),
                            "tps": round((data.get("eval_count") or 0) / ((data.get("eval_duration") or 1) / 1e9), 1),
                            "wall_s": round(wall, 1)}
