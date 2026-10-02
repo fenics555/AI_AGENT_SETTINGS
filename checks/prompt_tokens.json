@@ -1,0 +1,128 @@
+{
+  "stamp": "2026-10-02 08:10:20",
+  "num_ctx": 8192,
+  "budget": 7532,
+  "prompt_chars": 14556,
+  "models": [
+    {
+      "model": "gemma4:26b",
+      "prompt_tokens": 4959,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3407,
+      "budget": 7532,
+      "headroom": 2573,
+      "fits": true,
+      "sec": 20.7
+    },
+    {
+      "model": "glm-4.7-flash:q4_K_M",
+      "prompt_tokens": 4996,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3432,
+      "budget": 7532,
+      "headroom": 2536,
+      "fits": true,
+      "sec": 17.3
+    },
+    {
+      "model": "laguna-xs-2.1:latest",
+      "prompt_tokens": 7027,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.4828,
+      "budget": 7532,
+      "headroom": 505,
+      "fits": true,
+      "sec": 18.0
+    },
+    {
+      "model": "gpt-oss:20b",
+      "prompt_tokens": 4982,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3423,
+      "budget": 7532,
+      "headroom": 2550,
+      "fits": true,
+      "sec": 9.4
+    },
+    {
+      "model": "gemma4:12b",
+      "prompt_tokens": 4959,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3407,
+      "budget": 7532,
+      "headroom": 2573,
+      "fits": true,
+      "sec": 8.8
+    },
+    {
+      "model": "nemotron-3.5-lightning:30b",
+      "prompt_tokens": 5648,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.388,
+      "budget": 7532,
+      "headroom": 1884,
+      "fits": true,
+      "sec": 23.2
+    },
+    {
+      "model": "gemma4:31b",
+      "prompt_tokens": 4959,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3407,
+      "budget": 7532,
+      "headroom": 2573,
+      "fits": true,
+      "sec": 25.2
+    },
+    {
+      "model": "deepseek-r1:14b",
+      "prompt_tokens": 5800,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3985,
+      "budget": 7532,
+      "headroom": 1732,
+      "fits": true,
+      "sec": 9.4
+    },
+    {
+      "model": "deepseek-r1:32b",
+      "prompt_tokens": 5800,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3985,
+      "budget": 7532,
+      "headroom": 1732,
+      "fits": true,
+      "sec": 22.4
+    },
+    {
+      "model": "qwen3.8:latest",
+      "prompt_tokens": 4824,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.3314,
+      "budget": 7532,
+      "headroom": 2708,
+      "fits": true,
+      "sec": 21.2
+    },
+    {
+      "model": "granite4.2:30b",
+      "prompt_tokens": 7169,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.4925,
+      "budget": 7532,
+      "headroom": 363,
+      "fits": true,
+      "sec": 21.5
+    },
+    {
+      "model": "laguna-xs.2:q4_K_M",
+      "prompt_tokens": 7033,
+      "prompt_chars": 14556,
+      "tok_per_char": 0.4832,
+      "budget": 7532,
+      "headroom": 499,
+      "fits": true,
+      "sec": 20.5
+    }
+  ]
+}
