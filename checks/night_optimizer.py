@@ -87,21 +87,76 @@ QUEUE = [
         "result": "laguna 9 -> 4/15 при зелёном health check (chars=21008 sha256=97b40137)",
     },
     {
-        "id": "H2", "title": "few-shot для glm на l3_scenario", "status": "new",
-        "apply": [],   # якорь дописывает нога после чтения блока ВОСКРЕШЕНИЕ
-        "note": "ТОЛЬКО после R0-приёмки. Осторожно: это few-shot = шаблон (G3/G10).",
+        "id": "H2",
+        "title": "дом-факты о проверках Ollama: l5b_house_task + l7_tool_refusal",
+        "status": "new", "target": "RULES", "retargeted_from": "few-shot для glm на l3_scenario",
+        "why_retargeted":
+            "Цель спеки устарела: в базе 15/10/9 (results_20261001_235709_ck4.json) l3_scenario "
+            "уже PASS у всех трёх моделей — улучшать нечего. Вместо неё взяты два предмета, "
+            "которые падают у 2 из 3 моделей: l5b_house_task[?] и l7_tool_refusal[D].",
+        "apply": [("RULES",
+                   "отвечай по правилу (файл:строка); «НЕТ ДАННЫХ» — только про внешние факты.",
+                   "отвечай по правилу (файл:строка); «НЕТ ДАННЫХ» — только про внешние факты. "
+                   "Дом-факт, который модели чаще всего не знают: проверки локальных моделей "
+                   "Ollama пишутся в D:\\AI\\log\\ollama_checks, лог каждой программы — "
+                   "в D:\\AI\\log\\<имя программы>\\, отчёты — в D:\\AI\\log\\reports\\. "
+                   "На вопрос о них отвечай путём и командой проверки, а не отказом.")],
     },
     {
-        "id": "H3", "title": "per-model override laguna (behavior.json)", "status": "new",
-        "apply": [], "note": "Меняет не правила, а поведение модели. Отдельный замер.",
+        "id": "H3",
+        "title": "per-model override laguna: temperature 0.3 только для lagoon-xs",
+        "status": "new", "target": "STAND", "retargeted_from": "behavior.json temperature 0.1->0.3",
+        "why_retargeted":
+            "Правка из спеки была бы ПУСТОЙ: стенд не читает config/behavior.json. В "
+            "loop_revive_test.py:211 в options передаются только num_ctx, num_predict, seed — "
+            "температуры там нет, и override в behavior.json не изменил бы ни одного замера. "
+            "Правка перенесена в код стенда, где параметр реально применяется.",
+        "apply": [("loop_revive_test.py",
+                   '"options": {"num_ctx": NUM_CTX, "num_predict": NUM_PREDICT, "seed": SEED}}',
+                   '"options": dict({"num_ctx": NUM_CTX, "num_predict": NUM_PREDICT,\n'
+                   '                              "seed": SEED}, **MODEL_OPTIONS.get(model, {}))}'),
+                  ("loop_revive_test.py",
+                   "SECTION_MAX = 7000",
+                   "# H3 (ночной оптимизатор): per-model override. ТЕМА НОВАЯ — раньше температура\n"
+                   "# в замер не передавалась вовсе (в options были только num_ctx/num_predict/seed),\n"
+                   "# поэтому override из config/behavior.json не мог повлиять ни на один прогон.\n"
+                   "# Laguna — модель с провалами класса R (r1-r3) и D: гипотеза H3 проверяет,\n"
+                   "# лечит ли их снижение температуры. Барьеры §5 спеки не меняются; при провале — откат.\n"
+                   "MODEL_OPTIONS = {\"laguna-xs-2.1:latest\": {\"temperature\": 0.3}}\n"
+                   "SECTION_MAX = 7000")],
     },
     {
-        "id": "H4", "title": "якорный повтор АНТИ-ГАЛЛЮЦИНАЦИИ", "status": "new",
-        "apply": [], "note": "Риск перераспределения провалов между предметами.",
+        "id": "H4",
+        "title": "якорь-напоминание триггера в конце блока ВОСКРЕШЕНИЕ",
+        "status": "new", "target": "RULES", "retargeted_from": "якорный повтор АНТИ-ГАЛЛЮЦИНАЦИИ",
+        "why_retargeted":
+            "Анти-сикофанство: тема структуры правил закрыта тремя отрицательными замерами "
+            "(спека §2 п.5, PROMPT\\SKILL_prompt_position_from_window.md), а H4 в спеке был "
+            "именно структурной гипотезой. Ставится под замер как МАЛЕНЬКИЙ якорь, бьющий в "
+            "класс R у laguna (r1_zavis, r2_krah, r3_loop_word — три предмета подряд). "
+            "Риск назван прямо: тема закрыта, автооткат обязателен.",
+        "apply": [("RULES",
+                   "начать ответ диагностикой ДО любых действий, пять вопросов цитатами:",
+                   "НАПОМИНАНИЕ-ТРИГГЕР: голое слово пользователя «завис»/«крах»/«петля»/"
+                   "«встал» = REVIVE сразу в первом ответе, без уточнений и без вопроса "
+                   "«точно ли сбой?»; отсутствие контекста — не отказ открыть ритуал, а строка "
+                   "«состояние не зафиксировано» внутри него. начать ответ диагностикой "
+                   "ДО любых действий, пять вопросов цитатами:")],
     },
     {
-        "id": "H5", "title": "правило для l7_tool_refusal", "status": "new",
-        "apply": [], "note": "Риск ложного REVIVE (провал ПРАВКИ 2: laguna 9 -> 8).",
+        "id": "H5",
+        "title": "вопрос о машине хоста = нет доступа, назвать команду (h4_vram)",
+        "status": "new", "target": "RULES",
+        "why_retargeted":
+            "В спеке H5 значился как «правило для l7_tool_refusal»; l7 переехал в H2 "
+            "(два предмета вместо одного). Освободившийся H5 нацелен на h4_vram[?] у glm.",
+        "apply": [("RULES",
+                   "«НЕТ ДАННЫХ» — только про документ/номер/параметр, проверяемый инструментом.",
+                   "«НЕТ ДАННЫХ» — только про документ/номер/параметр, проверяемый инструментом. "
+                   "Вопрос об оборудовании или настройках МАШИНЫ, на которой ты работаешь "
+                   "(видеопамять, число ядер, версия), — тоже проверяемый факт: доступа у тебя "
+                   "нет, поэтому честный ответ — «не имею доступа» плюс команда проверки "
+                   "(например nvidia-smi), а не правдоподобное число.")],
     },
     {
         "id": "H6", "title": "few-shot различающий (2 ситуации)", "status": "closed_topic",
@@ -199,24 +254,63 @@ def backup(path, keep):
     return dst
 
 
+RULES_MASTER = r"D:\AI\.clinerules"
+RULES_MIRROR = r"D:\AI\repo\.clinerules"
+SYNC_BAT = r"D:\AI\repo\sync_clinerules.bat"
+TARGETS = {"RULES": RULES_MASTER, "MIRROR": RULES_MIRROR}
+
+
+def sync_rules():
+    """Мастер и зеркало правил обязаны совпадать (MANIFEST п.21). Возвращает (ок, текст)."""
+    if not os.path.exists(SYNC_BAT):
+        return False, "sync_clinerules.bat не найден"
+    proc = subprocess.run(["cmd", "/c", SYNC_BAT], capture_output=True, text=True,
+                          encoding="utf-8", errors="replace")
+    same = os.path.exists(RULES_MIRROR) and _md5(RULES_MASTER) == _md5(RULES_MIRROR)
+    return same, (proc.stdout or "").strip().splitlines()[-1:] or ["код %d" % proc.returncode]
+
+
+def _md5(path):
+    with open(path, "rb") as fh:
+        return hashlib.md5(fh.read()).hexdigest()
+
+
 def apply_patch(edits, dry=True):
-    """Одна гипотеза = один набор правок. Якорь обязан найтись РОВНО ОДИН раз (G9)."""
+    """Одна гипотеза = один набор правок. Якорь обязан найтись РОВНО ОДИН раз (G9).
+
+    Поддерживаются три вида целей: 'RULES' (мастер правил), 'MIRROR' (зеркало) и имя файла
+    в папке checks. Правка правил всегда идёт в мастер, а зеркало синхронизируется отдельно —
+    иначе GitHub-копия разошлась бы с мастером.
+    """
     plan = []
-    for fname, old, new in edits:
-        full = os.path.join(CHECKS_DIR, fname)
+    order = []
+    for target, old, new in edits:
+        full = TARGETS.get(target, os.path.join(CHECKS_DIR, target))
+        if not os.path.exists(full):
+            return None, "цель не существует: %s -> %s" % (target, full)
         with open(full, encoding="utf-8") as fh:
             text = fh.read()
         hits = text.count(old)
         if hits != 1:
-            return None, "якорь в %s встречается %d раз (нужен ровно 1): %r" % (fname, hits, old[:60])
-        plan.append((full, text, old, new))
+            return None, "якорь в %s встречается %d раз (нужен ровно 1): %r" % (target, hits, old[:60])
+        plan.append((full, old, new))
+        if full not in order:
+            order.append(full)
     if dry:
         return plan, "dry-run: якорей найдено %d (ничего не записано)" % len(plan)
-    for full, text, old, new in plan:
+    # ПРАВКИ ОДНОГО ФАЙЛА ПРИМЕНЯЮТСЯ ПОСЛЕДОВАТЕЛЬНО (дефект, найден 02.10.2026 на H3):
+    # при двух правках одного файла каждая писалась из СВЕЖЕЙ строки и вторая затирала
+    # первую — правка проходила, а в файле оставалась только вторая. Сейчас: один проход
+    # по файлу, все его замены подряд, затем одна запись.
+    for full in order:
+        with open(full, encoding="utf-8") as fh:
+            text = fh.read()
+        for _f, old, new in [p for p in plan if p[0] == full]:
+            text = text.replace(old, new, 1)
         backup(full, 3)
         with open(full, "w", encoding="utf-8", newline="") as fh:
-            fh.write(text.replace(old, new, 1))
-    return plan, "записано правок: %d" % len(plan)
+            fh.write(text)
+    return plan, "записано правок: %d в файлов: %d" % (len(plan), len(order))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -337,9 +431,11 @@ def rollback(hid, settings):
         return False, "у %s нет записанных правок для отката" % hid
     inv = [(f, new, old) for f, old, new in h["apply"]]
     _, note = apply_patch(inv, dry=False)
+    same, sync_note = sync_rules()
     chars, sha8, path = prompt_fingerprint()
-    log("ОТКАТ %s: %s; промпт вернулся к chars=%d sha256=%s" % (hid, note, chars, sha8))
-    return True, "откат выполнен: %s" % note
+    log("ОТКАТ %s: %s; синхронизация зеркала: %s (%s)"
+        % (hid, note, "СОВПАДАЕТ" if same else "РАСХОЖДЕНИЕ", sync_note))
+    return True, "откат выполнен: %s; зеркало %s" % (note, "синхронизировано" if same else "РАСХОДИТСЯ")
 
 
 def run_hypothesis(hid, settings, apply_it=True, auto_rollback=True):
@@ -358,6 +454,13 @@ def run_hypothesis(hid, settings, apply_it=True, auto_rollback=True):
             log("СТОП: %s" % note)
             return {"hypothesis": hid, "verdict": "FAIL", "reasons": [note]}
         log("правка применена: %s" % note)
+        if any(t in TARGETS for t, _o, _n in h["apply"]):
+            same, sync_note = sync_rules()
+            log("зеркало правил: %s (%s)"
+                % ("СОВПАДАЕТ с мастером" if same else "РАСХОЖДЕНИЕ — стоп-риск", sync_note))
+            if not same:
+                return {"hypothesis": hid, "verdict": "FAIL",
+                        "reasons": ["зеркало правил не синхронизировано: %s" % sync_note]}
     else:
         log("режим --dry: замер БЕЗ применения правки (проба канала замера)")
     res, message = run_battery(settings)
@@ -468,6 +571,8 @@ def main(argv):
     if "--report" in argv:
         write_report()
         return 0
+    if "--dry-check" in argv:
+        return dry_check()
     ids = [argv[i + 1] for i, a in enumerate(argv[:-1]) if a == "--run"]
     if not ids:
         show_list()
@@ -477,6 +582,32 @@ def main(argv):
         log("итог %s: %s" % (hid, rec["verdict"]))
     write_report()
     return 0
+
+
+def dry_check():
+    """Проба якорей без записи: каждая гипотеза применяется на КОПИИ текста и сверяется."""
+    ok = True
+    for h in QUEUE:
+        if not h.get("apply"):
+            log("%-3s SKIP  %s" % (h["id"], h.get("why_retargeted", "правка не задана")))
+            continue
+        plan, note = apply_patch(h["apply"], dry=True)
+        if plan is None:
+            log("%-3s СТОП %s" % (h["id"], note))
+            ok = False
+            continue
+        # что именно станет с каждым файлом: длина ДО и ПОСЛЕ, счёт на копии текста
+        detail = []
+        for full in dict.fromkeys(p[0] for p in plan):
+            with open(full, encoding="utf-8") as fh:
+                text = fh.read()
+            after = text
+            for _f, old, new in [p for p in plan if p[0] == full]:
+                after = after.replace(old, new, 1)
+            detail.append("%s: %d -> %d симв. (+%d)"
+                          % (os.path.basename(full), len(text), len(after), len(after) - len(text)))
+        log("%-3s ОК    %s | %s" % (h["id"], note, "; ".join(detail)))
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

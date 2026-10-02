@@ -93,6 +93,25 @@ RUN_all_checks.bat
 | лаунчер | `checks\RUN_night_optimizer.bat` | `RUN_night_optimizer.bat list \| report \| gui \| <ID>` |
 | витрина | — | **ДОЛГ** (спека §3) |
 
+**Проба якорей без записи:** `cmd /c python -X utf8 checks\night_optimizer.py --dry-check`
+— по каждой гипотезе печатает «якорь найден / стоп» и итоговую длину каждого файла.
+
+**ПРАВКИ H2–H5 ВНЕСЕНЫ (02.10.2026, 00:20), три из четырёх перенацелены по живым данным:**
+
+| # | цель в спеке v0.2 | факт на диске | правка внесена |
+|---|---|---|---|
+| H2 | few-shot glm `l3_scenario` | `l3_scenario` уже PASS у всех трёх | дом-факты о проверках Ollama → `l5b_house_task[?]` + `l7_tool_refusal[D]` (2/3) |
+| H3 | `behavior.json` temperature | стенд не читает `behavior.json` — правка пустая | per-model `MODEL_OPTIONS` в коде стенда |
+| H4 | якорный повтор АНТИ-ГАЛЛЮЦИНАЦИИ | тема структуры закрыта | напоминание-триггер в конце ВОСКРЕШЕНИЕ → `r1-r3[R]` у laguna |
+| H5 | правило для `l7_tool_refusal` | уже взят в H2 | вопрос о машине хоста → `h4_vram[?]` у glm |
+
+Длина промпта после правок (замерено на копии мастера, до записи): H2 → **18 736**,
+H4 → **18 472**, H5 → **18 736** при bloat-пороге 22 137; health check зелёный во всех трёх.
+Подробно — `LOG_tuning.md` §23. Скил: `PROMPT\SKILL_patch_fanout_anchor_first.md`.
+
+Очередь готова к ночи: H2 → H3 → H4 → H5, у каждой задан якорь. R0 принят, H1 закрыт провалом,
+H6 — тема закрыта, H7 выполнена.
+
 Лог: `D:\AI\log\night_optimizer\night_optimizer.log` · настройки: `checks\settings\night_settings.json` ·
 отчёт: `D:\AI\log\reports\REPORT_night_<дата>.md` · бэкапы: `log\night_optimizer\backup\` (retention 3).
 Очередь: R0 принят, H1 закрыт провалом, H6 тема закрыта, **H2–H5 ждут якоря от ноги** (правка
