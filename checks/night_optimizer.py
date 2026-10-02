@@ -350,10 +350,10 @@ def run_battery(settings):
     (дефект найден на живом запуске 02.10.2026 00:00). Файл-признак должен принадлежать
     ИСПОЛНЯЕМОЙ программе, а не оптимизатору.
     """
-    done = os.path.join(CHECKS_OUT, "battery_done.txt")
+    done = os.path.join(CHECKS_OUT, settings.get("beacon", "core_done.txt"))
     before = os.path.getmtime(done) if os.path.exists(done) else 0.0
     newest = _newest_result()
-    bat = os.path.join(CHECKS_DIR, "RUN_p18_probe.bat")
+    bat = settings.get("battery_bat", os.path.join(CHECKS_DIR, "RUN_night_core.bat"))
     env = dict(os.environ)
     env["CHECKS_OUT"] = CHECKS_OUT
     started = time.time()
@@ -440,6 +440,14 @@ def check_acceptance(path, chars, sha8):
                 reasons.append("ЯДРО %s: слепой %s не прошёл (в базе PASS)" % (model, qid))
     if chars > BLOAT_LIMIT:
         reasons.append("bloat: chars=%d > %d (+20%% от базы %d)" % (chars, BLOAT_LIMIT, BASE_CHARS))
+    # HEALTH CHECK — обязательный барьер (слово владельца 02.10.2026): вход должен быть целым.
+    try:
+        import loop_revive_test as _L
+        ok_health, health_text = _L.check_rules_health()
+        if not ok_health:
+            reasons.append("health check: %s" % health_text)
+    except Exception as exc:                                   # noqa: BLE001
+        reasons.append("health check не выполнен: %s" % exc)
 
     informer_delta = {}
     for model in INFORMER_MODELS:
