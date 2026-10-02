@@ -92,6 +92,13 @@ SECTION_HEADS = ("АНТИ-ПЕТЛЯ (", "ВОСКРЕШЕНИЕ: REVIVE", "А�
 #   можно только значениям ДО переполнения окна; эндпоинта /api/tokenize в Ollama 0.34.1 нет
 #   (404 на GET и POST), поэтому единственный метод проверки — серия замеров.
 # num_ctx НЕ трогаем: 8192 нужно для честного сравнения с базой 15/10/9 (sha256=6de029ed).
+# H3 (ночной оптимизатор, 02.10.2026): per-model override. ТЕМА НОВАЯ — раньше температура
+# в замер НЕ передавалась вовсе (в options были только num_ctx/num_predict/seed), поэтому
+# override из config/behavior.json не мог повлиять ни на один прогон — гипотеза H3 в спеке 0.2
+# была бы пустой правкой. Laguna — модель ядра с провалами класса R (r1-r3) и D: проверяем,
+# лечит ли их снижение/смена температуры. Правка НЕ трогает промпт (chars остаётся 14556),
+# поэтому сравнение с официальной базой 9 моделей остаётся корректным. При провале — откат.
+MODEL_OPTIONS = {"laguna-xs-2.1:latest": {"temperature": 0.3}}
 SECTION_MAX = 30000
 RULES_MAX_TOTAL = 30000
 
@@ -226,7 +233,8 @@ def ask(model, prompt, system):
         messages.append({"role": "system", "content": system})
     messages.append({"role": "user", "content": prompt})
     body = {"model": model, "messages": messages, "stream": False, "think": THINK,
-            "options": {"num_ctx": NUM_CTX, "num_predict": NUM_PREDICT, "seed": SEED}}
+            "options": dict({"num_ctx": NUM_CTX, "num_predict": NUM_PREDICT,
+                             "seed": SEED}, **MODEL_OPTIONS.get(model, {}))}
     t0 = time.time()
     data = post("/api/chat", body)
     return data, time.time() - t0
