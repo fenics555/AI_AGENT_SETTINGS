@@ -63,9 +63,55 @@ date: 02.10.2026
   а около 40-55 (факт двух моделей на 2000: 12 минут).
 - **Не сравнивать «старую» и «новую» базу в одной таблице** без пометки о лимите.
 
-## 6. Проба
+## 6. НАХОДКА 02.10.2026 (справка Ollama 0.34.1): `think` — не булев, а УРОВЕНЬ
+
+`ollama run --help`, дословно:
+
+```
+--hidethinking            Hide thinking output (if provided)
+--think string[="true"]   Enable thinking mode: true/false or high/medium/low for supported models
+```
+
+**Что это значит для стенда.** `loop_revive_test.py:235` передаёт `"think": THINK`, где `THINK` —
+обычный Python bool (`True`/`False`). То есть дом умеет просить только «думать или не думать».
+Ollama же умеет просить **«думать НЕДОЛГО»** — `think: "low"`.
+
+ПРЕДПОЛОЖЕНИЕ (живой проверки не было — момент её проведения см. ниже): при `think: "low"`
+размышление занимает не 1100-1500 токенов, а сотни, и **ответ успевает начаться в пределах
+`num_predict=260`**. Тогда вся необходимость поднимать лимит до 2000 для reasoning-моделей
+отпадает — а это 40-55 минут прогона вместо 15.
+
+**Правила:**
+1. **Перед подъёмом `num_predict` проверить `think: "low"`.** Это дешевле: один запрос против
+   целого прогона базы.
+2. **`--hidethinking` — инструмент отладки**, а не способ починить стенд: он прячет вывод
+   размышления, но не уменьшает его и не влияет на то, съедает ли оно лимит.
+3. **Баллы при `think: "low"` нельзя смешивать** с базой, снятой при `think: false`/`true` —
+   это третья шкала поверх уже имеющихся двух (`num_predict` и разные модели).
+
+## 7. Что ещё нашлось в справке (полезно дому)
+
+| находка | где | зачем |
+|---|---|---|
+| `OLLAMA_LOAD_TIMEOUT` — «How long to allow model loads to stall before giving up (default 5m)» | `ollama serve --help` | **объясняет молчаливые обрывы прогонов** на моделях 10-15 ГБ: сервер бросает загрузку, а клиент-скрипт не пишет ни ошибки, ни traceback |
+| `OLLAMA_CONTEXT_LENGTH` — «Context length to use unless otherwise specified (default: 4k/32k/256k based on VRAM)» | `ollama serve --help` | отвечает на вопрос скилла `SKILL_ctx_limit_vs_section_limit.md`: дефолт окна зависит от VRAM и задаётся **переменной окружения**, а не строкой в `/api/show` |
+| `OLLAMA_NUM_PARALLEL`, `OLLAMA_MAX_QUEUE`, `OLLAMA_MAX_TRANSFER_STREAMS` | `ollama serve --help` | параметры очереди; в доме не используются (модели гоняются последовательно) |
+| `OLLAMA_DEBUG=1` | `ollama serve --help` | включать при разборе обрывов загрузки — сервер тогда пишет причину |
+| `ollama launch` | `ollama help` | новая команда (меню/интеграция), в доме не используется |
+| `OLLAMA_KEEP_ALIVE` default «5m» | `ollama serve --help` | совпадает со значением `UNTIL` в `ollama ps` — подтверждено |
+
+**Вывод для диагностики обрывов:** молчаливый обрыв прогона deepseek-r1:14b (10 ГБ) при
+`num_predict=2000` и `HTTP Error 500` в другом прогоне — **кандидат на таймаут загрузки**.
+Проверка: запустить с `OLLAMA_DEBUG=1` и `OLLAMA_LOAD_TIMEOUT=10m`. Не проверено.
+
+---
+
+## 8. Проба
 
 - `D:\AI\log\urn\cline\probe_predict_thinking.py` — живая проба 260/800/2000 на gpt-oss.
 - `D:\AI\log\urn\cline\ct_compare.py` — сравнение прогонов до/после фикса полей.
+- Проба из §6 (не выполнена): один запрос к gpt-oss с `think: "low"` и `num_predict=260` —
+  ответили ли цифры, что размышление короче и `content` появляется.
 - Проверка скилла: назвать (а) при каком `num_predict` появляется `content`,
-  (б) чем отличается `done_reason=length` от `stop`, (в) какой лимит нужен reasoning-моделям.
+  (б) чем отличается `done_reason=length` от `stop`, (в) какой лимит нужен reasoning-моделям,
+  (г) чем `think: "low"` отличается от `think: false`.
