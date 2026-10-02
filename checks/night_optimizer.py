@@ -115,7 +115,13 @@ QUEUE = [
     {
         "id": "H2",
         "title": "дом-факты о проверках Ollama: l5b_house_task + l7_tool_refusal",
-        "status": "new", "target": "RULES", "retargeted_from": "few-shot для glm на l3_scenario",
+        "status": "closed_failed", "target": "RULES", "retargeted_from": "few-shot для glm на l3_scenario",
+        "result": "ОТКАТАНА 02.10.2026 10:05. Замер 10:00 (ядро 5, 9,2 мин): 26b 15->14, 12b 14->12, "
+                  "glm 13->11, qwen 13->14, laguna 12->12. ПРИЁМКА FAIL, откат выполнен "
+                  "(коммит 9fb41ed), chars вернулся 14556.",
+        "closed_why": "Тип гипотезы «добавить дом-факт в правило» закрыт отрицательным "
+                      "результатом: l7 вылечен у всех 5, l5b остался FAIL у 4 из 5, "
+                      "побочный урон больше цели. Скилл: ROADMAP 8.8.",
         "why_retargeted":
             "Цель спеки устарела: в базе 15/10/9 (results_20261001_235709_ck4.json) l3_scenario "
             "уже PASS у всех трёх моделей — улучшать нечего. Вместо неё взяты два предмета, "
@@ -131,7 +137,13 @@ QUEUE = [
     {
         "id": "H3",
         "title": "per-model override laguna: temperature 0.3 только для lagoon-xs",
-        "status": "new", "target": "STAND", "retargeted_from": "behavior.json temperature 0.1->0.3",
+        "status": "done", "target": "STAND", "retargeted_from": "behavior.json temperature 0.1->0.3",
+        "result": "ПРИНЯТА 02.10.2026 10:32 (все 9 моделей, 19,5 мин): все 9 дельт = 0, "
+                  "ПРИЁМКА PASS, коммит 1ad3725. Гипотеза «temperature лечит провалы Laguna» "
+                  "НЕ подтвердилась и не опроверглась: temperature меняет текст, но не класс.",
+        "closed_why": "Правая по коду стенда, не по правилам; MODEL_OPTIONS работает. "
+                      "Гипотеза снята seed-эффектом, см. скилл PROMPT\\SKILL_seed_vs_temperature.md "
+                      "(seed НЕ гасит temperature — опровергнуто пробой SHA).",
         "why_retargeted":
             "Правка из спеки была бы ПУСТОЙ: стенд не читает config/behavior.json. В "
             "loop_revive_test.py:211 в options передаются только num_ctx, num_predict, seed — "
@@ -154,7 +166,11 @@ QUEUE = [
     {
         "id": "H4",
         "title": "якорь-напоминание триггера в конце блока ВОСКРЕШЕНИЕ",
-        "status": "new", "target": "RULES", "retargeted_from": "якорный повтор АНТИ-ГАЛЛЮЦИНАЦИИ",
+        "status": "closed_topic", "target": "RULES", "retargeted_from": "якорный повтор АНТИ-ГАЛЛЮЦИНАЦИИ",
+        "closed_why": "Тема структуры правил закрыта тремя отрицательными замерами "
+                      "(спека §2 п.5, PROMPT\\SKILL_prompt_position_from_window.md §3.1). "
+                      "H4 был структурной гипотезой — запускать вслепую = повторить чужие грабли. "
+                      "Подтверждено владельцем 02.10.2026 10:40.",
         "why_retargeted":
             "Анти-сикофанство: тема структуры правил закрыта тремя отрицательными замерами "
             "(спека §2 п.5, PROMPT\\SKILL_prompt_position_from_window.md), а H4 в спеке был "
@@ -172,7 +188,10 @@ QUEUE = [
     {
         "id": "H5",
         "title": "вопрос о машине хоста = нет доступа, назвать команду (h4_vram)",
-        "status": "new", "target": "RULES",
+        "status": "closed_duplicate", "target": "RULES",
+        "closed_why": "Дубликат: предмет l7_tool_refusal уже был целью H2 (взят всеми пятью "
+                      "моделями ядра). Повторный запуск дал бы тот же результат. "
+                      "Подтверждено владельцем 02.10.2026 10:40.",
         "why_retargeted":
             "В спеке H5 значился как «правило для l7_tool_refusal»; l7 переехал в H2 "
             "(два предмета вместо одного). Освободившийся H5 нацелен на h4_vram[?] у glm.",
