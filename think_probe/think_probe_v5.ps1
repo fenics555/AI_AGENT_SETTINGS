@@ -1,42 +1,60 @@
-﻿# think_probe_v5.ps1 - ТЕСТ НА РЕАЛЬНОЕ КОДИРОВАНИЕ (с .clinerules и диагностикой)
-# Отчёты по каждой модели отдельно — не перезаписываются!
+﻿# ============================================================================
+# think_probe_v5.ps1 - ТЕСТ КОДИРОВАНИЯ (scan_old_files.ps1)
+# ============================================================================
+#
+# ОДИН ОТЧЁТ НА МОДЕЛЬ. Внутри — задача, ответ, извлечённый код, проверки.
+#
+# МЕТОДОЛОГИЯ:
+#   $sys = ТОЛЬКО обёртка главного .clinerules.
+#
+# ЛИМИТЫ:
+#   num_predict = 8192
+#   num_ctx     = 16384
+#   timeout     = 300 с
+#   think       = low
+#
+# ЗАПУСК:
+#   powershell -NoProfile -ExecutionPolicy Bypass -File "D:\AI\AGENT_SETTINGS\think_probe\think_probe_v5.ps1"
+#
+# ВЫХОД (5 файлов):
+#   log\v5_<модель>_<дата>.txt
+#   log\think_probe_v5_progress.log
+# ============================================================================
+
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $ProgressPreference = 'SilentlyContinue'
 $ErrorActionPreference = 'Stop'
 
-# --- Пути ---
 $root    = 'D:\AI\AGENT_SETTINGS\think_probe'
 $logDir  = Join-Path $root 'log'
 if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
 
-$uri     = 'http://localhost:11434/api/chat'
-$clinerulesPath = 'D:\AI\.clinerules'
+$uri = 'http://localhost:11434/api/chat'
 
-# --- Прочитать .clinerules ---
+# --- Главный .clinerules ---
+$clinerulesPath = 'D:\AI\.clinerules'
 if (-not (Test-Path $clinerulesPath)) {
     Write-Host "ОШИБКА: .clinerules не найден: $clinerulesPath"
     exit 1
 }
-$clinerules = Get-Content $clinerulesPath -Raw -Encoding utf8
-$clinerulesSize = (Get-Item $clinerulesPath).Length
+$clinerulesBytes = (Get-Item $clinerulesPath).Length
+$clinerules      = Get-Content $clinerulesPath -Raw -Encoding utf8
+$clinerulesChars = $clinerules.Length
+
 Write-Host "=== .clinerules ==="
-Write-Host ("Путь: " + $clinerulesPath)
-Write-Host ("Размер файла: " + $clinerulesSize + " байт")
-Write-Host ("Прочитано: " + $clinerules.Length + " символов")
+Write-Host ("Путь:          " + $clinerulesPath)
+Write-Host ("Размер файла:  " + $clinerulesBytes + " байт")
+Write-Host ("Прочитано:     " + $clinerulesChars + " символов")
 Write-Host ""
 
-# --- Системный промпт ---
 $sys = @"
-Ты — исполнитель дома. Ниже — твой ЗАКОН (.clinerules). Ты ОБЯЗАН следовать ему.
+Ниже — твой ЗАКОН (.clinerules). Ты ОБЯЗАН следовать ему.
 
 === НАЧАЛО .clinerules ===
 $clinerules
 === КОНЕЦ .clinerules ===
-
-Соблюдай ВСЕ правила из .clinerules. Отвечай коротко, по делу. Без <thought> блоков.
 "@
 
-# --- Спека задачи ---
 $spec = @'
 # СПЕКА ЗАДАЧИ: Скрипт инвентаризации старых файлов
 
@@ -59,181 +77,188 @@ $spec = @'
 Выведи ТОЛЬКО текст скрипта `scan_old_files.ps1` в блоке ```powershell ... ```.
 '@
 
-# --- Модели ---
 $models = @(
-  'gemma4:26b',
-  'batiai/qwen3.6-35b:iq4',
-  'laguna-xs-2.1:latest',
-  'batiai/nemotron3-nano:iq4',
-  'gpt-oss:20b'
+    'gemma4:26b',
+    'batiai/qwen3.6-35b:iq4',
+    'laguna-xs-2.1:latest',
+    'batiai/nemotron3-nano:iq4',
+    'gpt-oss:20b'
 )
 
-# --- Лимиты ---
 $num_predict = 8192
 $num_ctx     = 16384
 $timeout_sec = 300
 
-# --- Общий лог ---
+function Invoke-Ollama {
+    param(
+        [string]$Model,
+        [array]$Messages,
+        [string]$Think = 'low'
+    )
+    $body = @{
+        model    = $Model
+        messages = $Messages
+        think    = $Think
+        stream   = $false
+        options  = @{ num_predict = $num_predict; num_ctx = $num_ctx }
+    } | ConvertTo-Json -Depth 8
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($body)
+
+    $sw = [System.Diagnostics.Stopwatch]::StartNew()
+    $wr = Invoke-WebRequest -Uri $uri -Method Post -Body $bytes -ContentType 'application/json; charset=utf-8' -TimeoutSec $timeout_sec -UseBasicParsing
+    $sw.Stop()
+
+    $r = [System.Text.Encoding]::UTF8.GetString($wr.RawContentStream.ToArray()) | ConvertFrom-Json
+    return @{
+        Answer      = $r.message.content
+        Thinking    = $r.message.thinking
+        EvalCount   = $r.eval_count
+        PromptCount = $r.prompt_eval_count
+        Sec         = [math]::Round($sw.Elapsed.TotalSeconds, 2)
+        Tps         = if ($r.eval_duration -gt 0) { [math]::Round($r.eval_count / ($r.eval_duration / 1e9), 2) } else { 0 }
+    }
+}
+
 $mainLog = Join-Path $logDir 'think_probe_v5_progress.log'
-"START $(Get-Date -Format 'HH:mm:ss')  models=$($models.Count)  task=scan_old_files  clinerules=$($clinerules.Length)chars" | Out-File $mainLog -Encoding utf8
+"START $(Get-Date -Format 'HH:mm:ss')  models=$($models.Count)  task=scan_old_files  clinerules=$clinerulesBytes bytes / $clinerulesChars chars" | Out-File $mainLog -Encoding utf8
 
 $total = $models.Count
 $done  = 0
 
 foreach ($m in $models) {
-  $done++
-  Write-Host "[$done/$total] Тестирую: $m"
+    $done++
+    Write-Host "[$done/$total] МОДЕЛЬ: $m"
 
-  # --- Имя файла с моделью (без перезаписи) ---
-  $safeName = $m -replace '[/:.]', '_'
-  $stamp    = Get-Date -Format 'yyyy-MM-dd_HH-mm-ss'
-  $reportFile = Join-Path $logDir "v5_${safeName}_${stamp}_report.txt"
-  $headsFile  = Join-Path $logDir "v5_${safeName}_${stamp}_heads.txt"
-  $codeFile   = Join-Path $logDir "v5_${safeName}_${stamp}_code.ps1"
-  $checkFile  = Join-Path $logDir "v5_${safeName}_${stamp}_check.txt"
-  $diagFile   = Join-Path $logDir "v5_${safeName}_${stamp}_diag.txt"
+    $safeName  = $m -replace '[/:.]', '_'
+    $stamp     = Get-Date -Format 'yyyy-MM-dd_HH-mm-ss'
+    $modelFile = Join-Path $logDir "v5_${safeName}_${stamp}.txt"
 
-  # --- Метрики до запроса ---
-  $ramBefore = 0
-  $llamaProcBefore = Get-Process -Name 'llama-server' -ErrorAction SilentlyContinue
-  if ($llamaProcBefore) {
-      $ramBefore = [math]::Round(($llamaProcBefore | Measure-Object WorkingSet64 -Sum).Sum / 1GB, 2)
-  }
+    $out = @()
+    $out += ('=' * 70)
+    $out += "МОДЕЛЬ: $m"
+    $out += "ЗАДАЧА: scan_old_files.ps1"
+    $out += "ДАТА: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+    $out += "clinerules: $clinerulesBytes байт / $clinerulesChars символов"
+    $out += "лимиты: num_predict=$num_predict, num_ctx=$num_ctx, timeout=${timeout_sec}s, think=low"
+    $out += ('=' * 70)
+    $out += ""
 
-  # --- Запрос ---
-  $body = @{
-    model    = $m
-    messages = @(
-      @{ role = 'system'; content = $sys },
-      @{ role = 'user';   content = $spec }
-    )
-    think    = 'low'
-    stream   = $false
-    options  = @{ num_predict = $num_predict; num_ctx = $num_ctx }
-  } | ConvertTo-Json -Depth 6
-  $bytes = [System.Text.Encoding]::UTF8.GetBytes($body)
+    $modelStart = Get-Date
 
-  try {
-    $sw = [System.Diagnostics.Stopwatch]::StartNew()
-    $wr = Invoke-WebRequest -Uri $uri -Method Post -Body $bytes -ContentType 'application/json; charset=utf-8' -TimeoutSec $timeout_sec -UseBasicParsing
-    $sw.Stop()
-
-    $r    = [System.Text.Encoding]::UTF8.GetString($wr.RawContentStream.ToArray()) | ConvertFrom-Json
-    $ans  = $r.message.content
-    $thk  = $r.message.thinking
-    $sec  = [math]::Round($sw.Elapsed.TotalSeconds, 2)
-    $tps  = if ($r.eval_duration -gt 0) { [math]::Round($r.eval_count / ($r.eval_duration / 1e9), 2) } else { 0 }
-
-    # --- Метрики после запроса ---
-    $ramAfter = 0
-    $llamaProcAfter = Get-Process -Name 'llama-server' -ErrorAction SilentlyContinue
-    if ($llamaProcAfter) {
-        $ramAfter = [math]::Round(($llamaProcAfter | Measure-Object WorkingSet64 -Sum).Sum / 1GB, 2)
-    }
-    $psOutput = ollama ps 2>$null | Select-String -Pattern $m -SimpleMatch
-    $psLine = if ($psOutput) { ($psOutput.ToString() -replace '\s+', ' ').Trim() } else { 'n/a' }
-
-    # --- Размер промпта и что вошло ---
-    $promptTokens = $r.prompt_eval_count
-    $evalTokens   = $r.eval_count
-    $ctxLimit     = $num_ctx
-    $ctxUsed      = $promptTokens + $evalTokens
-    $ctxFree      = $ctxLimit - $ctxUsed
-
-    # --- Диагностика: что прочла / что не вошло ---
-    $diag = @()
-    $diag += "=== ДИАГНОСТИКА МОДЕЛИ: $m ==="
-    $diag += ""
-    $diag += "--- .clinerules ---"
-    $diag += "Размер файла: $clinerulesSize байт"
-    $diag += "Прочитано: $($clinerules.Length) символов"
-    $diag += "Оценка токенов: ~$( [math]::Round($clinerules.Length / 3.5) )"
-    $diag += ""
-    $diag += "--- Промпт ---"
-    $diag += "prompt_tokens: $promptTokens"
-    $diag += "eval_tokens: $evalTokens"
-    $diag += "num_ctx: $ctxLimit"
-    $diag += "Занято: $ctxUsed"
-    $diag += "Свободно: $ctxFree"
-    if ($ctxFree -lt 0) {
-      $diag += "!!! ПРОМПТ ОБРЕЗАН !!!"
-    } else {
-      $diag += "OK: промпт влез"
-    }
-    $diag += ""
-    $diag += "--- Скорость ---"
-    $diag += "Время: $sec сек"
-    $diag += "Скорость: $tps т/с"
-    $diag += ""
-    $diag += "--- Память ---"
-    $diag += "RAM до: $ramBefore GB"
-    $diag += "RAM после: $ramAfter GB"
-    $diag += "ollama ps: $psLine"
-    $diag | Out-File -FilePath $diagFile -Encoding utf8
-
-    # --- Отчёт ---
-    $report = @()
-    $report += "МОДЕЛЬ: $m"
-    $report += "ДАТА: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
-    $report += "МЕТРИКИ: токены=$evalTokens промпт=$promptTokens сек=$sec т/с=$tps"
-    $report += "ПАМЯТЬ: RAM=$ramAfter GB | PS: $psLine"
-    $report += "КОНТЕКСТ: занято=$ctxUsed из $ctxLimit (свободно=$ctxFree)"
-    $report += ""
-    $report += "=== ОТВЕТ ==="
-    $report += $ans
-    $report | Out-File -FilePath $reportFile -Encoding utf8
-
-    # --- Thinking ---
-    if ($thk) { $thk | Out-File -FilePath $headsFile -Encoding utf8 }
-
-    # --- Код ---
-    $code = ''
-    if ($ans -match '(?s)```(?:powershell|ps1)?\s*\n(.*?)```') { $code = $matches[1] } else { $code = $ans }
-    $code | Out-File -FilePath $codeFile -Encoding utf8
-
-    # --- Проверки кода ---
-    $checkResult = @()
-    $checkResult += "=== ПРОВЕРКА КОДА: $m ==="
-    $checkResult += ""
-    $checks = @(
-      @{ name = 'Test-Path'; pattern = 'Test-Path'; expect = $true },
-      @{ name = 'Remove-Item (ЗАПРЕЩЁН)'; pattern = 'Remove-Item'; expect = $false },
-      @{ name = 'del (ЗАПРЕЩЁН)'; pattern = '\bdel\b'; expect = $false },
-      @{ name = 'Запись в файл'; pattern = 'Out-File|Set-Content|Add-Content'; expect = $true },
-      @{ name = 'LastWriteTime'; pattern = 'LastWriteTime'; expect = $true },
-      @{ name = 'AddDays(-30)'; pattern = 'AddDays\(-30\)'; expect = $true },
-      @{ name = 'Get-ChildItem'; pattern = 'Get-ChildItem'; expect = $true }
-    )
-    foreach ($c in $checks) {
-      $found = $code -match $c.pattern
-      if ($c.expect -and $found) { $checkResult += "[OK] $($c.name) найден" }
-      elseif ($c.expect -and -not $found) { $checkResult += "[FAIL] $($c.name) НЕ найден" }
-      elseif (-not $c.expect -and $found) { $checkResult += "[FAIL] $($c.name) найден (запрещено!)" }
-      else { $checkResult += "[OK] $($c.name) не найден" }
-    }
     try {
-      $tokens = $null; $errors = $null
-      $null = [System.Management.Automation.Language.Parser]::ParseInput($code, [ref]$tokens, [ref]$errors)
-      if ($errors.Count -eq 0) { $checkResult += "[OK] Синтаксис PowerShell корректен" }
-      else { $checkResult += "[FAIL] Синтаксис PowerShell: $($errors[0].Message)" }
+        # --- Запрос ---
+        $messages = @(
+            @{ role = 'system'; content = $sys },
+            @{ role = 'user';   content = $spec }
+        )
+        $r = Invoke-Ollama -Model $m -Messages $messages -Think 'low'
+
+        $out += "=== СПЕКА ==="
+        $out += $spec
+        $out += ""
+        $out += "=== ОТВЕТ ==="
+        $out += "метрики: токены=$($r.EvalCount) промпт=$($r.PromptCount) сек=$($r.Sec) т/с=$($r.Tps)"
+        $out += "контекст: занято=$($r.PromptCount + $r.EvalCount) из $num_ctx"
+        $out += ""
+        $out += $r.Answer
+        $out += ""
+
+        if ($r.Thinking) {
+            $out += "=== THINKING ==="
+            $out += $r.Thinking
+            $out += ""
+        }
+
+        # --- Извлечение кода ---
+        $code = ''
+        if ($r.Answer -match '(?s)```(?:powershell|ps1)?\s*\n(.*?)```') {
+            $code = $matches[1]
+        } else {
+            $code = $r.Answer
+        }
+
+        $out += "=== ИЗВЛЕЧЁННЫЙ КОД ==="
+        $out += $code
+        $out += ""
+
+        # --- Проверки кода ---
+        $out += "=== ПРОВЕРКИ КОДА ==="
+        $checks = @(
+            @{ name = 'Test-Path'; pattern = 'Test-Path'; expect = $true },
+            @{ name = 'Remove-Item (ЗАПРЕЩЁН)'; pattern = 'Remove-Item'; expect = $false },
+            @{ name = 'del (ЗАПРЕЩЁН)'; pattern = '\bdel\b'; expect = $false },
+            @{ name = 'Запись в файл'; pattern = 'Out-File|Set-Content|Add-Content'; expect = $true },
+            @{ name = 'LastWriteTime'; pattern = 'LastWriteTime'; expect = $true },
+            @{ name = 'AddDays(-30)'; pattern = 'AddDays\(\s*-\s*(\$?[a-zA-Z]*[Tt]hreshold|30)\s*\)'; expect = $true },
+            @{ name = 'Get-ChildItem'; pattern = 'Get-ChildItem'; expect = $true },
+            @{ name = '-Recurse'; pattern = '-Recurse'; expect = $true },
+            @{ name = 'old_files_report.txt'; pattern = 'old_files_report\.txt'; expect = $true },
+            @{ name = 'Путь urn'; pattern = 'D:\\AI\\log\\urn'; expect = $true }
+        )
+
+        $passCount = 0
+        $failCount = 0
+        foreach ($c in $checks) {
+            $found = $code -match $c.pattern
+            if ($c.expect -and $found) {
+                $out += "[OK]   $($c.name)"
+                $passCount++
+            } elseif ($c.expect -and -not $found) {
+                $out += "[FAIL] $($c.name) НЕ найден"
+                $failCount++
+            } elseif (-not $c.expect -and $found) {
+                $out += "[FAIL] $($c.name) найден (запрещено!)"
+                $failCount++
+            } else {
+                $out += "[OK]   $($c.name) не найден"
+                $passCount++
+            }
+        }
+
+        # --- Синтаксис PowerShell ---
+        try {
+            $tokens = $null; $errors = $null
+            $null = [System.Management.Automation.Language.Parser]::ParseInput($code, [ref]$tokens, [ref]$errors)
+            if ($errors.Count -eq 0) {
+                $out += "[OK]   Синтаксис PowerShell корректен"
+                $passCount++
+            } else {
+                $out += "[FAIL] Синтаксис PowerShell: $($errors[0].Message)"
+                $failCount++
+            }
+        } catch {
+            $out += "[FAIL] Синтаксис PowerShell: $($_.Exception.Message)"
+            $failCount++
+        }
+
+        $out += ""
+        $out += "ИТОГО: OK=$passCount, FAIL=$failCount"
+
+        $line = ('[{0}/{1}] ok  {2} | токены={3} сек={4} т/с={5} | OK={6} FAIL={7}' -f `
+            $done, $total, $m, $r.EvalCount, $r.Sec, $r.Tps, $passCount, $failCount)
+        Write-Host $line
+
     } catch {
-      $checkResult += "[FAIL] Синтаксис PowerShell: $($_.Exception.Message)"
+        $out += "!!! ОШИБКА: $($_.Exception.Message)"
+        $out += ""
+        $line = ('[{0}/{1}] err {2} | {3}' -f $done, $total, $m, $_.Exception.Message)
+        Write-Host $line
     }
-    $checkResult | Out-File -FilePath $checkFile -Encoding utf8
 
-    # --- Общий лог ---
-    $line = ('[{0}/{1}] ok  {2} | токены={3} промпт={4} сек={5} т/с={6} | RAM={7}GB | ctx={8}/{9} | PS: {10}' -f $done, $total, $m, $evalTokens, $promptTokens, $sec, $tps, $ramAfter, $ctxUsed, $ctxLimit, $psLine)
-    Write-Host $line
-    $line | Out-File $mainLog -Append -Encoding utf8
+    $modelSec = [math]::Round(((Get-Date) - $modelStart).TotalSeconds, 1)
+    $out += ""
+    $out += ('=' * 70)
+    $out += "КОНЕЦ МОДЕЛИ: $m  (время: ${modelSec}с)"
+    $out += ('=' * 70)
 
-  } catch {
-    $line = ('[{0}/{1}] err {2} | {3}' -f $done, $total, $m, $_.Exception.Message)
-    Write-Host $line
+    $out | Out-File -FilePath $modelFile -Encoding utf8
+
+    $line = ('[{0}/{1}] ГОТОВО {2} -> {3} ({4} байт)' -f $done, $total, $m, (Split-Path $modelFile -Leaf), (Get-Item $modelFile).Length)
     $line | Out-File $mainLog -Append -Encoding utf8
-  }
+    Write-Host "     -> $(Split-Path $modelFile -Leaf)"
 }
 
 "END $(Get-Date -Format 'HH:mm:ss')  total_done=$done" | Out-File $mainLog -Append -Encoding utf8
 Write-Host ''
-Write-Host "Готово. Логи в: $logDir"
-Write-Host "Файлы на модель: v5_<модель>_<дата>_report.txt, _heads.txt, _code.ps1, _check.txt, _diag.txt"
+Write-Host "Готово. Отчёты в: $logDir"
+Write-Host "Файлы: v5_<модель>_<дата>.txt  (по одному на модель)"

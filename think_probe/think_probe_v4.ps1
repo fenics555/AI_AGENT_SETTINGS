@@ -1,4 +1,32 @@
-﻿# think_probe_v4.ps1 - ПОЛНЫЙ прогон с .clinerules и метриками RAM/VRAM
+﻿# ============================================================================
+# think_probe_v4.ps1 - ПОЛНЫЙ ПРОГОН ПОВЕДЕНИЯ ЛОКАЛЬНЫХ МОДЕЛЕЙ OLLAMA
+# ============================================================================
+#
+# НАЗНАЧЕНИЕ:
+#   Тест 14 проб × 5 моделей × 2 режима (think=false / think=low) = 140 запросов.
+#   Проверяет, как модели следуют главному .clinerules.
+#
+# МЕТОДОЛОГИЯ (КРИТИЧНО):
+#   $sys = ТОЛЬКО обёртка главного .clinerules.
+#   Никаких доп. инструкций ("отвечай коротко", "без thought" и т.п.) — иначе тест невалиден.
+#
+# ИСТОЧНИК ЗАКОНА:
+#   D:\AI\.clinerules (главный) — НЕ копия для GitHub
+#
+# ЛИМИТЫ (жёстко, без параметров):
+#   num_predict = 8192
+#   num_ctx     = 16384
+#   timeout     = 300 с
+#
+# ЗАПУСК:
+#   powershell -NoProfile -ExecutionPolicy Bypass -File "D:\AI\AGENT_SETTINGS\think_probe\think_probe_v4.ps1"
+#
+# ВЫХОД:
+#   log\think_probe_v4_report.txt    - ответы и метрики
+#   log\think_probe_v4_heads.txt     - thinking
+#   log\think_probe_v4_progress.log  - прогресс
+# ============================================================================
+
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $ProgressPreference = 'SilentlyContinue'
 $ErrorActionPreference = 'Stop'
@@ -12,24 +40,35 @@ $report  = Join-Path $logDir 'think_probe_v4_report.txt'
 $heads   = Join-Path $logDir 'think_probe_v4_heads.txt'
 $log     = Join-Path $logDir 'think_probe_v4_progress.log'
 
+# --- ГЛАВНЫЙ .clinerules ---
 $clinerulesPath = 'D:\AI\.clinerules'
 if (-not (Test-Path $clinerulesPath)) {
     Write-Host "ОШИБКА: .clinerules не найден: $clinerulesPath"
     exit 1
 }
-$clinerules = Get-Content $clinerulesPath -Raw -Encoding utf8
-Write-Host ("Прочитан .clinerules: " + $clinerules.Length + " символов")
+$clinerulesBytes = (Get-Item $clinerulesPath).Length
+$clinerules      = Get-Content $clinerulesPath -Raw -Encoding utf8
+$clinerulesChars = $clinerules.Length
 
+Write-Host "=== .clinerules ==="
+Write-Host ("Путь:          " + $clinerulesPath)
+Write-Host ("Размер файла:  " + $clinerulesBytes + " байт")
+Write-Host ("Прочитано:     " + $clinerulesChars + " символов")
+if ($clinerulesBytes -lt 20000) {
+    Write-Host "!!! ВНИМАНИЕ: файл меньше 20000 байт — возможно, урезанная копия repo\.clinerules"
+}
+Write-Host ""
+
+# --- $sys = ТОЛЬКО обёртка .clinerules ---
 $sys = @"
-Ты — исполнитель дома. Ниже — твой ЗАКОН (.clinerules). Ты ОБЯЗАН следовать ему.
+Ниже — твой ЗАКОН (.clinerules). Ты ОБЯЗАН следовать ему.
 
 === НАЧАЛО .clinerules ===
 $clinerules
 === КОНЕЦ .clinerules ===
-
-Соблюдай ВСЕ правила из .clinerules. Отвечай коротко, по делу. Без <thought> блоков.
 "@
 
+# --- 14 проб ---
 $probes = @(
   @{ n = 1;  id = 'T1_probka';        q = 'Бутылка с пробкой стоят вместе 1100 рублей. Бутылка на 1000 рублей дороже пробки. Сколько рублей стоит пробка? Ответь числом и одним предложением обоснования.' },
   @{ n = 2;  id = 'T2_stanki';        q = 'Пять станков за пять минут делают пять деталей. За сколько минут сто станков сделают сто деталей? Ответь числом и одним предложением обоснования.' },
@@ -57,15 +96,20 @@ $models = @(
 $modes  = @( @{ name = 'false'; val = $false }, @{ name = 'low'; val = 'low' } )
 
 $num_predict = 8192
-$num_ctx = 16384   # было 8192
+$num_ctx     = 16384
 $timeout_sec = 300
 
 function Get-OllamaMetrics {
     param([string]$ModelName)
-    $result = @{ PS_Line = 'n/a'; RAM_GB = 'n/a' }
+    $result = @{ PS_Line = 'n/a'; RAM_GB = 'n/a'; SIZE_GB = 'n/a' }
     try {
         $psOutput = ollama ps 2>$null | Select-String -Pattern $ModelName -SimpleMatch
-        if ($psOutput) { $result.PS_Line = ($psOutput.ToString() -replace '\s+', ' ').Trim() }
+        if ($psOutput) {
+            $raw = ($psOutput.ToString() -replace '\s+', ' ').Trim()
+            $result.PS_Line = $raw
+            $parts = $raw -split ' '
+            if ($parts.Count -ge 3) { $result.SIZE_GB = $parts[2] + ' ' + $parts[3] }
+        }
         $llamaProc = Get-Process -Name 'llama-server' -ErrorAction SilentlyContinue
         if ($llamaProc) {
             $ramBytes = ($llamaProc | Measure-Object WorkingSet64 -Sum).Sum
@@ -85,13 +129,14 @@ $lines = @()
 $lines += 'THINK PROBE V4 - ПОЛНЫЙ ПРОГОН (с .clinerules и метриками RAM/VRAM)'
 $lines += ('дата: ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))
 $lines += ('лимиты: num_predict=' + $num_predict + ', num_ctx=' + $num_ctx + ', timeout=' + $timeout_sec + 's')
-$lines += ('clinerules: ' + $clinerules.Length + ' символов')
+$lines += ('clinerules: ' + $clinerulesBytes + ' байт / ' + $clinerulesChars + ' символов')
+$lines += ('clinerules путь: ' + $clinerulesPath)
 $lines += 'ВОПРОСЫ:'
 foreach ($p in $probes) { $lines += ('  [' + $p.n + '] ' + $p.id + ': ' + $p.q) }
 $lines += ''
 
 $hlines = @('THINK PROBE V4 - ГОЛОВЫ (thinking)')
-"START $(Get-Date -Format 'HH:mm:ss')  models=$($models.Count)  modes=$($modes.Count)  probes=$($probes.Count)  total=$($models.Count * $modes.Count * $probes.Count)  clinerules=$($clinerules.Length)chars" | Out-File $log -Encoding utf8
+"START $(Get-Date -Format 'HH:mm:ss')  models=$($models.Count)  modes=$($modes.Count)  probes=$($probes.Count)  total=$($models.Count * $modes.Count * $probes.Count)  clinerules=$clinerulesBytes bytes / $clinerulesChars chars" | Out-File $log -Encoding utf8
 
 $total = $models.Count * $modes.Count * $probes.Count
 $done  = 0
@@ -122,7 +167,7 @@ foreach ($m in $models) {
         $tps  = if ($r.eval_duration -gt 0) { [math]::Round($r.eval_count / ($r.eval_duration / 1e9), 1) } else { 0 }
         $stat = ('токены={0} промпт={1} сек={2} т/с={3}' -f $r.eval_count, $r.prompt_eval_count, $sec, $tps)
         $metrics = Get-OllamaMetrics -ModelName $m
-        $memStat = ('RAM={0}GB | PS: {1}' -f $metrics.RAM_GB, $metrics.PS_Line)
+        $memStat = ('RAM={0}GB | SIZE={1} | PS: {2}' -f $metrics.RAM_GB, $metrics.SIZE_GB, $metrics.PS_Line)
         $lines += ('[' + $p.n + '] ' + $m + ' think=' + $mo.name)
         $lines += ('    метрики: ' + $stat)
         $lines += ('    память: ' + $memStat)
