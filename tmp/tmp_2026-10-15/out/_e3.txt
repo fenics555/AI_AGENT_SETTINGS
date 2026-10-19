@@ -1,0 +1,7 @@
+строка:1 знак:87
++ ... TINGS\probes\probe_0_recon.ps1' -Models gemma4; Write-Host ('EXIT='+)
++                                                                         ~
+Необходимо предоставить выражение для значения справа от оператора "+".
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpectedValueExpression
+ 

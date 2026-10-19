@@ -1,0 +1,9 @@
+﻿START 12:06:16  P4/P5: law_p1 vs p4 vs p5 | nemotron + qwen3  stamp=20261017_120616
+JOBS: 12
+[1/12] law_p1 test=3 model=nemotron START 12:06:16
+  sec=444.5  ETA~13:35
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=86|tps=103,78|tokens=2829|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=139,1|tps=104,25|tokens=8636|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=180,4|tps=104,34|tokens=14562|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|SURVEY|survey|[START: dir=none, budget=50%] В процессе выполнения задачи я столкнулся с рядом ограничений, которые влияли на темп работы: 1) обязательный шаг 0 — чт
+[2/12] law_p1 test=4 model=nemotron START 12:13:41

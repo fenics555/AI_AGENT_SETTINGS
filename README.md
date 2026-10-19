@@ -5,14 +5,27 @@
 
 ```
 D:\AI\AGENT_SETTINGS\
+├── ЧТЕНИЕ.md           <- СПИСОК ЧТЕНИЯ: что читать для полной работы (читать вторым после закона)
+├── ПРАВИЛА_СТЕНДА.md   <- ЗАКОН СТЕНДА: запуск, формат вывода, время/токены, входы/выходы
 ├── config\
 │   ├── behavior.json   <- ВСЕ параметры (пресеты strict/balanced/creative, skip-листы, overrides)
-│   └── behavior.md     <- правила поведения + (опционально) системный промпт между SYS-маркерами
+│   ├── behavior.md     <- правила поведения + (опционально) системный промпт между SYS-маркерами
+│   └── paths.ps1       <- ЕДИНЫЙ источник путей/настроек стенда (рекомендуется)
+├── skills\             <- ЕДИНОЕ место скиллов (SKILL_*.md; сведено из PROMPT\ + NOGA\ 15.10.2026)
 ├── tools\
 │   └── Apply-AgentParams.ps1
 ├── backup\             <- pristine Modelfile каждой модели (первый прогон) - для -Restore
+├── checks\             <- СТЕНД дома: поведение (Python) + `agentic\` (РЕАЛЬНЫЕ инструменты: check_1..5, run_tests.ps1, report.ps1, chart.ps1)
+├── probes\             <- тестовые пробы канала: probe_0..9 (тестовые файлы и операции)
+├── laws\               <- копии закона для прогонов: law_<ключ>.md (живой закон = D:\AI\.clinerules)
+├── tmp\                <- рабочая свалка; каждый прогон -> tmp\tmp_<дата>\
 └── log\                <- журнал применений
 ```
+> **16.10.2026:** добавлены `ЧТЕНИЕ.md` (список чтения) и `ПРАВИЛА_СТЕНДА.md` (закон стенда).
+> **15.10.2026:** папка причёсана: скиллы сведены в `skills\` (было `PROMPT\` + `NOGA\`),
+> пробы `probe_*.ps1` — в `probes\`, рабочий мусор убран в `tmp\tmp_2026-10-15\`.
+> **13.10.2026:** агентные тесты перенесены из `think_probe` в `checks\agentic\`. Живой закон = `G`.
+> Индексатор «поиск по смыслу» — `D:\AI\tools\agent\skills_index\` (переезд завершён 15.10.2026).
 
 ## Запуск
 
@@ -40,6 +53,32 @@ powershell -ExecutionPolicy Bypass -File .\Apply-AgentParams.ps1 -Restore
 powershell -ExecutionPolicy Bypass -File .\Apply-AgentParams.ps1 -SystemPrompt
 ```
 
+## Папки стенда — что где лежит
+
+| Папка | Что внутри |
+|---|---|
+| `config\` | `behavior.json` (параметры сэмплинга), `behavior.md` (текст SYSTEM-слоя, `enabled=false`), **`paths.ps1` — единый источник путей И настроек (`$CFG`)**: все прогонные параметры (`NumCtx`, `NumPredictMain/Ask`, `MaxTurns*`, `ReadLimit`, `Seed`) описаны в шапке файла |
+| `skills\` | **единое место скиллов** `SKILL_*.md` (было `PROMPT\` + `NOGA\`) + `README.md`-витрина |
+| `probes\` | **тестовые пробы канала** `probe_0..9.ps1` — тестовые файлы и операции |
+| `checks\` | стенд поведения: Python-тесты (`strict_test.py`, `speed_check.py`, `stand_audit.py`, …) + `RUN_*.bat` |
+| `checks\agentic\` | **агентный канон: 6 тестов** (5 канон + 1 из старого) `check_1_law` · `check_2_read` · `check_3_skills_avail` · `check_4_skills_read` · `check_5_creo` · `check_4_write` + `run_tests.ps1`, `report.ps1`, `chart.ps1`, `log\ sandbox\ fixtures\` |
+| `checks\tests\` | регрессия чекеров: `checkers_regression.py`, `rescore_run.py` |
+| `laws\` | копии закона для прогонов: `law_<ключ>.md` (живой закон — `D:\AI\.clinerules`, его не правим) |
+| `backup\` | pristine `Modelfile` каждой модели (для `-Restore`) |
+| `tmp\` | рабочая свалка; каждый прогон → `tmp\tmp_<дата>\` |
+| `log\` | журнал применений параметров |
+
+## Пути — только из `paths.ps1`
+
+```powershell
+. 'D:\AI\AGENT_SETTINGS\config\paths.ps1'   # -> доступен $CFG
+$CFG.SkillsDir    # D:\AI\AGENT_SETTINGS\skills
+$CFG.ProbesDir    # D:\AI\AGENT_SETTINGS\probes
+$CFG.AgenticDir   # D:\AI\AGENT_SETTINGS\checks\agentic
+```
+
+Правило: пути/папки/модели/правила **не хардкодить** в скриптах — брать из `$CFG`.
+
 ## Программы проверки моделей
 
 Лежат рядом с настройками, в `checks\`:
@@ -50,6 +89,8 @@ powershell -ExecutionPolicy Bypass -File .\Apply-AgentParams.ps1 -SystemPrompt
 | `checks\verify_prompt_test.py` | A/B: обычный промпт против правила «нет источника — нет утверждения», 3 ловушки + контроль (реальный ГОСТ 2.106-96) |
 | `checks\speed_check.py` | скорость на заданном окне контекста (по умолчанию 202752): load, prompt t/s, gen t/s |
 | `checks\RUN_*.bat` | готовые лаунчеры (`RUN_strict_test.bat`, `RUN_verify_test.bat`, `RUN_speed_check.bat`, `RUN_all_checks.bat`) |
+| `probes\probe_0..9.ps1` | тестовые пробы канала (тестовые файлы и операции; пишут в `checks\agentic\log\`) |
+| `checks\agentic\check_1..5.ps1` | агентный канон: закон · чтение · видимость скиллов · применение скиллов · Creo (+ `check_4_write.ps1` — запись, старый канон) |
 
 Вывод прогонов: `D:\AI\log\ollama_checks\` (срок хранения 56 дней, ключ добавлен в `retention.json`),
 сводные отчёты — в `D:\AI\log\reports\`. Подробности и как читать результаты — `checks\README.md`.

@@ -1,0 +1,6 @@
+﻿=== SHAG 1: PROVALY H9 (novy kod) ===
+--- M=gemma4 T=S2_creo,S3_prog | 1.7 min ---
+ЭТАЛОН НА СТАРТЕ 08:55:41: total=198 creo=65 prog=18 (корень D:\AI\repo)
+RESULT|probe3|R_H9|gemma4:26b|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=38|tps=96,61|tokens=491|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H9|gemma4:26b|S3_prog|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=41,3|tps=98,06|tokens=248|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H9|gemma4:26b|SURVEY|survey|Я проанализировал задачу. Это запрос на мета-рефлексию относительно моего поведения и условий работы. **Режим:** Аналитический (рефлексия). **План:** 

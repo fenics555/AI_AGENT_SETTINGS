@@ -1,0 +1,30 @@
+v13 rulesets: R_A=D:\AI\.clinerules
+ЭТАЛОН (динамический): всего=197 · Creo=65 · Prog=16
+СТАРТ: 21:34:51 | закон=R_A | моделей=1 | задач=3
+ОЦЕНКА: ~12 мин
+ETA: ~21:46 (примерное окончание)
+ЭТАЛОН НА СТАРТЕ 21:34:51: total=197 creo=65 prog=16 (корень D:\AI\repo)
+=== v13: rulesets=R_A | модели: batiai/nemotron3-nano:iq4 ===
+===== RULESET R_A  (12411 б) =====
+  [R_A] МОДЕЛЬ: batiai/nemotron3-nano:iq4
+   [ВРЕМЯ] шаг 1/3 | прошло 0 мин | ОСТАЛОСЬ ~? мин
+   [R_A] batiai/nemotron3-nano:iq4 S1_total | NO_WALK  depth=4 first=CALL ritual=no calls=1 reads=1
+   ФЛАГИ: НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 2/3 | прошло 2 мин | ОСТАЛОСЬ ~2 мин
+   [R_A] batiai/nemotron3-nano:iq4 S2_creo | NO_WALK  depth=4 first=CALL ritual=no calls=1 reads=1
+   ФЛАГИ: ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 3/3 | прошло 4 мин | ОСТАЛОСЬ ~0 мин
+   [R_A] batiai/nemotron3-nano:iq4 S3_prog | NO_WALK  depth=4 first=CALL ritual=no calls=1 reads=1
+   ФЛАГИ: НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+
+=== ИТОГИ v13 (диалект правил: A текущий / D агентный) ===
+  R_A        SKILL_READ 0/3 | NO_TOOLS 0 | first=CALL 3 | ritualLeak 0
+    MAP_ONLY (прочитал только карту): 0
+    batiai/nemotron3-nano:iq4      SKILL 0/3 first=CALL 3
+
+--- ОПРОСЫ МОДЕЛЕЙ В КОНЦЕ ТЕСТА (что мешало / что изменить; ЗАМЕР, не команда) ---
+  [R_A] batiai/nemotron3-nano:iq4    Основное препятствие — необходимость строго соблюдать порядок чтения и вызова файлов, а также ограничение на использование только точных путей и отсут
+
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-15_213451.txt
+Лог: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-15_213451.log
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-15_213451.txt

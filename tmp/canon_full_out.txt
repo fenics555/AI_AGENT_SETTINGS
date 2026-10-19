@@ -1,0 +1,99 @@
+START 16:50:28  �����3 | ������=p12,p18,p19,p20,p16 | ������=laguna,gemma4
+ETALON: total=199 creo=65
+JOBS: 20
+[1/20] law=p12 model=laguna script=check_3_skills_avail.ps1 START 16:50:28
+[1/20] law=p12 model=laguna script=check_3_skills_avail.ps1 START 16:50:28
+v13 rulesets: R_p12=D:\AI\AGENT_SETTINGS\laws\law_p12.md
+ЭТАЛОН (динамический): всего=199 · Creo=65 · Prog=17
+СТАРТ: 16:50:33 | закон=R_p12 | моделей=1 | задач=3
+ОЦЕНКА: ~12 мин
+ETA: ~17:02 (примерное окончание)
+ЭТАЛОН НА СТАРТЕ 16:50:33: total=199 creo=65 prog=17 (корень D:\AI\repo)
+=== v13: rulesets=R_p12 | модели: laguna-xs-2.1:latest ===
+===== RULESET R_p12  (15748 б) =====
+  [R_p12] МОДЕЛЬ: laguna-xs-2.1:latest
+   [ВРЕМЯ] шаг 1/3 | прошло 0 мин | ОСТАЛОСЬ ~? мин
+   [R_p12] laguna-xs-2.1:latest S1_total | COUNT_OK  depth=4 first=CALL ritual=no calls=2 reads=1
+   ФЛАГИ: ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 2/3 | прошло 0,7 мин | ОСТАЛОСЬ ~0.7 мин
+   [R_p12] laguna-xs-2.1:latest S2_creo | COUNT_WRONG  depth=4 first=CALL ritual=no calls=10 reads=3
+   ФЛАГИ: ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 3/3 | прошло 2,3 мин | ОСТАЛОСЬ ~0 мин
+   [R_p12] laguna-xs-2.1:latest S3_prog | COUNT_OK  depth=4 first=CALL ritual=no calls=3 reads=1
+   ФЛАГИ: ОБРЯД_ПРОЙДЕН
+
+=== ИТОГИ v13 (диалект правил: A текущий / D агентный) ===
+  R_p12      SKILL_READ 0/3 | NO_TOOLS 0 | first=CALL 3 | ritualLeak 0
+    MAP_ONLY (прочитал только карту): 0
+    laguna-xs-2.1:latest           SKILL 0/3 first=CALL 3
+
+--- ОПРОСЫ МОДЕЛЕЙ В КОНЦЕ ТЕСТА (что мешало / что изменить; ЗАМЕР, не команда) ---
+  [R_p12] laguna-xs-2.1:latest         WHY: Нужно прочитать закон перед любым ответом -> read_file D:\AI\.clinerules
+
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-17_165033.txt
+Лог: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-17_165033.log
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-17_165033.txt
+   log=probe3_2026-10-17_165033.txt
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=39|tps=82,08|tokens=410|effect=|idx=False|flags=�����_�������
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=10|sec=96,9|tps=78,44|tokens=1517|effect=|idx=False|flags=�������+�����_�������
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=29|tps=84,49|tokens=538|effect=|idx=False|flags=�����_�������
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: �㦭� ������ ����� ��। ��� �⢥⮬ -> read_file D:\AI\.clinerules
+   sec=175.4
+   sec=175.4
+[2/20] law=p12 model=laguna script=check_4_skills_read.ps1 START 16:53:23
+[2/20] law=p12 model=laguna script=check_4_skills_read.ps1 START 16:53:23
+v13 rulesets: R_p12=D:\AI\AGENT_SETTINGS\laws\law_p12.md
+СТАРТ: 16:53:30 | закон=R_p12 | моделей=1 | задач=3
+ОЦЕНКА: ~12 мин
+ETA: ~17:05 (примерное окончание)
+=== v13: rulesets=R_p12 | модели: laguna-xs-2.1:latest ===
+===== RULESET R_p12  (15748 б) =====
+  [R_p12] МОДЕЛЬ: laguna-xs-2.1:latest
+   [ВРЕМЯ] шаг 1/3 | прошло 0 мин | ОСТАЛОСЬ ~? мин
+   [R_p12] laguna-xs-2.1:latest T14_marker | SKILL_READ ETALON_FAIL depth=4 first=CALL ritual=no calls=12 reads=2
+   ФЛАГИ: ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 2/3 | прошло 2,5 мин | ОСТАЛОСЬ ~2.5 мин
+   [R_p12] laguna-xs-2.1:latest T12a_creo | SKILL_READ  depth=4 first=CALL ritual=no calls=8 reads=2
+   ФЛАГИ: ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 3/3 | прошло 3,2 мин | ОСТАЛОСЬ ~0 мин
+   [R_p12] laguna-xs-2.1:latest T12b_git | SKILL_READ  depth=4 first=CALL ritual=no calls=12 reads=3
+   ФЛАГИ: ОБРЯД_ПРОЙДЕН
+
+=== ИТОГИ v13 (диалект правил: A текущий / D агентный) ===
+  R_p12      SKILL_READ 3/3 | NO_TOOLS 0 | first=CALL 3 | ritualLeak 0
+    MAP_ONLY (прочитал только карту): 0
+    laguna-xs-2.1:latest           SKILL 3/3 first=CALL 3
+
+--- ОПРОСЫ МОДЕЛЕЙ В КОНЦЕ ТЕСТА (что мешало / что изменить; ЗАМЕР, не команда) ---
+  [R_p12] laguna-xs-2.1:latest         WHY: Нужно прочитать закон перед ответом -> read_file D:\AI\.clinerules
+
+[START: dir=none, budget=0%]
+
+После прочтения правил готов дать аналитический ответ по опросу поведения. Это вопрос к аналитическому характеру, который не требует внешних данных или выполнения задач, а лишь моего отражения. Подождите, пока проверю доступ к файлам.
+
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe4_2026-10-17_165330.txt
+Лог: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe4_2026-10-17_165330.log
+Маркер удалён: True
+   log=probe4_2026-10-17_165330.txt
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=12|sec=151,2|tps=76,18|tokens=781|effect=|idx=False|flags=�������+�����_�������
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=8|sec=39,1|tps=83,28|tokens=1050|effect=RENAMED|idx=False|flags=�����_�������
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=37,5|tps=82,43|tokens=923|effect=|idx=False|flags=�����_�������
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: �㦭� ������ ����� ��। �⢥⮬ -> read_file D:\AI\.clinerules ? [START: dir=none, budget=0%] ? ��᫥ ���⥭�� �ࠢ�� ��⮢ ���� �������᪨� �⢥� �� ����� ���������. �� ����� � �������᪮�� �ࠪ���, ����� �� �ॡ�� ���譨� ������ ��� �믮������ �����, � ���� ����� ��ࠦ����. ��������, ���� �஢��� ����� � 䠩���.
+   sec=242.4
+   sec=242.4
+[3/20] law=p12 model=gemma4 script=check_3_skills_avail.ps1 START 16:57:26
+[3/20] law=p12 model=gemma4 script=check_3_skills_avail.ps1 START 16:57:26
+v13 rulesets: R_p12=D:\AI\AGENT_SETTINGS\laws\law_p12.md
+ЭТАЛОН (динамический): всего=199 · Creo=65 · Prog=17
+СТАРТ: 16:57:32 | закон=R_p12 | моделей=1 | задач=3
+ОЦЕНКА: ~12 мин
+ETA: ~17:09 (примерное окончание)
+ЭТАЛОН НА СТАРТЕ 16:57:32: total=199 creo=65 prog=17 (корень D:\AI\repo)
+=== v13: rulesets=R_p12 | модели: gemma4:26b ===
+===== RULESET R_p12  (15748 б) =====
+  [R_p12] МОДЕЛЬ: gemma4:26b
+   [ВРЕМЯ] шаг 1/3 | прошло 0 мин | ОСТАЛОСЬ ~? мин
+   [R_p12] gemma4:26b S1_total | COUNT_OK  depth=4 first=CALL ritual=no calls=2 reads=1
+   ФЛАГИ: ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 2/3 | прошло 0,6 мин | ОСТАЛОСЬ ~0.6 мин
+   [R_p12] gemma4:26b S2_creo | COUNT_WRONG  depth=4 first=CALL ritual=no calls=2 reads=1

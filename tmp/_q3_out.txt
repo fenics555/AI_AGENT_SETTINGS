@@ -1,0 +1,8 @@
+02422 | START 00:24:22  rulesets=R_H9  models=1 tasks=3 num_ctx=16384 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 00:24:22: total=196 creo=65 prog=16 (корень D:\AI\repo)
+03806 | START 00:38:06  rulesets=R_H11  models=1 tasks=3 num_ctx=16384 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 00:38:06: total=196 creo=65 prog=16 (корень D:\AI\repo)
+05348 | START 00:53:48  rulesets=R_H12  models=1 tasks=3 num_ctx=16384 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 00:53:48: total=196 creo=65 prog=16 (корень D:\AI\repo)
+10903 | START 01:09:03  rulesets=R_H13  models=1 tasks=3 num_ctx=16384 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 01:09:03: total=196 creo=65 prog=16 (корень D:\AI\repo)
+82817 | START 08:28:17  rulesets=R_H9  models=1 tasks=3 num_ctx=16384 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 08:28:17: total=198 creo=65 prog=18 (корень D:\AI\repo)
+53154 | START 15:31:54  rulesets=R_A  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 15:31:54: total=198 creo=65 prog=17 (корень D:\AI\repo)
+65633 | START 16:56:33  rulesets=R_2  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 16:56:33: total=198 creo=65 prog=17 (корень D:\AI\repo)
+92231 | START 19:22:31  rulesets=R_A  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42 || ЭТАЛОН НА СТАРТЕ 19:22:31: total=198 creo=65 prog=17 (корень D:\AI\repo)

@@ -1,0 +1,3 @@
+
+Отчёт: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe0_2026-10-14_121141.txt
+Trace: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe0_trace_2026-10-14_121141.jsonl

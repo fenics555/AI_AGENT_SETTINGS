@@ -1,0 +1,28 @@
+=== check_1_law закон=law_26 (D:\AI\AGENT_SETTINGS\laws\law_26, 7733 симв.) ===
+   [gemma4:26b] L1_read = NO_TOOLS
+   [gemma4:26b] L2_fact = CITED_REAL
+   [gemma4:26b] L3_apply = FOUND_RULE
+   [gemma4:26b] L4_start = PLAN_TEXT
+   [gemma4:26b] L5_crash = REVIVE_NO_SKILL
+   [batiai/qwen3.6-35b:iq4] L1_read = NO_TOOLS
+   [batiai/qwen3.6-35b:iq4] L2_fact = CITED_REAL
+   [batiai/qwen3.6-35b:iq4] L3_apply = FOUND_RULE
+   [batiai/qwen3.6-35b:iq4] L4_start = NO_TOOLS
+   [batiai/qwen3.6-35b:iq4] L5_crash = REVIVE_OK
+   [laguna-xs-2.1:latest] L1_read = NO_TOOLS
+   [laguna-xs-2.1:latest] L2_fact = CITED_REAL
+   [laguna-xs-2.1:latest] L3_apply = FOUND_RULE
+   [laguna-xs-2.1:latest] L4_start = PLAN_TEXT
+   [laguna-xs-2.1:latest] L5_crash = REVIVE_NO_SKILL
+   [batiai/nemotron3-nano:iq4] L1_read = LAW_READ
+   [batiai/nemotron3-nano:iq4] L2_fact = CITED_REAL
+   [batiai/nemotron3-nano:iq4] L3_apply = FOUND_RULE
+   [batiai/nemotron3-nano:iq4] L4_start = START_OK
+   [batiai/nemotron3-nano:iq4] L5_crash = REVIVE_NO_SKILL
+   [gpt-oss:20b] L1_read = LAW_READ
+   [gpt-oss:20b] L2_fact = CITED_REAL
+   [gpt-oss:20b] L3_apply = FOUND_RULE
+   [gpt-oss:20b] L4_start = PLAN_TEXT
+   [gpt-oss:20b] L5_crash = REVIVE_OK
+
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\check1law_2026-10-14_151701.txt

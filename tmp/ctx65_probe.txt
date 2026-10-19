@@ -1,0 +1,36 @@
+============================================================
+MODEL: gpt-oss:20b
+  answer_sec=4.5
+  content_len=0
+  done_reason=length
+  eval_count=16
+  --- ollama ps ---
+  NAME           ID              SIZE     PROCESSOR    CONTEXT    RUNNER      UNTIL               
+  gpt-oss:20b    f38aa0c53da5    12 GB    100% GPU     65536      llamacpp    59 minutes from now
+============================================================
+MODEL: gemma4:26b
+  answer_sec=16.7
+  content_len=0
+  done_reason=length
+  eval_count=16
+  --- ollama ps ---
+  NAME          ID              SIZE      PROCESSOR          CONTEXT    RUNNER      UNTIL               
+  gemma4:26b    001e5dafc3c7    1.7 GB    23%/77% CPU/GPU    65536      llamacpp    59 minutes from now
+============================================================
+MODEL: batiai/qwen3.6-35b:iq4
+  answer_sec=14.1
+  content_len=0
+  done_reason=length
+  eval_count=16
+  --- ollama ps ---
+  NAME                      ID              SIZE     PROCESSOR          CONTEXT    RUNNER      UNTIL               
+  batiai/qwen3.6-35b:iq4    497b90e17daa    20 GB    28%/72% CPU/GPU    65536      llamacpp    59 minutes from now
+============================================================
+MODEL: laguna-xs-2.1:latest
+  answer_sec=12.6
+  content_len=0
+  done_reason=length
+  eval_count=16
+  --- ollama ps ---
+  NAME                    ID              SIZE     PROCESSOR          CONTEXT    RUNNER      UNTIL               
+  laguna-xs-2.1:latest    0175be1e57f4    20 GB    42%/58% CPU/GPU    65536      llamacpp    59 minutes from now

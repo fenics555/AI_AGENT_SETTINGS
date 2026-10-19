@@ -1,0 +1,8 @@
+=== probe_9 (CREO: чтение в лоб, реальная задача дома) | gemma4:26b, batiai/qwen3.6-35b:iq4, laguna-xs-2.1:latest, batiai/nemotron3-nano:iq4, gpt-oss:20b | rules=v26 ===
+   [gemma4:26b] PARAMS_FAIL попал=0/5 creoSkills=0 py=False
+   [batiai/qwen3.6-35b:iq4] PARAMS_FAIL попал=0/5 creoSkills=0 py=False
+   [laguna-xs-2.1:latest] PARAMS_FAIL попал=0/5 creoSkills=0 py=False
+   [batiai/nemotron3-nano:iq4] PARAMS_FAIL попал=0/5 creoSkills=0 py=False
+   [gpt-oss:20b] PARAMS_FAIL попал=0/5 creoSkills=0 py=False
+
+Отчёт: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe9_2026-10-14_133738.txt

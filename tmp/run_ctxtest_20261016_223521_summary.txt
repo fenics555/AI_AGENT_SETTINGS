@@ -1,0 +1,8 @@
+﻿START 22:35:21  ЗАМЕР nemotron test=4  stamp=20261016_223521
+NumCtx=32768 | ReadLimit=48000
+  sec=339.3  log=probe4_2026-10-16_223525.txt
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=12|sec=129,6|tps=103,44|tokens=7221|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=97,7|tps=104,31|tokens=6888|effect=NOT_DONE|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=77,1|tps=102,28|tokens=4804|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|SURVEY|survey|Меняло в работе несколько источников неопределённости и ограничений, которые я вынужден был учитывать одновременно: 1. **Сложность и объём правил** – 
+ALL DONE 22:41:01

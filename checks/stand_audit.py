@@ -20,7 +20,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import loop_revive_test as L          # noqa: E402
 
-OUT = r"D:\AI\log\urn\cline\stand_audit.txt"
+OUT = r"D:\AI\log\urn\stand_audit.txt"
 lines = []
 
 
@@ -86,8 +86,8 @@ for k in L.RULES_REQUIRED:
     add("  %-28s %s" % (k, "есть" if k in L.HOUSE_SYSTEM else "НЕТ — прогон недействителен"))
 ok, health = L.check_rules_health()
 add("check_rules_health: %s -> %s" % (ok, health))
-add("позиция блока ВОСКРЕШЕНИЕ: %.0f%% промпта (порог тревоги 40%%)"
-    % (100.0 * L.HOUSE_SYSTEM.find("ВОСКРЕШЕНИЕ: REVIVE") / len(L.HOUSE_SYSTEM)))
+add("позиция блока REVIVE: %.0f%% промпта (порог тревоги 40%%)"
+    % (100.0 * L.HOUSE_SYSTEM.find("REVIVE") / len(L.HOUSE_SYSTEM)))
 
 # --- 5. ПРЕДМЕТЫ И ЧТО ПРИНИМАЕТ ---------------------------------------------------------------
 add()

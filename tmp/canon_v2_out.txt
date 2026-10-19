@@ -1,0 +1,43 @@
+START 16:44:40  КАНОН: тесты=3 4 | законы=p12,p18,p19,p20,p16 | модели=laguna,gemma4
+LAW p12 : 15748 б SHA=A0332E1C
+LAW p18 : 16241 б SHA=3B326030
+LAW p19 : 16261 б SHA=9B5FD5BE
+LAW p20 : 16118 б SHA=7B270592
+LAW p16 : 16350 б SHA=0737E48A
+ЭТАЛОН НА СТАРТЕ 16:44:40: total=199 creo=65 prog=17
+JOBS: 10  (законов=5 x моделей=2 x тестов=1)
+[1/10] p12 | laguna | тест 3 4 | START 16:44:40
+[1/10] law=p12 model=laguna test=3 4 START 16:44:40
+Не удалось обработать -File "D:\AI\AGENT_SETTINGS\checks\agentic\", так как файл имеет расширение, отличное от PS1. Укажите действительное имя файла сценария Windows PowerShell и повторите попытку.
+Windows PowerShell
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Установите последнюю версию PowerShell для новых функций и улучшения! https://aka.ms/PSWindows
+
+   ЛОГА НЕТ (тест не стартовал/упал)
+   sec=8.2  ETA~16:46  осталось=9
+   sec=8,2 ETA~16:46
+[2/10] p12 | gemma4 | тест 3 4 | START 16:44:48
+[2/10] law=p12 model=gemma4 test=3 4 START 16:44:48
+Не удалось обработать -File "D:\AI\AGENT_SETTINGS\checks\agentic\", так как файл имеет расширение, отличное от PS1. Укажите действительное имя файла сценария Windows PowerShell и повторите попытку.
+Windows PowerShell
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Установите последнюю версию PowerShell для новых функций и улучшения! https://aka.ms/PSWindows
+
+   ЛОГА НЕТ (тест не стартовал/упал)
+   sec=8.2  ETA~16:46  осталось=8
+   sec=8,2 ETA~16:46
+[3/10] p18 | laguna | тест 3 4 | START 16:44:56
+[3/10] law=p18 model=laguna test=3 4 START 16:44:56
+Не удалось обработать -File "D:\AI\AGENT_SETTINGS\checks\agentic\", так как файл имеет расширение, отличное от PS1. Укажите действительное имя файла сценария Windows PowerShell и повторите попытку.
+Windows PowerShell
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Установите последнюю версию PowerShell для новых функций и улучшения! https://aka.ms/PSWindows
+
+   ЛОГА НЕТ (тест не стартовал/упал)
+   sec=8.2  ETA~16:46  осталось=7
+   sec=8,2 ETA~16:46
+[4/10] p18 | gemma4 | тест 3 4 | START 16:45:05
+[4/10] law=p18 model=gemma4 test=3 4 START 16:45:05

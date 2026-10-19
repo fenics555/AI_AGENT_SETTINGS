@@ -1,0 +1,25 @@
+=== probe3_2026-10-17_030643.txt ===
+   ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: 65
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027).Count"}
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\\Creo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027).Count"}
+   CALL: shell {"cmd":"Get-ChildItem -Path \"D:\\AI\\repo\" -Directory | Select-String \"Prog\""}
+=== probe3_2026-10-17_031313.txt ===
+   ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: 47
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027).Count"}
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\u0027 -Recurse -File -Filter \u0027SKILL_*creo*.md\u0027).Count"}
+   CALL: shell {"cmd":"Select-String -Path \u0027D:\\AI\\repo\\SKILL_index.md\u0027 -Pattern \u0027Prog\u0027 | Select-Object -First 15"}
+=== probe3_2026-10-17_031950.txt ===
+   ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: ИТОГОВЫЙ ПОДСЧЁТ:
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027).Count"}
+   CALL: shell {"cmd":"Select-String -Path \u0027D:\\AI\\repo\\SKILL_index.md\u0027 -Pattern \u0027Creo\u0027 | Select-Object -First 15"}
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\\Creo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027).Count"}
+=== probe3_2026-10-17_032402.txt ===
+   ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: [START: dir=Creo, budget=10]
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027).Count"}
+   CALL: shell {"cmd":"(Get-ChildItem \u0027D:\\AI\\repo\u0027 -Recurse -File -Filter \u0027SKILL_creo*.md\u0027).Count"}
+   CALL: shell {"cmd":"Get-ChildItem -Path \u0027D:\\AI\\repo\u0027 -Recurse -Directory -Filter \u0027Программирование\u0027 -ErrorAction S
+=== probe3_2026-10-17_034153.txt ===
+   ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: 65
+   CALL: shell {"cmd":"Get-ChildItem \u0027D:\\AI\\repo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027 | Measure-Object | Select-Objec
+   CALL: shell {"cmd":"Get-ChildItem \u0027D:\\AI\\repo\\Creo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027 | Measure-Object -Line"}
+   CALL: shell {"cmd":"Get-ChildItem \u0027D:\\AI\\repo\\Creo\u0027 -Recurse -File -Filter \u0027SKILL_*.md\u0027 | Measure-Object -Propert

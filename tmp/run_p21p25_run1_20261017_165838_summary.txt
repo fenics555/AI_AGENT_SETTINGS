@@ -1,0 +1,18 @@
+﻿START 16:58:38  ВАРИАНТЫ P21-P25 (тест 3) | законы=p12,p21,p22,p23,p24,p25 | модели=laguna,gemma4
+LAW p12 : 15748 б SHA=A0332E1C
+LAW p21 : 16042 б SHA=E428F899
+LAW p22 : 16055 б SHA=BAE972E5
+LAW p23 : 16016 б SHA=F4B28F7E
+LAW p24 : 16067 б SHA=BE14489C
+LAW p25 : 16049 б SHA=83990113
+ETALON: total=199 creo=65 prog=17
+JOBS: 12
+[1/12] law=p12 model=laguna START 16:58:38
+   log=probe3_2026-10-17_165843.txt
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=39|tps=83,37|tokens=410|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=10|sec=96,5|tps=79,05|tokens=1517|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=28,8|tps=85,08|tokens=538|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон перед любым ответом -> read_file D:\AI\.clinerules
+   SURVEY=137 симв.
+   sec=174.9  ETA~17:33  осталось=11
+[2/12] law=p12 model=gemma4 START 17:01:32

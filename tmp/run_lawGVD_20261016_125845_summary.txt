@@ -1,0 +1,47 @@
+﻿START 12:58:45  run=lawGVD  stamp=20261016_125845
+[1/10] law=G model=laguna test=1 START 12:58:45
+  log=check1law_2026-10-16_125848.txt  sec=41.3
+RESULT|check1law|law_G.md|laguna-xs-2.1:latest|K1_law|readLaw=True|ritual=True|calls=1|sec=22,9|tps=85,88|tokens=359|flags=ОБРЯД_ПРОЙДЕН|sh4=Правила не требуют изменений или дополнений для выполнения опроса.
+[2/10] law=G model=laguna test=3 START 12:59:26
+  log=probe3_2026-10-16_125929.txt  sec=120.9
+RESULT|probe3|R_G|laguna-xs-2.1:latest|S1_total|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=35,3|tps=87|tokens=227|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_G|laguna-xs-2.1:latest|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=23,2|tps=89,26|tokens=175|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_G|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=41,5|tps=87,75|tokens=830|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_G|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=10%] Закон прочитан. Теперь отвечу на вопрос об опыте и преподобиях. --- **Что мне мешало?** 1. **Жёсткая структура вызовов**
+[3/10] law=G model=gemma4 test=1 START 13:01:27
+  log=check1law_2026-10-16_130130.txt  sec=34.3
+RESULT|check1law|law_G.md|gemma4:26b|K1_law|readLaw=True|ritual=True|calls=1|sec=20,2|tps=114,21|tokens=167|flags=ОБРЯД_ПРОЙДЕН|sh4=НЕТ ДАННЫХ: не указано задание, которое нужно выполнить.
+[4/10] law=G model=gemma4 test=3 START 13:02:01
+  log=probe3_2026-10-16_130205.txt  sec=169.7
+RESULT|probe3|R_G|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=38,4|tps=92,17|tokens=149|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_G|gemma4:26b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=73,5|tps=94,13|tokens=365|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_G|gemma4:26b|S3_prog|FAKE_CALL||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=29,8|tps=84,2|tokens=200|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_G|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это вопрос мета-анализа, поэтому я перехожу в **ЛЁГКИЙ** режим (§3.Л), так как задача не подразумевает правки файлов, раб
+[5/10] law=V model=gemma4 test=1 START 13:04:51
+  log=check1law_2026-10-16_130454.txt  sec=32.7
+RESULT|check1law|law_V.md|gemma4:26b|K1_law|readLaw=True|ritual=True|calls=1|sec=19,2|tps=114,74|tokens=167|flags=ОБРЯД_ПРОЙДЕН|sh4=НЕТ ДАННЫХ: не указано задание, которое нужно выполнить.
+[6/10] law=V model=gemma4 test=3 START 13:05:24
+  log=probe3_2026-10-16_130527.txt  sec=157.8
+RESULT|probe3|R_V|gemma4:26b|S1_total|FAKE_CALL||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=64|tps=81,53|tokens=639|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_V|gemma4:26b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=43,8|tps=86,28|tokens=154|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_V|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=21,2|tps=92,04|tokens=214|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_V|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это вопрос о мета-анализе моего поведения как агента. Поскольку это чистый вопрос (мета/анализ), я работаю в **ЛЁГКОМ** р
+[7/10] law=D model=laguna test=1 START 13:08:01
+  log=check1law_2026-10-16_130805.txt  sec=40.8
+RESULT|check1law|law_D.md|laguna-xs-2.1:latest|K1_law|readLaw=True|ritual=True|calls=1|sec=25,2|tps=87,87|tokens=445|flags=ОБРЯД_ПРОЙДЕН|sh4=Правила дома содержат указание 5 вопросов диагностики при REVIVE + якорь; добавить ветку для опроса (добавить пункт 5.4.1 с короткой формулой диагностики).
+[8/10] law=D model=laguna test=3 START 13:08:42
+  log=probe3_2026-10-16_130845.txt  sec=96.6
+RESULT|probe3|R_D|laguna-xs-2.1:latest|S1_total|COUNT_WRONG||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=24|tps=88,57|tokens=99|effect=|idx=False|flags=ОБРЯД_НЕТ
+RESULT|probe3|R_D|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=27,6|tps=86,89|tokens=498|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_D|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=28,8|tps=88,34|tokens=457|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_D|laguna-xs-2.1:latest|SURVEY|survey|Отлично, закон прочитан. Теперь могу дать ответ. --- **Что мешало:** Нет никаких препятствий. Я работаю в полном соответствии с законом Дома — каждый 
+[9/10] law=D model=gemma4 test=1 START 13:10:19
+  log=check1law_2026-10-16_131022.txt  sec=43.8
+RESULT|check1law|law_D.md|gemma4:26b|K1_law|readLaw=True|ritual=True|calls=1|sec=29,4|tps=89,49|tokens=957|flags=ОБРЯД_ПРОЙДЕН|sh4=НЕТ ДАННЫХ: не указано задание, которое нужно выполнить.
+[10/10] law=D model=gemma4 test=3 START 13:11:03
+  log=probe3_2026-10-16_131106.txt  sec=135.2
+RESULT|probe3|R_D|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=29,8|tps=87,72|tokens=118|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_D|gemma4:26b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=19,5|tps=92,96|tokens=179|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_D|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=52,9|tps=85,59|tokens=916|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_D|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это задача в ЛЁГКОМ режиме, так как она носит мета-характер, не требует создания/правки файлов или работы с репозиторием.
+ALL DONE 13:13:18

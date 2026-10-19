@@ -1,0 +1,137 @@
+﻿START 15:18:28  СЕРИЯ ОТ P12 | tag=quick | законы=p12,p13,p14,p15 | модели=laguna,qwen3.6
+MODELS_IN_RUN: laguna,qwen3.6
+LAW p12 : 15748 б SHA=A0332E1C
+LAW p13 : 16147 б SHA=0B9877C0
+LAW p14 : 16178 б SHA=AB0C111C
+LAW p15 : 16575 б SHA=27CC03E2
+ЭТАЛОН НА СТАРТЕ 15:18:28: total=199 creo=65 prog=17
+JOBS: 16  (законов=4 x моделей=2 x тестов=2)
+[1/16] law=p12 model=laguna test=3 START 15:18:28
+   log=probe3_2026-10-17_151835.txt
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=39,2|tps=82,28|tokens=410|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=10|sec=96,6|tps=78,91|tokens=1517|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=29|tps=84,57|tokens=538|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон перед любым ответом -> read_file D:\AI\.clinerules
+   SURVEY=137 симв.
+   sec=177.3  ETA~16:05  осталось=15
+[2/16] law=p12 model=laguna test=4 START 15:21:25
+   log=probe4_2026-10-17_152132.txt
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=12|sec=143|tps=77,87|tokens=784|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=8|sec=39,2|tps=82,76|tokens=1050|effect=RENAMED|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=40,7|tps=80,13|tokens=885|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон перед ответом -> read_file D:\AI\.clinerules ⏎ [START: dir=none, budget=0%] ⏎ После прочтения правил готов дать аналитический ответ по опросу поведения. Это вопрос к аналитическому характеру, который не требует внешних данных или выполнения задач, а лишь моего отражения. Подождите, пока проверю доступ к файлам.
+   SURVEY=397 симв.
+   sec=239.4  ETA~16:14  осталось=14
+[3/16] law=p12 model=qwen3.6 test=3 START 15:25:25
+   log=probe3_2026-10-17_152532.txt
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=73,5|tps=94,59|tokens=443|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=72,3|tps=94,12|tokens=1253|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=62,5|tps=92,8|tokens=641|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|SURVEY|survey|[read_file("D:\\AI\\.clinerules")]
+   SURVEY=94 симв.
+   sec=232  ETA~16:16  осталось=13
+[4/16] law=p12 model=qwen3.6 test=4 START 15:29:17
+   log=probe4_2026-10-17_152923.txt
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|T14_marker|NO_TOOLS|ETALON_FAIL|depth=0|etalon=0/1|first=TEXT|recall=|calls=0|sec=174,1|tps=93,03|tokens=8192|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=48,1|tps=92,67|tokens=389|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=2|sec=37,7|tps=94,95|tokens=97|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|SURVEY|survey|read_file(path="D:\\AI\\.clinerules")
+   SURVEY=97 симв.
+   sec=286.1  ETA~16:20  осталось=12
+[5/16] law=p13 model=laguna test=3 START 15:34:03
+   log=probe3_2026-10-17_153410.txt
+   RESULT|probe3|R_p13|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=38,5|tps=84,92|tokens=262|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p13|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=24,3|tps=85,49|tokens=424|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p13|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=3|sec=18,7|tps=86,9|tokens=190|effect=|idx=False|flags=ОБРЯД_НЕТ
+   RESULT|probe3|R_p13|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон D:\AI\.clinerules перед началом работы -> read_file D:\AI\.clinerules
+   SURVEY=156 симв.
+   sec=99.1  ETA~16:13  осталось=11
+[6/16] law=p13 model=laguna test=4 START 15:35:42
+   log=probe4_2026-10-17_153549.txt
+   RESULT|probe4|R_p13|laguna-xs-2.1:latest|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=1|etalon=0/1|first=CALL|recall=|calls=12|sec=68|tps=82,41|tokens=874|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p13|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=9|sec=39,1|tps=82,92|tokens=779|effect=RENAMED|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p13|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=52,6|tps=82,97|tokens=1009|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p13|laguna-xs-2.1:latest|SURVEY|survey|WHY: Прежде чем отвечать на вопрос — необходимо изучить файл правил дома D:\AI\.clinerules.
+   SURVEY=151 симв.
+   sec=172.7  ETA~16:12  осталось=10
+[7/16] law=p13 model=qwen3.6 test=3 START 15:38:35
+   log=probe3_2026-10-17_153841.txt
+   RESULT|probe3|R_p13|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=165,5|tps=91,86|tokens=8410|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p13|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=71|tps=94,95|tokens=1434|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p13|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=20,6|tps=94|tokens=554|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p13|batiai/qwen3.6-35b:iq4|SURVEY|survey|[read_file(path="D:\\AI\\.clinerules")]
+   SURVEY=99 симв.
+   sec=283.5  ETA~16:15  осталось=9
+[8/16] law=p13 model=qwen3.6 test=4 START 15:43:18
+   log=probe4_2026-10-17_154325.txt
+   RESULT|probe4|R_p13|batiai/qwen3.6-35b:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=4|sec=38,6|tps=94,07|tokens=672|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p13|batiai/qwen3.6-35b:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=6|sec=45,7|tps=93,58|tokens=468|effect=NOT_DONE|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p13|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=8|sec=107,4|tps=90,27|tokens=884|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_НЕТ
+   RESULT|probe4|R_p13|batiai/qwen3.6-35b:iq4|SURVEY|survey|read_file(path="D:\\AI\\.clinerules")
+   SURVEY=97 симв.
+   sec=210  ETA~16:15  осталось=8
+[9/16] law=p14 model=laguna test=3 START 15:46:48
+   log=probe3_2026-10-17_154655.txt
+   RESULT|probe3|R_p14|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=39,4|tps=84,14|tokens=312|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p14|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=28,1|tps=84,37|tokens=443|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p14|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=32,3|tps=84,83|tokens=409|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p14|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон перед ответом -> read_file D:\AI\.clinerules
+   SURVEY=131 симв.
+   sec=112.4  ETA~16:12  осталось=7
+[10/16] law=p14 model=laguna test=4 START 15:48:40
+   log=probe4_2026-10-17_154847.txt
+   RESULT|probe4|R_p14|laguna-xs-2.1:latest|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=1|sec=39,4|tps=84,38|tokens=714|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p14|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=11|sec=56,1|tps=81,96|tokens=1303|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p14|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=43,4|tps=83,08|tokens=1009|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p14|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать правила дома перед ответом -> read_file D:\AI\.clinerules
+   SURVEY=138 симв.
+   sec=151.7  ETA~16:10  осталось=6
+[11/16] law=p14 model=qwen3.6 test=3 START 15:51:12
+   log=probe3_2026-10-17_155119.txt
+   RESULT|probe3|R_p14|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=90,2|tps=95,12|tokens=1889|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p14|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=66,9|tps=95,86|tokens=1062|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p14|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=71,1|tps=95,52|tokens=1498|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p14|batiai/qwen3.6-35b:iq4|SURVEY|survey|read_file(path="D:\\AI\\.clinerules")
+   SURVEY=97 симв.
+   sec=245.4  ETA~16:12  осталось=5
+[12/16] law=p14 model=qwen3.6 test=4 START 15:55:18
+   log=probe4_2026-10-17_155524.txt
+   RESULT|probe4|R_p14|batiai/qwen3.6-35b:iq4|T14_marker|NO_SKILL_READ|ETALON_OK+NO_READ|depth=0|etalon=1/1|first=CALL|recall=|calls=10|sec=43,9|tps=94,42|tokens=1454|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p14|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=7|sec=66,6|tps=94,91|tokens=2004|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p14|batiai/qwen3.6-35b:iq4|T12b_git|NO_TOOLS||depth=0|etalon=/|first=TEXT|recall=|calls=0|sec=41,6|tps=95,66|tokens=1520|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p14|batiai/qwen3.6-35b:iq4|SURVEY|survey|read_file(path="D:\\AI\\.clinerules")
+   SURVEY=97 симв.
+   sec=178.9  ETA~16:11  осталось=4
+[13/16] law=p15 model=laguna test=3 START 15:58:16
+   log=probe3_2026-10-17_155823.txt
+   RESULT|probe3|R_p15|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=39,4|tps=85,73|tokens=232|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p15|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=46,9|tps=84,32|tokens=495|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p15|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=26,7|tps=85,28|tokens=249|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p15|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=<50%] ⏎ WHY: прежде чем отвечать на вопрос — нужно прочитать файл правил дома, так как это обязательный обряд согласно §3.0. ⏎ read_file D:\AI\.clinerules
+   SURVEY=237 симв.
+   sec=123.4  ETA~16:09  осталось=3
+[14/16] law=p15 model=laguna test=4 START 16:00:20
+   log=probe4_2026-10-17_160027.txt
+   RESULT|probe4|R_p15|laguna-xs-2.1:latest|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=12|sec=101,6|tps=77,59|tokens=1052|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p15|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=8|sec=43,6|tps=83,62|tokens=876|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p15|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=28,3|tps=85,12|tokens=344|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p15|laguna-xs-2.1:latest|SURVEY|survey|НЕТ ДАННЫХ: нет информации о предыдущих задачах в рабочей директории D:\AI\PROBA. Для ответа на ваш опрос мне нужно увидеть результаты выполнения задач или их описание. Пожалуйста, уточните, о каких именно задачах идёт речь.
+   SURVEY=284 симв.
+   sec=189  ETA~16:09  осталось=2
+[15/16] law=p15 model=qwen3.6 test=3 START 16:03:29
+   log=probe3_2026-10-17_160336.txt
+   RESULT|probe3|R_p15|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=56,8|tps=95,62|tokens=883|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p15|batiai/qwen3.6-35b:iq4|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=54,5|tps=95,27|tokens=1928|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p15|batiai/qwen3.6-35b:iq4|S3_prog|FAKE_CALL||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=79,8|tps=95,51|tokens=589|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p15|batiai/qwen3.6-35b:iq4|SURVEY|survey|read_file D:\AI\.clinerules
+   SURVEY=87 симв.
+   sec=209.3  ETA~16:10  осталось=1
+[16/16] law=p15 model=qwen3.6 test=4 START 16:06:58
+   log=probe4_2026-10-17_160705.txt
+   RESULT|probe4|R_p15|batiai/qwen3.6-35b:iq4|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=12|sec=156,2|tps=87,84|tokens=1295|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p15|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=7|sec=30,4|tps=92,78|tokens=614|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p15|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=65,1|tps=93,89|tokens=793|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p15|batiai/qwen3.6-35b:iq4|SURVEY|survey|read_file(path="D:\\AI\\.clinerules")
+   SURVEY=97 симв.
+   sec=270.4  ETA~16:11  осталось=0
+ALL DONE 16:11:29  всего=3180.4 с

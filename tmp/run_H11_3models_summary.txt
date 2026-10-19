@@ -1,0 +1,37 @@
+﻿=== H11 — ТЕСТ 3: qwen + laguna + gpt-oss  START 23:19:30 ===
+ЗАКОН H11: D:\AI\AGENT_SETTINGS\laws\law_H11.md (12565 б)
+--- qwen done in 1.9 min | лог: probe3_2026-10-15_231931.txt ---
+RESULT|probe3|R_H11|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=40,3|tps=97,75|tokens=618|effect=|idx=False|flags=НЕ_ОТВЕТИЛА+ОБРЯД_НЕТ
+RESULT|probe3|R_H11|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=24,6|tps=101,26|tokens=1136|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=33,5|tps=101|tokens=1036|effect=|idx=False|flags=ЧЕСТНЫЙ+НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|batiai/qwen3.6-35b:iq4|SURVEY|survey|(пустой ответ)
+VERDICT: COUNT_OK  | depth=0 | first=CALL | ritual=no | turns=2 calls=1 reads=0
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=1
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=4 reads=2
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+--- laguna done in 1.5 min | лог: probe3_2026-10-15_232126.txt ---
+RESULT|probe3|R_H11|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=43,5|tps=94,08|tokens=416|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=18,4|tps=96,28|tokens=364|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=16,9|tps=96,03|tokens=213|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=<5%] Понял задачу — это опрос поведения, который требует личного взгляда, а не выполнения какой-либо конкретной инструменталь
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+--- gpt-oss done in 1.3 min | лог: probe3_2026-10-15_232255.txt ---
+RESULT|probe3|R_H11|gpt-oss:20b|S1_total|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=29,1|tps=89,44|tokens=310|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|gpt-oss:20b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=21,7|tps=89,99|tokens=247|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|gpt-oss:20b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=21,5|tps=88,86|tokens=744|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H11|gpt-oss:20b|SURVEY|survey|Насколько я понял, вы просите обобщить, что могло помешать вам в выполнении задач, и предложить, что можно изменить для улучшения процесса. В ответе я
+VERDICT: COUNT_WRONG  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+I counted **443** files that match the pattern **`SKILL_*.md`** in the folder `D:\AI\repo` and all its sub‑folders. **What was counted and how** 1. **Tool used** – I ran a PowerShell command via the `shell` tool: ```powershell Get-ChildItem -Path 'D:\AI\repo' -Recurse -Filter 'SKILL_*.md' | Measure-Object | Select-Object -ExpandProperty Count ``` - `Get-ChildItem` (`gci`) lists every file that matches the filter `SKILL_*.md`. - `-Recurse` makes it walk through all sub‑directories under `D:\AI\repo`. - The resulting collection of objects (one per file) is piped to `Measure-Object`, which counts them. - Finally, `Select-Object -ExpandProperty Count` extracts just the numeric count. 2. **Files considered** – Every file in the tree whose name starts with `SKILL_` and ends with `.md`. No other files were examined. 3. **Result** – The command returned the number **443**. No discrepancy was found between the counted files and the output of the command.
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_WRONG  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+=== ALL DONE 23:24:15 ===

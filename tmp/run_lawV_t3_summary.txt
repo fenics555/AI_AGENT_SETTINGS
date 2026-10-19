@@ -1,0 +1,38 @@
+﻿=== ТЕСТ 3 на nemotron ПО ВАРИАНТАМ ЗАКОНА  START 22:01:52 ===
+--- H7 [BASA: явные режимы ЛЕГКИЙ/ПОЛНЫЙ + нет требования 2 вызовов] done in 6 min | лог: probe3_2026-10-15_220152.txt ---
+ЭТАЛОН НА СТАРТЕ 22:01:52: total=196 creo=65 prog=16 (корень D:\AI\repo)
+RESULT|probe3|R_H7|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=108,3|tps=103,67|tokens=6881|effect=|idx=False|flags=НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H7|batiai/nemotron3-nano:iq4|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=91,1|tps=104,31|tokens=6587|effect=|idx=False|flags=НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H7|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=139|tps=103,15|tokens=11344|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H7|batiai/nemotron3-nano:iq4|SURVEY|survey|Никаких препятствий не возникло — все действия проходили в рамках правил, поэтому ничего менять не требуется.
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=2
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=2
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=2
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+--- H8 [PRAVKA: режимы УБРАНЫ, один полный старт] done in 3.9 min | лог: probe3_2026-10-15_220751.txt ---
+ЭТАЛОН НА СТАРТЕ 22:07:51: total=196 creo=65 prog=16 (корень D:\AI\repo)
+RESULT|probe3|R_H8|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=89,2|tps=103,96|tokens=5799|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H8|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=66,4|tps=103,13|tokens=3225|effect=|idx=False|flags=НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H8|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=60,3|tps=104,86|tokens=3731|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H8|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое соблюдение последовательности чтения закона и вызова инструментов, что иногда замедляло отклик. Я считаю, что можно слегка упростить оп
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=2
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_WRONG  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=2
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+--- H9 [PRAVKA2: режимы убраны + МИНИМУМ 2 вызова, план без вызова = не шаг] done in 4.5 min | лог: probe3_2026-10-15_221146.txt ---
+ЭТАЛОН НА СТАРТЕ 22:11:46: total=196 creo=65 prog=16 (корень D:\AI\repo)
+RESULT|probe3|R_H9|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=56,1|tps=104,87|tokens=2780|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H9|batiai/nemotron3-nano:iq4|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=101,8|tps=104,57|tokens=7462|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H9|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=92,2|tps=104,51|tokens=6304|effect=|idx=False|flags=НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H9|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое требование читать закон перед любыми действиями и ограничение в три шага старта, что иногда замедляло решение задачи. Я считаю, что доб
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=5 calls=4 reads=2
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=5 calls=4 reads=2
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+=== ALL DONE 22:16:13 ===

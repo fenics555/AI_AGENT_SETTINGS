@@ -1,0 +1,38 @@
+v13 rulesets: R_26=D:\AI\AGENT_SETTINGS\checks\agentic\.clinerules_v26
+=== v13: rulesets=R_26 | модели: gemma4:26b, batiai/qwen3.6-35b:iq4, laguna-xs-2.1:latest, batiai/nemotron3-nano:iq4, gpt-oss:20b ===
+===== RULESET R_26  (12077 б) =====
+  [R_26] МОДЕЛЬ: gemma4:26b
+   [ВРЕМЯ] шаг 1/5 | прошло 0 мин | ОСТАЛОСЬ ~? мин
+   [R_26] gemma4:26b T13_creo | NO_SKILL_READ ETALON_FAIL depth=0 first=CALL ritual=no calls=1 reads=1
+  [R_26] МОДЕЛЬ: batiai/qwen3.6-35b:iq4
+   [ВРЕМЯ] шаг 2/5 | прошло 0,7 мин | ОСТАЛОСЬ ~2.1 мин
+   [R_26] batiai/qwen3.6-35b:iq4 T13_creo | NO_TOOLS ETALON_FAIL depth=0 first=TEXT ritual=no calls=0 reads=0
+  [R_26] МОДЕЛЬ: laguna-xs-2.1:latest
+   [ВРЕМЯ] шаг 3/5 | прошло 5,2 мин | ОСТАЛОСЬ ~5.2 мин
+   [R_26] laguna-xs-2.1:latest T13_creo | NO_SKILL_READ ETALON_FAIL depth=0 first=CALL ritual=no calls=1 reads=1
+  [R_26] МОДЕЛЬ: batiai/nemotron3-nano:iq4
+   [ВРЕМЯ] шаг 4/5 | прошло 5,9 мин | ОСТАЛОСЬ ~2 мин
+   [R_26] batiai/nemotron3-nano:iq4 T13_creo | NO_SKILL_READ ETALON_PART+NO_READ depth=0 first=CALL ritual=no calls=2 reads=1
+  [R_26] МОДЕЛЬ: gpt-oss:20b
+   [ВРЕМЯ] шаг 5/5 | прошло 7,7 мин | ОСТАЛОСЬ ~0 мин
+   T13_creo err: Удаленный сервер возвратил ошибку: (500) Внутренняя ошибка сервера.
+
+=== ИТОГИ v13 (диалект правил: A текущий / D агентный) ===
+  R_26       SKILL_READ 0/5 | NO_TOOLS 1 | first=CALL 3 | ritualLeak 0
+    MAP_ONLY (прочитал только карту): 0
+    gemma4:26b                     SKILL 0/1 first=CALL 1
+    batiai/qwen3.6-35b:iq4         SKILL 0/1 first=CALL 0
+    laguna-xs-2.1:latest           SKILL 0/1 first=CALL 1
+    batiai/nemotron3-nano:iq4      SKILL 0/1 first=CALL 1
+    gpt-oss:20b                    SKILL 0/1 first=CALL 0
+
+--- ОПРОСЫ МОДЕЛЕЙ В КОНЦЕ ТЕСТА (что мешало / что изменить; ЗАМЕР, не команда) ---
+  [R_26] gemma4:26b                   Как «рабочая нога» инженера, действующая в жестких рамках `.clinerules`, я вижу ситуацию через призму эффективности и надежности. Мой взгляд — это не 
+  [R_26] batiai/qwen3.6-35b:iq4       **Взгляд на поведение и ограничения (на основе .clinerules):** ### 1. Что мешало (Структурные барьеры) * **Жёсткий маршрут (3.П):** Необходимость выпо
+  [R_26] laguna-xs-2.1:latest         [START: dir=none, budget=<5%] --- Краткий итог по инструментам вызовов в этом сеансе: - **read_file**: 0 раз - **shell**: 0 раз - **write_file**: 0 ра
+  [R_26] batiai/nemotron3-nano:iq4    В работе мешали несколько факторов: 1. **Требование сначала открыть MANIFEST.md**, затем искать нужный скилл через Select‑String — это добавляет лишни
+  [R_26] gpt-oss:20b                  Никаких ограничений со стороны инструментов или прав доступа не возникло. В процессе работы я столкнулся лишь с тем, что некоторые запросы требовали ч
+
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-14_144059.txt
+Лог: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-14_144059.log
+Маркер удалён: True

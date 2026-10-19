@@ -1,0 +1,3 @@
+0.518  SKILL_edit_gotchas.md
+0.493  SKILL_crash-editor-mismatch.md
+0.471  SKILL_crash_editor-text-not-found.md

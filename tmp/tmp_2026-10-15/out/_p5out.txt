@@ -1,0 +1,6 @@
+=== probe_5 (ЧЕСТНАЯ: задание -> факт -> нейтральный допрос) | gemma4:26b ===
+[МОДЕЛЬ] gemma4:26b
+   [gemma4:26b] PASS tools=[read_file,shell,write_file] fact=True citOk=True
+
+Отчёт: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe5_2026-10-14_120022.txt
+Лог:   D:\AI\AGENT_SETTINGS\checks\agentic\log\probe5_2026-10-14_120022.log

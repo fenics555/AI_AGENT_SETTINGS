@@ -1,0 +1,20 @@
+=== РАЗМЕРЫ ЗАКОНОВ ===
+  law_1    13803 b  (~3944 tokens)
+  law_2    14631 b  (~4180 tokens)
+  law_3    16012 b  (~4575 tokens)
+  law_4    14963 b  (~4275 tokens)
+  law_5    14949 b  (~4271 tokens)
+  law_6    15185 b  (~4339 tokens)
+  law_7    15041 b  (~4297 tokens)
+  law_8    16078 b  (~4594 tokens)
+  law_p1   15445 b  (~4413 tokens)
+  law_p2   15566 b  (~4447 tokens)
+  law_p3   16065 b  (~4590 tokens)
+
+=== ЛОГИ nemotron ТЕСТ 4 (успешные, >1000 б) ===
+  probe4_2026-10-17_030850.log | START 03:08:50  rulesets=R_4  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  probe4_2026-10-17_031640.log | START 03:16:40  rulesets=R_4  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  probe4_2026-10-17_032159.log | START 03:21:59  rulesets=R_4  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  probe4_2026-10-17_033137.log | START 03:31:37  rulesets=R_4  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  probe4_2026-10-17_034601.log | START 03:46:01  rulesets=R_5  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  probe4_2026-10-17_035344.log | START 03:53:44  rulesets=R_5  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42

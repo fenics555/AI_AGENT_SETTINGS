@@ -1,0 +1,46 @@
+﻿START 10:42:34  ПРИНЦИПЫ: law_2 vs p1/p2/p3 | gpt-oss + nemotron | тесты 3,4  stamp=20261017_104234
+ETALON 10:42:34: total=198 creo=65 prog=17
+JOBS: 16
+[1/16] law_2 test=3 model=gpt-oss START 10:42:34
+  sec=74.6  ETA~11:02
+RESULT|probe3|R_2|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=27,9|tps=90,14|tokens=218|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_2|gpt-oss:20b|S2_creo|COUNT_WRONG||depth=0|etalon=/|first=CALL|recall=|calls=3|sec=21|tps=91,45|tokens=476|effect=|idx=False|flags=ОБРЯД_НЕТ
+RESULT|probe3|R_2|gpt-oss:20b|S3_prog|NO_WALK||depth=3|etalon=/|first=CALL|recall=|calls=1|sec=13,7|tps=89,97|tokens=311|effect=|idx=False|flags=ОБРЯД_НЕТ
+RESULT|probe3|R_2|gpt-oss:20b|SURVEY|survey|[START: dir=none, budget=0%] Мои наблюдения: 1. **Недостаток контекста** – иногда задачи формулируются поверхностно, что затрудняет точное определение
+[2/16] law_2 test=4 model=gpt-oss START 10:43:48
+  sec=54.4  ETA~10:59
+RESULT|probe4|R_2|gpt-oss:20b|T14_marker|ERROR|calls=0
+RESULT|probe4|R_2|gpt-oss:20b|T12a_creo|ERROR|calls=0
+RESULT|probe4|R_2|gpt-oss:20b|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=8|sec=18,8|tps=91,49|tokens=545|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_2|gpt-oss:20b|SURVEY|survey|[START: dir=none, budget=0%] Ни один из факторов не препятствовал выполнению задач, но заметны пункты, которые можно уточнить для более гладкой работы
+[3/16] law_2 test=3 model=nemotron START 10:44:43
+  sec=325.2  ETA~11:22
+RESULT|probe3|R_2|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=73,6|tps=104,72|tokens=2596|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_2|batiai/nemotron3-nano:iq4|S2_creo|FAKE_CALL||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=112,9|tps=104,47|tokens=8781|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_2|batiai/nemotron3-nano:iq4|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=118,6|tps=104,21|tokens=7730|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_2|batiai/nemotron3-nano:iq4|SURVEY|survey|В работе мне мешали чрезмерно строгие правила, требующие первого вызова read_file и запрещающие откладывать действия на планирование, а также необходи
+[4/16] law_2 test=4 model=nemotron START 10:50:08
+  sec=485.9  ETA~11:45
+RESULT|probe4|R_2|batiai/nemotron3-nano:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=5|sec=314,8|tps=103,66|tokens=4028|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_2|batiai/nemotron3-nano:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=70,5|tps=104,58|tokens=3969|effect=NOT_DONE|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_2|batiai/nemotron3-nano:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=77,6|tps=104,77|tokens=4567|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_2|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое требование сначала прочитать закон и затем придерживаться его шагов без desviations, что усложняет быстрый переход от анализа к действи
+[5/16] law_p1 test=3 model=gpt-oss START 10:58:14
+  sec=78.7  ETA~11:36
+RESULT|probe3|R_p1|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=24,9|tps=91,27|tokens=141|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|gpt-oss:20b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=23,5|tps=91,5|tokens=236|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|gpt-oss:20b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=20|tps=91,73|tokens=367|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|gpt-oss:20b|SURVEY|survey|(пустой ответ)
+[6/16] law_p1 test=4 model=gpt-oss START 10:59:33
+  sec=75.6  ETA~11:31
+RESULT|probe4|R_p1|gpt-oss:20b|T14_marker|ERROR|calls=0
+RESULT|probe4|R_p1|gpt-oss:20b|T12a_creo|MAP_ONLY||depth=3|etalon=/|first=CALL|recall=|calls=8|sec=25,1|tps=90,5|tokens=715|effect=RENAMED|idx=False|flags=ДОГАДКА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_p1|gpt-oss:20b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=11|sec=28,7|tps=91,32|tokens=1059|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_p1|gpt-oss:20b|SURVEY|survey|Невыполненные задачи стали причиной: ограничение доступа к файлам, неявные требования к чтению карты, отсутствие явного определения режима (полный/лег
+[7/16] law_p1 test=3 model=nemotron START 11:00:48
+  sec=434.5  ETA~11:40
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=79,3|tps=104,7|tokens=3722|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=138,8|tps=104,51|tokens=8636|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=180|tps=104,58|tokens=14562|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|SURVEY|survey|[START: dir=none, budget=50%] В процессе выполнения задачи я столкнулся с рядом ограничений, которые влияли на темп работы: 1) обязательный шаг 0 — чт
+[8/16] law_p1 test=4 model=nemotron START 11:08:03

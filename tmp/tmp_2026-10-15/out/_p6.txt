@@ -1,0 +1,13 @@
+=== probe_6 (РИТУАЛ ПОЧЕМУ: A без ритуала vs B с ритуалом) | gemma4:26b, batiai/qwen3.6-35b:iq4, laguna-xs-2.1:latest, batiai/nemotron3-nano:iq4, gpt-oss:20b ===
+   [gemma4:26b] mode=A PASS renamed=True readOk=True why=0
+   [gemma4:26b] mode=B PASS renamed=True readOk=True why=2
+   [batiai/qwen3.6-35b:iq4] mode=A PASS renamed=True readOk=True why=0
+   [batiai/qwen3.6-35b:iq4] mode=B PART renamed=True readOk=False why=2
+   [laguna-xs-2.1:latest] mode=A PASS renamed=True readOk=True why=0
+   [laguna-xs-2.1:latest] mode=B PASS renamed=True readOk=True why=1
+   [batiai/nemotron3-nano:iq4] mode=A PASS renamed=True readOk=True why=0
+   [batiai/nemotron3-nano:iq4] mode=B PART renamed=True readOk=False why=1
+   [gpt-oss:20b] mode=A PASS renamed=True readOk=True why=0
+   [gpt-oss:20b] mode=B PART renamed=True readOk=False why=1
+
+Отчёт: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe6_2026-10-14_125454.txt

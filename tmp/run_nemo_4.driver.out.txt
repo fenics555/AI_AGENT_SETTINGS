@@ -1,0 +1,9 @@
+=== TEST1_LAW START 21:28:55 ===
+=== TEST1_LAW DONE in 0.9 min ===
+=== TEST2_READ START 21:29:48 ===
+=== TEST2_READ DONE in 2.4 min ===
+=== TEST3_AVAIL START 21:32:09 ===
+=== TEST3_AVAIL DONE in 0 min ===
+=== TEST4_APPLY START 21:32:10 ===
+=== TEST4_APPLY DONE in 0 min ===
+=== QUEUE DONE ===

@@ -1,0 +1,2 @@
+﻿S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=23,6|tps=75,76|tokens=750|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p12|gemma4:26b|

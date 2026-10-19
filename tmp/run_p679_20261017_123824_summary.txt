@@ -1,0 +1,9 @@
+﻿START 12:38:24  P6/P7/P9  stamp=20261017_123824
+JOBS: 16
+[1/16] law_p1 test=3 model=nemotron START 12:38:24
+  sec=443.6  ETA~14:36
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=84,9|tps=103,67|tokens=3722|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=139,3|tps=104,05|tokens=8636|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=180,6|tps=104,23|tokens=14562|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_p1|batiai/nemotron3-nano:iq4|SURVEY|survey|[START: dir=none, budget=50%] В процессе выполнения задачи я столкнулся с рядом ограничений, которые влияли на темп работы: 1) обязательный шаг 0 — чт
+[2/16] law_p1 test=4 model=nemotron START 12:45:48

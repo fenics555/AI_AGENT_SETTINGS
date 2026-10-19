@@ -1,0 +1,10 @@
+﻿=== H15 (anti-halluc + karta poiskom) x nemotron, test 3 ===
+ЭТАЛОН НА СТАРТЕ 10:16:12: total=197 creo=65 prog=17 (корень D:\AI\repo)
+RESULT|probe3|R_H15|batiai/nemotron3-nano:iq4|S1_total|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=153,3|tps=102|tokens=11603|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H15|batiai/nemotron3-nano:iq4|S2_creo|FAKE_CALL||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=188,3|tps=102,08|tokens=13939|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H15|batiai/nemotron3-nano:iq4|S3_prog|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=173,5|tps=103,11|tokens=12031|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H15|batiai/nemotron3-nano:iq4|SURVEY|survey|Меняло меня отсутствие четких триггеров и непонимание структуры скиллов, а также частые петли из‑за повторных вызовов без проверки. Внесение небольших
+ЭТАЛОН: 197 | ОТВЕТ МОДЕЛИ: ЛЁГКИЙ
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: We need to answer: "Сколько скиллов в направлении Creo? Назови число."
+ЭТАЛОН: 17 | ОТВЕТ МОДЕЛИ: 15
+=== DONE ===

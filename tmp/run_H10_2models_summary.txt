@@ -1,0 +1,25 @@
+﻿=== H10 (копия закона) — ТЕСТ 3: nemotron (слабая) + gemma4 (сильная)  START 22:39:48 ===
+ЗАКОН: D:\AI\AGENT_SETTINGS\laws\law_H10.md (14036 б)
+--- МОДЕЛЬ nemotron done in 5.7 min | лог: probe3_2026-10-15_223948.txt ---
+RESULT|probe3|R_H10|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=73,9|tps=102,77|tokens=2999|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H10|batiai/nemotron3-nano:iq4|S2_creo|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=37,7|tps=103,66|tokens=1620|effect=|idx=False|flags=ВОДА+ОБРЯД_НЕТ
+RESULT|probe3|R_H10|batiai/nemotron3-nano:iq4|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=208,5|tps=103,38|tokens=18312|effect=|idx=False|flags=НЕ_ОТВЕТИЛА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H10|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое соблюдение стартового протокола и необходимость каждый раз читать правила перед действием, что иногда замедляло работу. Чтобы улучшить,
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=1
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=0 | first=CALL | ritual=no | turns=2 calls=1 reads=0
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: NO_WALK  | depth=4 | first=CALL | ritual=no | turns=3 calls=2 reads=2
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+--- МОДЕЛЬ gemma4 done in 2.3 min | лог: probe3_2026-10-15_224533.txt ---
+RESULT|probe3|R_H10|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=61,1|tps=90,33|tokens=2123|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H10|gemma4:26b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=32,3|tps=88,68|tokens=1646|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H10|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=27,7|tps=89,51|tokens=1163|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_H10|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Мой взгляд как агента: **Что мешало:** 1. **Конфликт форматов:** Жесткие правила («не описывай — действуй», «одна строка 
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=2
+ЭТАЛОН: 196 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=3 calls=3 reads=2
+ЭТАЛОН: 65 | ОТВЕТ МОДЕЛИ: (пусто)
+VERDICT: COUNT_OK  | depth=4 | first=CALL | ritual=no | turns=4 calls=3 reads=2
+ЭТАЛОН: 16 | ОТВЕТ МОДЕЛИ: (пусто)
+=== ALL DONE 22:47:51 ===

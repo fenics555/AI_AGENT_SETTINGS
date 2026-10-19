@@ -1,0 +1,8 @@
+﻿START 12:20:26  nemotron + ЖИВОЙ закон + тест 4  stamp=20261017_122026
+LAW live: 14631 б SHA=5DBB3FE1
+  sec=501.8  log=probe4_2026-10-17_122031.txt
+RESULT|probe4|R_A|batiai/nemotron3-nano:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=5|sec=325,3|tps=99,77|tokens=4020|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|batiai/nemotron3-nano:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=72,1|tps=101,81|tokens=3969|effect=NOT_DONE|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|batiai/nemotron3-nano:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=79,5|tps=101,89|tokens=4567|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое требование сначала прочитать закон и затем придерживаться его шагов без desviations, что усложняет быстрый переход от анализа к действи
+ALL DONE 12:28:48

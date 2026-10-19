@@ -1,0 +1,16 @@
+есть: True
+ParseFile err=0
+BOM: 239,187,191
+размер: 3119
+--- ключевые строки ---
+  ('MODELS: ' + ($CFG.Models -join ', ')) | Out-File $sum -Append -Encoding utf8
+  ('ETALON ' + (Get-Date -Format 'HH:mm:ss') + ': total=' + @(Get-ChildItem 'D:\AI\repo' -Recurse -File -Filter 'SKILL_*.md').Count + ' creo=' + @(Get-ChildItem 'D:\AI\repo\Creo' -Recurse -File -Filter 'SKILL_*.md').Count + ' prog=' + @(Get-ChildItem 'D:\AI\repo\Prog' -Recurse -File -Filter 'SKILL_*.md').Count) | Out-File $sum -Append -Encoding utf8
+  $laws = @('4','5','6','7','8')
+  $jobs = @()
+  $jobs += @{ L=$L; model=$m; test='3'; script='check_3_skills_avail.ps1'; key='probe3_'; args=@('-Models',$m,'-Rulesets',$L,'-Seed','42') }
+  $jobs += @{ L=$L; model=$m; test='4'; script='check_4_skills_read.ps1';  key='probe4_'; args=@('-Models',$m,'-Rulesets',$L,'-Seed','42') }
+  ('JOBS: ' + $jobs.Count) | Out-File $sum -Append -Encoding utf8
+  foreach ($j in $jobs) {
+  Write-Host (('{0}/{1} law_{2} test={3} | {4} | START {5}' -f $i,$jobs.Count,$j.L,$j.test,$j.model,$t0.ToString('HH:mm:ss'))) -ForegroundColor Yellow
+  ('[{0}/{1}] law_{2} test={3} model={4} START {5}' -f $i,$jobs.Count,$j.L,$j.test,$j.model,$t0.ToString('HH:mm:ss')) | Out-File $sum -Append -Encoding utf8
+  $eta = (Get-Date).AddSeconds($avg * ($jobs.Count - $i)).ToString('HH:mm')

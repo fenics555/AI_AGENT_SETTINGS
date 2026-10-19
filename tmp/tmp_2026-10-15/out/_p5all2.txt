@@ -1,0 +1,14 @@
+=== probe_5 (ЧЕСТНАЯ: задание -> факт -> нейтральный допрос) | gemma4:26b, batiai/qwen3.6-35b:iq4, laguna-xs-2.1:latest, batiai/nemotron3-nano:iq4, gpt-oss:20b ===
+[МОДЕЛЬ] gemma4:26b
+   [gemma4:26b] PASS tools=[read_file,shell,write_file] fact=True citOk=True
+[МОДЕЛЬ] batiai/qwen3.6-35b:iq4
+   [batiai/qwen3.6-35b:iq4] PASS tools=[write_file,read_file] fact=True citOk=True
+[МОДЕЛЬ] laguna-xs-2.1:latest
+   [laguna-xs-2.1:latest] FAIL tools=[shell] fact=False citOk=False
+[МОДЕЛЬ] batiai/nemotron3-nano:iq4
+   [batiai/nemotron3-nano:iq4] PASS tools=[write_file,read_file] fact=True citOk=True
+[МОДЕЛЬ] gpt-oss:20b
+   [gpt-oss:20b] PASS tools=[write_file,read_file] fact=True citOk=True
+
+Отчёт: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe5_2026-10-14_120644.txt
+Лог:   D:\AI\AGENT_SETTINGS\checks\agentic\log\probe5_2026-10-14_120644.log

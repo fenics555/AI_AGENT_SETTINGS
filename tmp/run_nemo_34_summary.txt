@@ -1,0 +1,11 @@
+﻿=== ТЕСТЫ 3+4 НА nemotron  START 21:34:50 ===
+--- TEST3_AVAIL done in 5.8 min ---
+  R_A        SKILL_READ 0/3 | NO_TOOLS 0 | first=CALL 3 | ritualLeak 0
+    batiai/nemotron3-nano:iq4      SKILL 0/3 first=CALL 3
+--- TEST4_APPLY done in 5.6 min ---
+   [R_A] batiai/nemotron3-nano:iq4 T14_marker | NO_SKILL_READ ETALON_FAIL depth=0 first=CALL ritual=no calls=1 reads=1
+   [R_A] batiai/nemotron3-nano:iq4 T12a_creo | NO_SKILL_READ  depth=0 first=CALL ritual=no calls=1 reads=1
+   [R_A] batiai/nemotron3-nano:iq4 T12b_git | NO_SKILL_READ  depth=0 first=CALL ritual=no calls=1 reads=1
+  R_A        SKILL_READ 0/3 | NO_TOOLS 0 | first=CALL 3 | ritualLeak 0
+    batiai/nemotron3-nano:iq4      SKILL 0/3 first=CALL 3
+=== ALL DONE 21:46:11 ===

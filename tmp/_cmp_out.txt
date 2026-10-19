@@ -1,0 +1,11 @@
+=== УСПЕШНЫЕ прогоны nemotron тест 4 (17.10 03-06) ===
+  2026-10-17_0331 | лог 1442 б | START 03:31:37  rulesets=R_4  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  2026-10-17_0408 | НЕТ
+  2026-10-17_0440 | НЕТ
+  2026-10-17_0558 | НЕТ
+  2026-10-17_0630 | НЕТ
+
+=== ЗАВИСШИЕ прогоны (17.10 11) ===
+  2026-10-17_1108 | лог 219 б | START 11:08:06  rulesets=R_p1  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  2026-10-17_1213 | лог 219 б | START 12:13:46  rulesets=R_p1  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42
+  2026-10-17_1220 | лог 1435 б | START 12:20:31  rulesets=R_A  models=1 tasks=3 num_ctx=32768 num_predict=8192 ask=2048 temp=-1 seed=42

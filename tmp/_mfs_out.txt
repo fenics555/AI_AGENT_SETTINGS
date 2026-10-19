@@ -1,0 +1,37 @@
+=== gemma4:26b ===
+  TEMPLATE {{ .Prompt }}
+  RENDERER gemma4
+  PARSER gemma4
+  PARAMETER draft_num_predict 3
+  PARAMETER temperature 1
+  PARAMETER top_k 64
+  PARAMETER top_p 0.95
+
+=== batiai/qwen3.6-35b:iq4 ===
+  TEMPLATE """
+  SYSTEM You are a helpful AI assistant.
+  PARAMETER temperature 0.7
+  PARAMETER top_k 20
+  PARAMETER top_p 0.95
+  PARAMETER num_ctx 131072
+  PARAMETER stop <|im_end|>
+  PARAMETER stop <|endoftext|>
+  PARAMETER stop <|im_start|>
+
+=== laguna-xs-2.1:latest ===
+  TEMPLATE {{ .Prompt }}
+  RENDERER poolside-v1
+  PARSER poolside-v1
+
+=== batiai/nemotron3-nano:iq4 ===
+  TEMPLATE {{ .Prompt }}
+  SYSTEM You are a helpful AI assistant.
+  PARAMETER num_ctx 131072
+  PARAMETER stop <extra_id_1>
+  PARAMETER stop <|endoftext|>
+  PARAMETER temperature 0.7
+
+=== gpt-oss:20b ===
+  TEMPLATE """<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.
+  PARAMETER temperature 1
+

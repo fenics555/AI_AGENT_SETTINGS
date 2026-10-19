@@ -1,0 +1,7 @@
+CMD: (Get-ChildItem 'D:\AI\repo\Prog' -Recurse -File -Filter 'SKILL_*.md').Count
+  match Get-ChildItem     : True
+  match EXCLUDE-regex     : False
+  walked = h1 -and -not h2: True
+
+CMD2: (Get-ChildItem 'D:\AI\repo\Creo' -Recurse -File).Count
+  walked = True

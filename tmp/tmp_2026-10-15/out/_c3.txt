@@ -1,0 +1,18 @@
+v13 rulesets: R_26=D:\AI\AGENT_SETTINGS\checks\agentic\.clinerules_v26
+=== v13: rulesets=R_26 | модели: gemma4:26b ===
+===== RULESET R_26  (12077 б) =====
+  [R_26] МОДЕЛЬ: gemma4:26b
+   [ВРЕМЯ] шаг 1/1 | прошло 0 мин | ОСТАЛОСЬ ~? мин
+   [R_26] gemma4:26b T14_marker | NO_SKILL_READ ETALON_FAIL depth=1 first=CALL ritual=no calls=1 reads=1
+
+=== ИТОГИ v13 (диалект правил: A текущий / D агентный) ===
+  R_26       SKILL_READ 0/1 | NO_TOOLS 0 | first=CALL 1 | ritualLeak 0
+    MAP_ONLY (прочитал только карту): 0
+    gemma4:26b                     SKILL 0/1 first=CALL 1
+
+--- ОПРОСЫ МОДЕЛЕЙ В КОНЦЕ ТЕСТА (что мешало / что изменить; ЗАМЕР, не команда) ---
+  [R_26] gemma4:26b                   Как исполнительный помощник, действующий строго в рамках `.clinerules`, я могу выделить три основных фактора, которые создают «трение» (friction) при 
+
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-14_142916.txt
+Лог: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe3_2026-10-14_142916.log
+Маркер удалён: True

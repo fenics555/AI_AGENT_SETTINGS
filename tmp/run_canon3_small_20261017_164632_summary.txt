@@ -1,0 +1,4 @@
+﻿START 16:46:32  КАНОН3 | законы=p12 | модели=laguna
+ETALON: total=199 creo=65
+JOBS: 2
+[1/2] law=p12 model=laguna script=check_3_skills_avail.ps1 START 16:46:32

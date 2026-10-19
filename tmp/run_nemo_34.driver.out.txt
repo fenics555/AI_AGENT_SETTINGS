@@ -1,0 +1,4 @@
+=== TEST3_AVAIL START 21:34:50 ===
+=== TEST3_AVAIL DONE in 5.8 min ===
+=== TEST4_APPLY START 21:40:37 ===
+=== TEST4_APPLY DONE in 5.6 min ===

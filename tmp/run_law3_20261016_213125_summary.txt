@@ -1,0 +1,21 @@
+﻿START 21:31:25  run=law_3 test=4 2models  stamp=20261016_213125
+LAW3: 15702 bytes
+[1/3] test=4 model=laguna START 21:31:25
+  log=probe4_2026-10-16_213128.txt  sec=173.4
+RESULT|probe4|R_3|laguna-xs-2.1:latest|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=1|sec=42,6|tps=84,57|tokens=437|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|laguna-xs-2.1:latest|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=9|sec=50,6|tps=83,39|tokens=1165|effect=RENAMED|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=63,4|tps=79,02|tokens=881|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=100%] Опрос поведения — это не задача, требующая инструментов. Это чистый вопрос к моему взгляду на собственную работу. Ответ
+[2/3] test=4 model=gpt-oss START 21:34:18
+  log=probe4_2026-10-16_213421.txt  sec=64.6
+RESULT|probe4|R_3|gpt-oss:20b|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=7|sec=27|tps=90,83|tokens=422|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|gpt-oss:20b|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=2|sec=11,1|tps=91,74|tokens=195|effect=RENAMED|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|gpt-oss:20b|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=2|sec=15,1|tps=91,35|tokens=313|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|gpt-oss:20b|SURVEY|survey|Итоги: 1. **Ограничения** – строгий «обряд» чтения закона и автоматический переход в «полный» режим при любых действиях (изменение файлов, чтение, пои
+[3/3] test=4 model=nemotron START 21:35:23
+  log=probe4_2026-10-16_213526.txt  sec=346.4
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=5|sec=97,9|tps=104,22|tokens=4297|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=137,1|tps=104,13|tokens=9117|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=80,5|tps=104,26|tokens=4974|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_3|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало то, что каждое действие требует строгого соблюдения предустановленного обряда: прежде чем сформулировать любой ответ, необходимо выполнить шаг 
+ALL DONE 21:41:09

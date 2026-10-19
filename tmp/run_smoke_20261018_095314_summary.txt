@@ -1,0 +1,5 @@
+﻿START 09:53:14  МАТРИЦА | законы=w6 | модели=gemma4 | задачи=S1_total,S2_creo | temp=0.1 seed=42
+LAW w6 : 16647 б
+ЭТАЛОН: total=199 creo=65 prog=17
+JOBS: 1
+[1/1] law=w6 model=gemma4 START 09:53:14

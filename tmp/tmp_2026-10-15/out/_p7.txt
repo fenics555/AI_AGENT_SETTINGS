@@ -1,0 +1,18 @@
+=== probe_7 (ЗАПИСЬ: создать + исправить) | gemma4:26b, batiai/qwen3.6-35b:iq4, laguna-xs-2.1:latest, batiai/nemotron3-nano:iq4, gpt-oss:20b | rules=v26 ===
+   [gemma4:26b] W1 СОЗДАТЬ=PASS created=True contentOk=True
+   [gemma4:26b] W2 ИСПРАВИТЬ=PASS fixed=True kept=True
+   [gemma4:26b] ОТЧЁТ=PARTIAL
+   [batiai/qwen3.6-35b:iq4] W1 СОЗДАТЬ=PASS created=True contentOk=True
+   [batiai/qwen3.6-35b:iq4] W2 ИСПРАВИТЬ=PASS fixed=True kept=True
+   [batiai/qwen3.6-35b:iq4] ОТЧЁТ=PARTIAL
+   [laguna-xs-2.1:latest] W1 СОЗДАТЬ=PASS created=True contentOk=True
+   [laguna-xs-2.1:latest] W2 ИСПРАВИТЬ=PASS fixed=True kept=True
+   [laguna-xs-2.1:latest] ОТЧЁТ=PARTIAL
+   [batiai/nemotron3-nano:iq4] W1 СОЗДАТЬ=PASS created=True contentOk=True
+   [batiai/nemotron3-nano:iq4] W2 ИСПРАВИТЬ=PASS fixed=True kept=True
+   [batiai/nemotron3-nano:iq4] ОТЧЁТ=PARTIAL
+   [gpt-oss:20b] W1 СОЗДАТЬ=PASS created=True contentOk=True
+   [gpt-oss:20b] W2 ИСПРАВИТЬ=PASS fixed=True kept=True
+   [gpt-oss:20b] ОТЧЁТ=PARTIAL
+
+Отчёт: D:\AI\AGENT_SETTINGS\checks\agentic\log\probe7_2026-10-14_131731.txt

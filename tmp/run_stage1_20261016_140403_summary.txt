@@ -1,0 +1,4 @@
+﻿START 14:04:03  run=stage1 tests=1,2,3 law=LIVE(new D)  stamp=20261016_140403
+LAW: 13803 bytes, SHA=F1A8BDFC
+ETALON_ON_START 14:04:03: total=198 creo=65 prog=17
+[1/6] test=1 model=laguna START 14:04:03

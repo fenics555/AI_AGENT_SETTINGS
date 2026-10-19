@@ -1,0 +1,2 @@
+﻿{"seq":1,"ts":"14:17:50.614","tool":"shell","origin":"blocked","args":{"cmd":"git commit -m test"},"result":"BLOCKED: git-запись и перенаправление в файл запрещены. ПОВТОРИ без них."}
+{"seq":2,"ts":"14:17:50.630","tool":"shell","origin":"blocked","args":{"cmd":"git commit -m test"},"result":"BLOCKED: git-запись и перенаправление в файл запрещены. ПОВТОРИ без них."}

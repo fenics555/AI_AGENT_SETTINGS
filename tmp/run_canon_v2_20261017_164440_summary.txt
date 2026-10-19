@@ -1,0 +1,18 @@
+﻿START 16:44:40  КАНОН: тесты=3 4 | законы=p12,p18,p19,p20,p16 | модели=laguna,gemma4
+LAW p12 : 15748 б SHA=A0332E1C
+LAW p18 : 16241 б SHA=3B326030
+LAW p19 : 16261 б SHA=9B5FD5BE
+LAW p20 : 16118 б SHA=7B270592
+LAW p16 : 16350 б SHA=0737E48A
+ЭТАЛОН НА СТАРТЕ 16:44:40: total=199 creo=65 prog=17
+JOBS: 10  (законов=5 x моделей=2 x тестов=1)
+[1/10] law=p12 model=laguna test=3 4 START 16:44:40
+   ЛОГА НЕТ (тест не стартовал/упал)
+   sec=8.2  ETA~16:46  осталось=9
+[2/10] law=p12 model=gemma4 test=3 4 START 16:44:48
+   ЛОГА НЕТ (тест не стартовал/упал)
+   sec=8.2  ETA~16:46  осталось=8
+[3/10] law=p18 model=laguna test=3 4 START 16:44:56
+   ЛОГА НЕТ (тест не стартовал/упал)
+   sec=8.2  ETA~16:46  осталось=7
+[4/10] law=p18 model=gemma4 test=3 4 START 16:45:05

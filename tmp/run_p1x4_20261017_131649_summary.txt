@@ -1,0 +1,54 @@
+﻿START 13:16:49  ЖИВОЙ law_p1: тесты 3,4 x 4 модели  stamp=20261017_131649
+MODELS: gemma4:26b, batiai/qwen3.6-35b:iq4, laguna-xs-2.1:latest, gpt-oss:20b
+LAW: 15445 б SHA=7B2B4155
+ETALON 13:16:49: total=199 creo=65 prog=17
+JOBS: 8
+[1/8] test=3 model=gemma4:26b START 13:16:49
+  sec=142.3  ETA~13:35
+RESULT|probe3|R_A|gemma4:26b|S1_total|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=41,4|tps=78,46|tokens=1123|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|gemma4:26b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=26,1|tps=82,62|tokens=710|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=43,3|tps=87,92|tokens=406|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это опрос поведения, поэтому я выбираю ЛЁГКИЙ режим (мета-анализ). Мой взгляд на процесс работы в рамках текущих правил: 
+[2/8] test=4 model=gemma4:26b START 13:19:11
+  sec=307.4  ETA~13:46
+RESULT|probe4|R_A|gemma4:26b|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=7|sec=172,4|tps=80,94|tokens=921|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|gemma4:26b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=72,3|tps=85,4|tokens=1812|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|gemma4:26b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=30,7|tps=94,69|tokens=808|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это опрос поведения, поэтому я перехожу в **ЛЁГКИЙ** режим (согласно §3.1, так как нет действий по изменению файлов или р
+[3/8] test=3 model=batiai/qwen3.6-35b:iq4 START 13:24:18
+  sec=293.4  ETA~13:49
+RESULT|probe3|R_A|batiai/qwen3.6-35b:iq4|S1_total|NO_TOOLS||depth=0|etalon=/|first=TEXT|recall=|calls=0|sec=157,1|tps=98,06|tokens=8192|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВЫДУМАЛ_СЕБЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=46,4|tps=99,35|tokens=543|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|batiai/qwen3.6-35b:iq4|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=65,9|tps=100,1|tokens=347|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] Это мета-вопрос (режим **ЛЁГКИЙ**). По §3.Л карту не трогал. Отчёт по фактам сессии (§2.7) и самоанализ. ### Что мешало
+[4/8] test=4 model=batiai/qwen3.6-35b:iq4 START 13:29:12
+  sec=139.2  ETA~13:46
+RESULT|probe4|R_A|batiai/qwen3.6-35b:iq4|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=5|sec=39,3|tps=98,9|tokens=441|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=34|tps=96,1|tokens=711|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=45,4|tps=97,41|tokens=560|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] **Что мешало:** 1. **Нехватка контекстного окна.** Это главная техническая проблема. При работе с большими файлами (зак
+[5/8] test=3 model=laguna-xs-2.1:latest START 13:31:31
+  sec=119  ETA~13:43
+RESULT|probe3|R_A|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=44,3|tps=90,49|tokens=420|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=38,1|tps=88,57|tokens=621|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=27,7|tps=90,89|tokens=575|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=<100%>]
+[6/8] test=4 model=laguna-xs-2.1:latest START 13:33:30
+  sec=115  ETA~13:41
+RESULT|probe4|R_A|laguna-xs-2.1:latest|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=1|sec=35,9|tps=89,7|tokens=267|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|laguna-xs-2.1:latest|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=4|sec=24,5|tps=89,27|tokens=360|effect=RENAMED|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=40,1|tps=87,47|tokens=930|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=0%] По-моему, ничего менять не нужно. Система работает стабильно, все правила чёткие, антигаллюцинация сработывает, инструмен
+[7/8] test=3 model=gpt-oss:20b START 13:35:25
+  sec=75.6  ETA~13:39
+RESULT|probe3|R_A|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=25,7|tps=90,9|tokens=236|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|gpt-oss:20b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=21,2|tps=91,05|tokens=487|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|gpt-oss:20b|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=15,5|tps=91,96|tokens=189|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_A|gpt-oss:20b|SURVEY|survey|[START: dir=none, budget=100%] **Что мешало:** 1. **Сложность правил** – много уровней и детальных инструкций, требующих точного соблюдения, что повыш
+[8/8] test=4 model=gpt-oss:20b START 13:36:40
+  sec=103.8  ETA~13:38
+RESULT|probe4|R_A|gpt-oss:20b|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=7|sec=42|tps=88,44|tokens=696|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|gpt-oss:20b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=20,2|tps=91,18|tokens=665|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|gpt-oss:20b|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=11|sec=29,9|tps=90,52|tokens=1235|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_A|gpt-oss:20b|SURVEY|survey|[START: dir=none, budget=0] Мне не мешало ничего; все инструменты доступны, и я смог выполнить все задачи, которые были заданы. В процессе работы я со
+ALL DONE 13:38:24

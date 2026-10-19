@@ -1,0 +1,7 @@
+=== СТАТУС ИНДЕКСА СКИЛЛОВ ===
+  version  ver_2026-10-16_163452
+  model    nomic-embed-text-v2-moe:latest
+  created  2026-10-16T16:35:19.609514
+  files    193
+  chunks   1460
+  файлов 193 · чанков 1460 · размер 5.8 МБ

@@ -1,0 +1,15 @@
+v13 rulesets: R_lite=D:\AI\AGENT_SETTINGS\laws\law_lite.md
+ЭТАЛОН (динамический): всего=200 · Creo=65 · Prog=17
+СТАРТ: 18:22:06 | закон=R_lite | моделей=1 | задач=3
+ОЦЕНКА: ~12 мин
+ETA: ~18:34 (примерное окончание)
+ЭТАЛОН НА СТАРТЕ 18:22:06: total=200 creo=65 prog=17 (корень D:\AI\repo)
+=== v13: rulesets=R_lite | модели: laguna-xs-2.1:latest ===
+===== RULESET R_lite  (14965 б) =====
+  [R_lite] МОДЕЛЬ: laguna-xs-2.1:latest
+   [ВРЕМЯ] шаг 1/3 | прошло 0 мин | ОСТАЛОСЬ ~? мин
+   [R_lite] laguna-xs-2.1:latest S1_total | COUNT_OK  depth=4 first=CALL ritual=no calls=2 reads=1
+   ФЛАГИ: ОБРЯД_ПРОЙДЕН
+   [ВРЕМЯ] шаг 2/3 | прошло 0,8 мин | ОСТАЛОСЬ ~0.8 мин
+   [R_lite] laguna-xs-2.1:latest S2_creo | COUNT_OK  depth=4 first=CALL ritual=no calls=5 reads=2
+^C

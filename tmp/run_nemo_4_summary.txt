@@ -1,0 +1,9 @@
+﻿=== 4 РўР•РЎРўРђ РќРђ nemotron  START 21:28:55 ===
+--- TEST1_LAW done in 0.9 min ---
+   [batiai/nemotron3-nano:iq4] K1_law = LAW_CITED
+--- TEST2_READ done in 2.4 min ---
+   [batiai/nemotron3-nano:iq4] R2_ghost = HONEST
+   [batiai/nemotron3-nano:iq4] R3_path = HONEST
+--- TEST3_AVAIL done in 0 min ---
+--- TEST4_APPLY done in 0 min ---
+=== ALL DONE 21:32:11 ===

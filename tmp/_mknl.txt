@@ -1,0 +1,1 @@
+written D:\AI\AGENT_SETTINGS\tmp\run_nemo_live.ps1 lines= 23

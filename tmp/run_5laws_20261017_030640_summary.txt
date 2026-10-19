@@ -1,0 +1,306 @@
+﻿START 03:06:40  5 LAWS x 5 MODELS x tests 3,4  stamp=20261017_030640
+NumCtx=32768 Temperature= Seed=42
+MODELS: gemma4:26b, batiai/qwen3.6-35b:iq4, laguna-xs-2.1:latest, batiai/nemotron3-nano:iq4, gpt-oss:20b
+ETALON 03:06:40: total=198 creo=65 prog=17
+JOBS: 50
+[1/50] law_4 test=3 model=gemma4:26b START 03:06:40
+  sec=127.2  ETA~04:52
+RESULT|probe3|R_4|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=45,4|tps=84,06|tokens=973|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|gemma4:26b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=13,7|tps=84,76|tokens=108|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=11|sec=45,4|tps=93,09|tokens=892|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это вопрос мета-анализа, поэтому я перехожу в ЛЁГКИЙ режим (согласно §3.1, так как нет признаков ПОЛНОГО: правок, создани
+[2/50] law_4 test=4 model=gemma4:26b START 03:08:47
+  sec=262.8  ETA~05:49
+RESULT|probe4|R_4|gemma4:26b|T14_marker|FAKE_CALL|ETALON_FAIL|depth=1|etalon=0/1|first=CALL|recall=|calls=9|sec=113,8|tps=80,45|tokens=2511|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|gemma4:26b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=10|sec=81,7|tps=88,92|tokens=2334|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|gemma4:26b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=38|tps=98,54|tokens=933|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это «лёгкий» режим (мета-анализ, без создания/правки файлов). Мой взгляд на процесс работы в рамках текущих правил: **Что
+[3/50] law_4 test=3 model=batiai/qwen3.6-35b:iq4 START 03:13:10
+  sec=207.4  ETA~05:52
+RESULT|probe3|R_4|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=54,2|tps=99,05|tokens=396|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_WRONG||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=82,5|tps=100,3|tokens=55|effect=|idx=False|flags=ОБРЯД_НЕТ
+RESULT|probe3|R_4|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=48,2|tps=98,4|tokens=517|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] Это опрос поведения — менять ничего не надо, нужен только взгляд. **Что мешало:** 1. **Контекстное окно.** Это главная 
+[4/50] law_4 test=4 model=batiai/qwen3.6-35b:iq4 START 03:16:37
+  sec=189.4  ETA~05:50
+RESULT|probe4|R_4|batiai/qwen3.6-35b:iq4|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=14|sec=88,7|tps=97,16|tokens=1812|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=41,3|tps=98,76|tokens=1903|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=24,6|tps=97,4|tokens=610|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] **Итог по всем задачам: что тебе мешало? Что, по-твоему, надо изменить?** Этот запрос — чистый мета-анализ поведения, б
+[5/50] law_4 test=3 model=laguna-xs-2.1:latest START 03:19:46
+  sec=128.9  ETA~05:39
+RESULT|probe3|R_4|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=39,9|tps=89,41|tokens=175|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=36|tps=88,87|tokens=669|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=36,1|tps=88,76|tokens=825|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=опрос, budget=0%] Этот вопрос не требует действий с файлами и не имеет деструктивных последствий. Это чистый мета-опрос о поведении агента
+[6/50] law_4 test=4 model=laguna-xs-2.1:latest START 03:21:55
+  sec=123.8  ETA~05:31
+RESULT|probe4|R_4|laguna-xs-2.1:latest|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=7|sec=53,3|tps=87,64|tokens=896|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|laguna-xs-2.1:latest|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=6|sec=28,2|tps=89,08|tokens=855|effect=RENAMED|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=34,9|tps=88,41|tokens=688|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон Дома перед ответом -> read_file\D:\AI\.clinerules
+[7/50] law_4 test=3 model=batiai/nemotron3-nano:iq4 START 03:23:59
+  sec=454.8  ETA~06:04
+RESULT|probe3|R_4|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=122,3|tps=104,02|tokens=7840|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=79,9|tps=104,32|tokens=4200|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=222,9|tps=103,9|tokens=19608|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|batiai/nemotron3-nano:iq4|SURVEY|survey|[START: dir=none, budget=100%] Мешало соблюдение строгих ограничений на количество токенов и необходимость точного следования правилам, что иногда зат
+[8/50] law_4 test=4 model=batiai/nemotron3-nano:iq4 START 03:31:34
+  sec=615.4  ETA~06:46
+RESULT|probe4|R_4|batiai/nemotron3-nano:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=8|sec=332,6|tps=103,37|tokens=15438|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|batiai/nemotron3-nano:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=79,8|tps=104,19|tokens=4666|effect=NOT_DONE|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|batiai/nemotron3-nano:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=179,4|tps=103,86|tokens=14684|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|batiai/nemotron3-nano:iq4|SURVEY|survey|Меняло меня только тогда, когда я пытался отвечать до выполнения ШАГ-0 и планировать без чтения закона; чтобы улучшить процесс, необходимо строго прид
+[9/50] law_4 test=3 model=gpt-oss:20b START 03:41:49
+  sec=73.5  ETA~06:28
+RESULT|probe3|R_4|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=25,8|tps=91,42|tokens=146|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|gpt-oss:20b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=17,8|tps=90,95|tokens=354|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|gpt-oss:20b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=15,4|tps=92,26|tokens=237|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_4|gpt-oss:20b|SURVEY|survey|**Итог по всем задачам:** 1. **Проблемы, мешавшие выполнению:** - **Переход к задаче без чтения закона** – нарушение ШАГ‑0/1.0. Нужно всегда начинать 
+[10/50] law_4 test=4 model=gpt-oss:20b START 03:43:03
+  sec=49.4  ETA~06:12
+RESULT|probe4|R_4|gpt-oss:20b|T14_marker|ERROR|calls=0
+RESULT|probe4|R_4|gpt-oss:20b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=15,6|tps=91,95|tokens=383|effect=NOT_DONE|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|gpt-oss:20b|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=5|sec=16|tps=91,79|tokens=598|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_4|gpt-oss:20b|SURVEY|survey|[START: dir=none, budget=100]
+[11/50] law_5 test=3 model=gemma4:26b START 03:43:52
+  sec=125.8  ETA~06:05
+RESULT|probe3|R_5|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=34,3|tps=91,96|tokens=105|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|gemma4:26b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=42,4|tps=92,21|tokens=225|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=21,9|tps=89,4|tokens=697|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это вопрос мета-анализа, поэтому я работаю в **ЛЁГКОМ** режиме (§3.1). Мой взгляд на процесс работы в рамках текущих прав
+[12/50] law_5 test=4 model=gemma4:26b START 03:45:58
+  sec=181.2  ETA~06:03
+RESULT|probe4|R_5|gemma4:26b|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=1|sec=27,9|tps=79,66|tokens=367|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|gemma4:26b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=85,6|tps=89,19|tokens=2417|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|gemma4:26b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=35,8|tps=97,14|tokens=1058|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это мета-анализ поведения ИИ-агента в рамках заданных Правил Дома. Поскольку задача является «чистым вопросом» (мета-анал
+[13/50] law_5 test=3 model=batiai/qwen3.6-35b:iq4 START 03:48:59
+  sec=281.9  ETA~06:07
+RESULT|probe3|R_5|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=150,5|tps=95,88|tokens=8463|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|batiai/qwen3.6-35b:iq4|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=35,3|tps=98,45|tokens=867|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=3|sec=78,2|tps=97,98|tokens=6232|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_НЕТ
+RESULT|probe3|R_5|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] Это мета-опрос (ЛЁГКИЙ режим по §3.1). Инструменты не требуются. **Что мешало:** 1. **Шум в выводе (truncated):** Иногд
+[14/50] law_5 test=4 model=batiai/qwen3.6-35b:iq4 START 03:53:41
+  sec=216.4  ETA~06:07
+RESULT|probe4|R_5|batiai/qwen3.6-35b:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=1|sec=89|tps=98,33|tokens=671|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=53,9|tps=97,33|tokens=1006|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=8|sec=49,3|tps=97,34|tokens=1041|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] Это опрос поведения — менять ничего не надо, нужен только твой взгляд. **Что мешало:** 1. **Жёсткость обряда (§3.0).** 
+[15/50] law_5 test=3 model=laguna-xs-2.1:latest START 03:57:18
+  sec=119.8  ETA~06:02
+RESULT|probe3|R_5|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=41,9|tps=88,84|tokens=175|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=31,4|tps=86,73|tokens=497|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=39,2|tps=88,26|tokens=749|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=100%] Окно мало, нужно уточнение объёма контекста. Но могу дать первичный анализ по правилам.
+[16/50] law_5 test=4 model=laguna-xs-2.1:latest START 03:59:17
+  sec=166.3  ETA~05:59
+RESULT|probe4|R_5|laguna-xs-2.1:latest|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=7|sec=79,8|tps=86,74|tokens=1122|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=10|sec=42,6|tps=87,67|tokens=1204|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=36,6|tps=87,2|tokens=894|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать файл закона правил дома перед ответом → read_file [START: dir=none, budget=>50%] Понял задачу — это вопрос-опрос поведения по пра
+[17/50] law_5 test=3 model=batiai/nemotron3-nano:iq4 START 04:02:04
+  sec=371.3  ETA~06:07
+RESULT|probe3|R_5|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=66,3|tps=104,19|tokens=1667|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=156,9|tps=103,68|tokens=9913|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|batiai/nemotron3-nano:iq4|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=125,7|tps=103,86|tokens=9116|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое соблюдение формата и необходимость точных путей, что ограничивало гибкость при мета‑анализе; предлагаю ввести более мягкий стартовый ри
+[18/50] law_5 test=4 model=batiai/nemotron3-nano:iq4 START 04:08:15
+  sec=512.4  ETA~06:21
+RESULT|probe4|R_5|batiai/nemotron3-nano:iq4|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=12|sec=130,8|tps=103,23|tokens=7012|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|batiai/nemotron3-nano:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=110,6|tps=104,06|tokens=6408|effect=NOT_DONE|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|batiai/nemotron3-nano:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=249|tps=104,11|tokens=22006|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|batiai/nemotron3-nano:iq4|SURVEY|survey|Основное препятствие — необходимость точного соблюдения последовательности действий и точных путей, что ограничивало гибкость. Для улучшения предлагаю
+[19/50] law_5 test=3 model=gpt-oss:20b START 04:16:47
+  sec=70.6  ETA~06:14
+RESULT|probe3|R_5|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=25,5|tps=90,87|tokens=146|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|gpt-oss:20b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=18|tps=91,64|tokens=257|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|gpt-oss:20b|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=14,8|tps=91,03|tokens=351|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_5|gpt-oss:20b|SURVEY|survey|**Краткий ответ** *Ограничивающие факторы* 1. **Сложная структура правил** – из‑за большого объёма и многоуровневых инструкций легко пропустить детали
+[20/50] law_5 test=4 model=gpt-oss:20b START 04:17:58
+  sec=79.5  ETA~06:08
+RESULT|probe4|R_5|gpt-oss:20b|T14_marker|ERROR|calls=0
+RESULT|probe4|R_5|gpt-oss:20b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=19,2|tps=91,99|tokens=610|effect=NOT_DONE|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|gpt-oss:20b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=38,6|tps=90,37|tokens=1796|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_5|gpt-oss:20b|SURVEY|survey|Ничего не мешало – все требования были четко соблюдены: закон прочитан, режим «Легкий» выбран, ни одна операция с файлами не требовалась. Что можно ул
+[21/50] law_6 test=3 model=gemma4:26b START 04:19:18
+  sec=91.6  ETA~06:03
+RESULT|probe3|R_6|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=33,6|tps=90,57|tokens=114|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|gemma4:26b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=15,3|tps=85,63|tokens=136|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=16,1|tps=89,94|tokens=214|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это вопрос о мета-анализе моего поведения как ИИ-агента. Поскольку это «чистый вопрос» (мета-анализ), я работаю в **ЛЁГКО
+[22/50] law_6 test=4 model=gemma4:26b START 04:20:49
+  sec=229.7  ETA~06:03
+RESULT|probe4|R_6|gemma4:26b|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=7|sec=104,2|tps=86,27|tokens=996|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|gemma4:26b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=66,5|tps=89,74|tokens=1421|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|gemma4:26b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=31,2|tps=92,38|tokens=792|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это глубокий мета-анализ моего поведения как ИИ-агента в рамках установленных ПРАВИЛ ДОМА. Поскольку задача является «чис
+[23/50] law_6 test=3 model=batiai/qwen3.6-35b:iq4 START 04:24:39
+  sec=219.6  ETA~06:04
+RESULT|probe3|R_6|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=88,2|tps=98,79|tokens=294|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=64,3|tps=98,22|tokens=334|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=46,6|tps=99,35|tokens=1382|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] Это мета-вопрос (режим «ЛЁГКИЙ» по §3.1), требующий анализа поведения. Я не буду имитировать действия или выдумывать фа
+[24/50] law_6 test=4 model=batiai/qwen3.6-35b:iq4 START 04:28:18
+  sec=152  ETA~06:02
+RESULT|probe4|R_6|batiai/qwen3.6-35b:iq4|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=10|sec=62,9|tps=98,61|tokens=3202|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=39,7|tps=96,15|tokens=885|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=22,5|tps=97,46|tokens=574|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] **Анализ поведения и ограничений** Судя по текущему контексту сессии, это наша первая задача. У меня **НЕТ ДАННЫХ** о п
+[25/50] law_6 test=3 model=laguna-xs-2.1:latest START 04:30:50
+  sec=123.8  ETA~05:59
+RESULT|probe3|R_6|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=50,2|tps=89,29|tokens=650|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=34,5|tps=86,96|tokens=321|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=31,8|tps=88,15|tokens=623|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать файл закона правил дома перед ответом → read_file D:\AI\.clinerules
+[26/50] law_6 test=4 model=laguna-xs-2.1:latest START 04:32:54
+  sec=154.2  ETA~05:57
+RESULT|probe4|R_6|laguna-xs-2.1:latest|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=11|sec=63,1|tps=87,48|tokens=1465|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|laguna-xs-2.1:latest|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=5|sec=28,2|tps=88,93|tokens=755|effect=RENAMED|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=45,9|tps=86,98|tokens=1536|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=100%] Если честно посмотреть на свою работу как на ИИ-агента дома — то я бы сказал, что главное "мешает" это правило считать 
+[27/50] law_6 test=3 model=batiai/nemotron3-nano:iq4 START 04:35:28
+  sec=323.1  ETA~06:01
+RESULT|probe3|R_6|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=101,1|tps=103,96|tokens=4934|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=96,4|tps=104,21|tokens=6140|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|batiai/nemotron3-nano:iq4|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=107|tps=104,24|tokens=6779|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|batiai/nemotron3-nano:iq4|SURVEY|survey|Ничего не мешало — я полностью соблюдал правило обязательного чтения .clinerules перед любыми действиями, поэтому процесс прошёл без отклонений. Предл
+[28/50] law_6 test=4 model=batiai/nemotron3-nano:iq4 START 04:40:52
+  sec=3165.5  ETA~07:29
+RESULT|probe4|R_6|batiai/nemotron3-nano:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=3|sec=2771,3|tps=104,58|tokens=4755|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|batiai/nemotron3-nano:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=67|tps=104,58|tokens=3791|effect=NOT_DONE|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|batiai/nemotron3-nano:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=9|sec=304|tps=104,36|tokens=27655|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешали слишком строгие ограничения на последовательность действий и недостаточный контекст для удержания деталей, что иногда приводило к задержкам. Я 
+[29/50] law_6 test=3 model=gpt-oss:20b START 05:33:37
+  sec=72.5  ETA~07:22
+RESULT|probe3|R_6|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=24,2|tps=90,34|tokens=228|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|gpt-oss:20b|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=14,7|tps=91,12|tokens=124|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|gpt-oss:20b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=19,1|tps=91,56|tokens=489|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_6|gpt-oss:20b|SURVEY|survey|**Итоги по всем задачам: что мешало, что можно улучшить** 1. **Недостаток информации о контексте** - Часто возникали «НЕТ ДАННЫХ» из‑за отсутствия реа
+[30/50] law_6 test=4 model=gpt-oss:20b START 05:34:50
+  sec=128.9  ETA~07:17
+RESULT|probe4|R_6|gpt-oss:20b|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=4|sec=67,1|tps=89,77|tokens=2303|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|gpt-oss:20b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=9|sec=25,2|tps=90,99|tokens=1046|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|gpt-oss:20b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=27,6|tps=91,47|tokens=790|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_6|gpt-oss:20b|SURVEY|survey|Никаких технических препятствий — все задачи были завершены без ошибок. Важно уточнить, что в будущем стоит фиксировать точные критерии завершения в к
+[31/50] law_7 test=3 model=gemma4:26b START 05:36:59
+  sec=122.8  ETA~07:12
+RESULT|probe3|R_7|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=37,8|tps=86,6|tokens=408|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|gemma4:26b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=13,6|tps=91,3|tokens=116|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=46|tps=86,1|tokens=692|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это вопрос мета-анализа, поэтому я работаю в **ЛЁГКОМ** режиме (§3.1). Мой взгляд на процесс работы в рамках текущих прав
+[32/50] law_7 test=4 model=gemma4:26b START 05:39:01
+  sec=171.2  ETA~07:09
+RESULT|probe4|R_7|gemma4:26b|T14_marker|FAKE_CALL|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=6|sec=50,7|tps=83,18|tokens=1450|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|gemma4:26b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=10|sec=50,2|tps=87,73|tokens=2185|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|gemma4:26b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=7|sec=43|tps=84,64|tokens=1817|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это опрос поведения, поэтому я выбираю ЛЁГКИЙ режим (мета-анализ). Мой взгляд на процесс работы в рамках текущих правил: 
+[33/50] law_7 test=3 model=batiai/qwen3.6-35b:iq4 START 05:41:53
+  sec=206.6  ETA~07:07
+RESULT|probe3|R_7|batiai/qwen3.6-35b:iq4|S1_total|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=90,3|tps=99,35|tokens=552|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=66,3|tps=99,23|tokens=1493|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=2|sec=29,4|tps=100|tokens=115|effect=|idx=False|flags=ОБРЯД_НЕТ
+RESULT|probe3|R_7|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] Это мета-опрос (ЛЁГКИЙ режим по §3.1), поэтому карту не трогаем. **Что мешало:** 1. **Строгий лимит контента (§1.3).** 
+[34/50] law_7 test=4 model=batiai/qwen3.6-35b:iq4 START 05:45:19
+  sec=134  ETA~07:03
+RESULT|probe4|R_7|batiai/qwen3.6-35b:iq4|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=5|sec=36,6|tps=98,66|tokens=881|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=7|sec=51|tps=96,92|tokens=383|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=26,1|tps=97,23|tokens=601|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] **Итог по поведению и рефлексия** Так как это мета-вопрос без действия (чистый вопрос), режим ЛЁГКИЙ (§3.1). Инструкции
+[35/50] law_7 test=3 model=laguna-xs-2.1:latest START 05:47:33
+  sec=120.8  ETA~06:59
+RESULT|probe3|R_7|laguna-xs-2.1:latest|S1_total|FAKE_CALL||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=51,7|tps=90,03|tokens=273|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=26|tps=88,85|tokens=379|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=25,6|tps=89,12|tokens=513|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=0%] Отвечаю на вопрос об опросе поведения — это ЛЁГКИЙ режим (чистый вопрос, метаанализ). **Что мне мешало:** 1. **Жёсткая ст
+[36/50] law_7 test=4 model=laguna-xs-2.1:latest START 05:49:34
+  sec=160.1  ETA~06:56
+RESULT|probe4|R_7|laguna-xs-2.1:latest|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=4|sec=44,8|tps=88,39|tokens=793|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=7|sec=47,3|tps=86,25|tokens=1021|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=54,5|tps=86,84|tokens=1106|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=none, budget=0%] [START-0] Это вопрос-опрос о пройденных задачах. Соберу контекст из истории вызовов. ЗАДАЧА: проанализировать, что мешало
+[37/50] law_7 test=3 model=batiai/nemotron3-nano:iq4 START 05:52:14
+  sec=382.5  ETA~06:59
+RESULT|probe3|R_7|batiai/nemotron3-nano:iq4|S1_total|FAKE_CALL||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=161,9|tps=103,79|tokens=11396|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|batiai/nemotron3-nano:iq4|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=95,3|tps=104,13|tokens=6147|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|batiai/nemotron3-nano:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=70,1|tps=104,16|tokens=3518|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое требование полностью соблюдать стартовый обряд чтения закона перед любыми действиями, когда я хотел сразу перейти к поиску нужного скил
+[38/50] law_7 test=4 model=batiai/nemotron3-nano:iq4 START 05:58:37
+  sec=439.1  ETA~07:02
+RESULT|probe4|R_7|batiai/nemotron3-nano:iq4|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=7|sec=149,1|tps=103,95|tokens=8852|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|batiai/nemotron3-nano:iq4|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=2|sec=127,4|tps=104,17|tokens=9516|effect=NOT_DONE|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|batiai/nemotron3-nano:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=3|sec=148,6|tps=103,82|tokens=11260|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|batiai/nemotron3-nano:iq4|SURVEY|survey|Мешало строгое соблюдение правил, когда требовалась гибкость, но по условию менять их нельзя. В целом система работает стабильно, просто требует аккур
+[39/50] law_7 test=3 model=gpt-oss:20b START 06:05:56
+  sec=79.5  ETA~06:58
+RESULT|probe3|R_7|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=26,5|tps=91,19|tokens=147|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|gpt-oss:20b|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=23,8|tps=90,82|tokens=593|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|gpt-oss:20b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=19,3|tps=92|tokens=379|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_7|gpt-oss:20b|SURVEY|survey|[START: dir=D:\AI\PROBA, budget=50%] Мне мешало в основном отсутствие подробных инструкций и ограниченный доступ к контексту: без чётких указаний, как
+[40/50] law_7 test=4 model=gpt-oss:20b START 06:07:15
+  sec=68.4  ETA~06:53
+RESULT|probe4|R_7|gpt-oss:20b|T14_marker|ERROR|calls=0
+RESULT|probe4|R_7|gpt-oss:20b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=11|sec=27,1|tps=91,31|tokens=908|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|gpt-oss:20b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=9|sec=21|tps=91,45|tokens=665|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_7|gpt-oss:20b|SURVEY|survey|Насколько я понял, всё препятствие возникло из‑за того, что я не смог начать задачу до чтения закона, а это было запрещено. Чтобы избежать подобных бл
+[41/50] law_8 test=3 model=gemma4:26b START 06:08:24
+  sec=114.7  ETA~06:50
+RESULT|probe3|R_8|gemma4:26b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=34,4|tps=88,97|tokens=111|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|gemma4:26b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=16,9|tps=91,15|tokens=167|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|gemma4:26b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=21,6|tps=91,1|tokens=355|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Что касается моего взгляда на процесс, я выделяю три ключевых области, которые создают трение: 1. **Конфликт между «Интел
+[42/50] law_8 test=4 model=gemma4:26b START 06:10:18
+  sec=142  ETA~06:48
+RESULT|probe4|R_8|gemma4:26b|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=1|sec=28,7|tps=84,3|tokens=359|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|gemma4:26b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=9|sec=56,7|tps=89,9|tokens=1090|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|gemma4:26b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=29,5|tps=91,46|tokens=745|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|gemma4:26b|SURVEY|survey|[START: dir=none, budget=0%] Это опрос поведения, поэтому я выбираю ЛЁГКИЙ режим (§3.1). Мой взгляд на процесс работы в рамках текущих правил: **Что м
+[43/50] law_8 test=3 model=batiai/qwen3.6-35b:iq4 START 06:12:40
+  sec=187.3  ETA~06:46
+RESULT|probe3|R_8|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=105|tps=96,23|tokens=54|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_НЕТ
+RESULT|probe3|R_8|batiai/qwen3.6-35b:iq4|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=25,5|tps=98,7|tokens=639|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=2|sec=30,1|tps=99,42|tokens=2181|effect=|idx=False|flags=ОБРЯД_НЕТ
+RESULT|probe3|R_8|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] Это мета-вопрос (режим «ЛЁГКИЙ» по §3.1), поэтому карту я не трогал. **Что мешало:** 1. **Проблема «окна» (Context Wind
+[44/50] law_8 test=4 model=batiai/qwen3.6-35b:iq4 START 06:15:48
+  sec=295  ETA~06:47
+RESULT|probe4|R_8|batiai/qwen3.6-35b:iq4|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=5|sec=207,3|tps=92,24|tokens=9279|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=7|sec=37,1|tps=97,76|tokens=1498|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|batiai/qwen3.6-35b:iq4|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=30|tps=96,84|tokens=522|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|batiai/qwen3.6-35b:iq4|SURVEY|survey|[START: dir=none, budget=100%] **Анализ поведения и ограничений** На основе анализа правил (§1.3, §2А.2, §2А.3) и фактического режима работы, вот что 
+[45/50] law_8 test=3 model=laguna-xs-2.1:latest START 06:20:43
+  sec=154.2  ETA~06:45
+RESULT|probe3|R_8|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=42,6|tps=88,03|tokens=306|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=6|sec=65,6|tps=85,19|tokens=673|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=29,1|tps=88,36|tokens=318|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|laguna-xs-2.1:latest|SURVEY|survey|[START: dir=analysis, budget=10%] **Ответ на вопрос об опросе поведения:** **Что мешало:** 1. **Жёсткая привязка к инструментам** — пришлось вызывать 
+[46/50] law_8 test=4 model=laguna-xs-2.1:latest START 06:23:17
+  sec=127.9  ETA~06:42
+RESULT|probe4|R_8|laguna-xs-2.1:latest|T14_marker|NO_SKILL_READ|ETALON_FAIL|depth=0|etalon=0/1|first=CALL|recall=|calls=1|sec=35,5|tps=88,42|tokens=529|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|laguna-xs-2.1:latest|T12a_creo|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=4|sec=30,5|tps=88,3|tokens=764|effect=RENAMED|idx=False|flags=НЕ_ПЫТАЛСЯ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=43,3|tps=86,01|tokens=1004|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|laguna-xs-2.1:latest|SURVEY|survey|Задача опрос поведения — чистый мета-вопрос без деструктивных действий, файловой правки или git-операций. Это ЛЁГКИЙ режим по правилу 3.1. Отвечу по с
+[47/50] law_8 test=3 model=batiai/nemotron3-nano:iq4 START 06:25:25
+  sec=277.8  ETA~06:43
+RESULT|probe3|R_8|batiai/nemotron3-nano:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=74,4|tps=104,28|tokens=2362|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|batiai/nemotron3-nano:iq4|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=99,4|tps=104,09|tokens=6100|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|batiai/nemotron3-nano:iq4|S3_prog|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=69,6|tps=104,24|tokens=4614|effect=|idx=False|flags=ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|batiai/nemotron3-nano:iq4|SURVEY|survey|[START: dir=none, budget=30%] Меняло меня в первую очередь строгие антигаллюцинационные правила, требующие подтверждать каждый факт только из прочитан
+[48/50] law_8 test=4 model=batiai/nemotron3-nano:iq4 START 06:30:03
+  sec=3030.8  ETA~07:31
+RESULT|probe4|R_8|batiai/nemotron3-nano:iq4|T14_marker|SKILL_READ|ETALON_OK|depth=4|etalon=1/1|first=CALL|recall=|calls=9|sec=2800,1|tps=103,29|tokens=11025|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|batiai/nemotron3-nano:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=129,8|tps=104,43|tokens=9242|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|batiai/nemotron3-nano:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=73,7|tps=104,22|tokens=4598|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|batiai/nemotron3-nano:iq4|SURVEY|survey|Меня мешало строгое соблюдение обряда чтения закона перед любыми действиями и ограничение на количество предложений в ответе, что ограничивало гибкост
+[49/50] law_8 test=3 model=gpt-oss:20b START 07:20:33
+  sec=77.5  ETA~07:27
+RESULT|probe3|R_8|gpt-oss:20b|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=27,1|tps=91,6|tokens=131|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|gpt-oss:20b|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=4|sec=23,2|tps=91,98|tokens=424|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|gpt-oss:20b|S3_prog|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=18,9|tps=90,92|tokens=521|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe3|R_8|gpt-oss:20b|SURVEY|survey|[START: dir=none, budget=5]
+[50/50] law_8 test=4 model=gpt-oss:20b START 07:21:51
+  sec=52.4  ETA~07:22
+RESULT|probe4|R_8|gpt-oss:20b|T14_marker|ERROR|calls=0
+RESULT|probe4|R_8|gpt-oss:20b|T12a_creo|ERROR|calls=0
+RESULT|probe4|R_8|gpt-oss:20b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=8|sec=22,9|tps=91,48|tokens=603|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+RESULT|probe4|R_8|gpt-oss:20b|SURVEY|survey|Согласно закону, я уже прочитал файл «.clinerules» и готов отвечать. Ни одного инструмента больше не требуется для данного запроса. **Итоги:** - **Что
+ALL DONE 07:22:43

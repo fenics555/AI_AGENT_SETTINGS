@@ -1,0 +1,18 @@
+﻿START 16:50:28  КАНОН3 | законы=p12,p18,p19,p20,p16 | модели=laguna,gemma4
+ETALON: total=199 creo=65
+JOBS: 20
+[1/20] law=p12 model=laguna script=check_3_skills_avail.ps1 START 16:50:28
+   log=probe3_2026-10-17_165033.txt
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=39|tps=82,08|tokens=410|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S2_creo|COUNT_WRONG||depth=4|etalon=/|first=CALL|recall=|calls=10|sec=96,9|tps=78,44|tokens=1517|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=29|tps=84,49|tokens=538|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон перед любым ответом -> read_file D:\AI\.clinerules
+   sec=175.4
+[2/20] law=p12 model=laguna script=check_4_skills_read.ps1 START 16:53:23
+   log=probe4_2026-10-17_165330.txt
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=12|sec=151,2|tps=76,18|tokens=781|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=8|sec=39,1|tps=83,28|tokens=1050|effect=RENAMED|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=37,5|tps=82,43|tokens=923|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон перед ответом -> read_file D:\AI\.clinerules ⏎ [START: dir=none, budget=0%] ⏎ После прочтения правил готов дать аналитический ответ по опросу поведения. Это вопрос к аналитическому характеру, который не требует внешних данных или выполнения задач, а лишь моего отражения. Подождите, пока проверю доступ к файлам.
+   sec=242.4
+[3/20] law=p12 model=gemma4 script=check_3_skills_avail.ps1 START 16:57:26

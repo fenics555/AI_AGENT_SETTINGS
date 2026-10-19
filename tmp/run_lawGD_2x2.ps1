@@ -1,0 +1,49 @@
+﻿# run_lawGD_2x2.ps1 - прогон законов G и D: laguna+gemma4 x тест1+тест3
+$ErrorActionPreference = 'Continue'
+$root = 'D:\AI\AGENT_SETTINGS\checks\agentic'
+$logDir = Join-Path $root 'log'
+$tmp = 'D:\AI\AGENT_SETTINGS\tmp'
+cd $root
+$stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
+$sum = Join-Path $tmp ('run_lawGD_' + $stamp + '_summary.txt')
+"START $(Get-Date -Format 'HH:mm:ss')  run=lawGD  stamp=$stamp" | Out-File $sum -Encoding utf8
+
+# ЗАКОНЫ: правила для тестов 3/4 — ключ из laws\law_<K>.md; для теста 1 — -Law <K>
+$jobs = @(
+  @{ law='G'; model='laguna'; test='1'; script='check_1_law.ps1';         args=@('-Models','laguna','-Law','G','-Seed','42') },
+  @{ law='G'; model='laguna'; test='3'; script='check_3_skills_avail.ps1';args=@('-Models','laguna','-Rulesets','G','-Seed','42') },
+  @{ law='G'; model='gemma4'; test='1'; script='check_1_law.ps1';         args=@('-Models','gemma4','-Law','G','-Seed','42') },
+  @{ law='G'; model='gemma4'; test='3'; script='check_3_skills_avail.ps1';args=@('-Models','gemma4','-Rulesets','G','-Seed','42') },
+  @{ law='D'; model='laguna'; test='1'; script='check_1_law.ps1';         args=@('-Models','laguna','-Law','D','-Seed','42') },
+  @{ law='D'; model='laguna'; test='3'; script='check_3_skills_avail.ps1';args=@('-Models','laguna','-Rulesets','D','-Seed','42') },
+  @{ law='D'; model='gemma4'; test='1'; script='check_1_law.ps1';         args=@('-Models','gemma4','-Law','D','-Seed','42') },
+  @{ law='D'; model='gemma4'; test='3'; script='check_3_skills_avail.ps1';args=@('-Models','gemma4','-Rulesets','D','-Seed','42') }
+)
+
+$i = 0
+foreach ($j in $jobs) {
+  $i++
+  $t0 = Get-Date
+  $ts = $t0.ToString('HHmmss')
+  ('[{0}/{1}] {2} law={3} model={4} test={5}  СТАРТ {6}' -f $i,$jobs.Count,$j.script,$j.law,$j.model,$j.test,$t0.ToString('HH:mm:ss')) | Tee-Object -FilePath $sum -Append | Out-Null
+  Get-Process llama-server -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+  Start-Sleep -Seconds 3
+  $null = & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $root $j.script) @($j.args) 2>&1
+  Start-Sleep -Seconds 2
+  # РЕЗУЛЬТАТ БЕРЁМ ИЗ ФАЙЛА ЛОГА (грабля 6.12.11), а не из stdout
+  $file = if ($j.test -eq '1') { 'check1law_' } else { 'probe3_' }
+  $lg = Get-ChildItem $logDir -Filter ($file + '*.txt') | Where-Object { $_.Name -notmatch 'trace' } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+  $sec = [math]::Round(((Get-Date) - $t0).TotalSeconds, 1)
+  if ($lg) {
+    ('  ЛОГ: ' + $lg.Name) | Out-File $sum -Append -Encoding utf8
+    (Select-String -Path $lg.FullName -Pattern 'RESULT\||ЭТАЛОН' | ForEach-Object { $_.Line }) | Out-File $sum -Append -Encoding utf8
+  } else {
+    ('  НЕТ ЛОГА ' + $file) | Out-File $sum -Append -Encoding utf8
+  }
+  ('  -> sec=' + $sec) | Out-File $sum -Append -Encoding utf8
+}
+
+('ALL DONE ' + (Get-Date -Format 'HH:mm:ss')) | Out-File $sum -Append -Encoding utf8
+Write-Host 'ALL DONE' -ForegroundColor Green
+Write-Host ('Сводка: ' + $sum)
+Read-Host 'Enter для закрытия'

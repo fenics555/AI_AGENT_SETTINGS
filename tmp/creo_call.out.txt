@@ -1,0 +1,1 @@
+{'path': 'D:\\AI\\PROBA\\models\\00080-03.prt', 'size': 61414, 'mtime': 1775169932.0, 'volume': 0.0, 'material': 'PTC_SYSTEM_MTRL_PROPS', 'name': '', 'designation': '', 'rev': '114', 'author': 'KAMESH', 'revdate': '05.01.24 10:15', 'role': '', 'refs': {}}

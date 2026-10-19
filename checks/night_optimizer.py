@@ -151,7 +151,7 @@ QUEUE = [
                   "ПРИЁМКА PASS, коммит 1ad3725. Гипотеза «temperature лечит провалы Laguna» "
                   "НЕ подтвердилась и не опроверглась: temperature меняет текст, но не класс.",
         "closed_why": "Правая по коду стенда, не по правилам; MODEL_OPTIONS работает. "
-                      "Гипотеза снята seed-эффектом, см. скилл PROMPT\\SKILL_seed_vs_temperature.md "
+                      "Гипотеза снята seed-эффектом, см. скилл skills\\SKILL_seed_vs_temperature.md "
                       "(seed НЕ гасит temperature — опровергнуто пробой SHA).",
         "why_retargeted":
             "Правка из спеки была бы ПУСТОЙ: стенд не читает config/behavior.json. В "
@@ -177,12 +177,12 @@ QUEUE = [
         "title": "якорь-напоминание триггера в конце блока ВОСКРЕШЕНИЕ",
         "status": "closed_topic", "target": "RULES", "retargeted_from": "якорный повтор АНТИ-ГАЛЛЮЦИНАЦИИ",
         "closed_why": "Тема структуры правил закрыта тремя отрицательными замерами "
-                      "(спека §2 п.5, PROMPT\\SKILL_prompt_position_from_window.md §3.1). "
+                      "(спека §2 п.5, skills\\SKILL_prompt_position_from_window.md §3.1). "
                       "H4 был структурной гипотезой — запускать вслепую = повторить чужие грабли. "
                       "Подтверждено владельцем 02.10.2026 10:40.",
         "why_retargeted":
             "Анти-сикофанство: тема структуры правил закрыта тремя отрицательными замерами "
-            "(спека §2 п.5, PROMPT\\SKILL_prompt_position_from_window.md), а H4 в спеке был "
+            "(спека §2 п.5, skills\\SKILL_prompt_position_from_window.md), а H4 в спеке был "
             "именно структурной гипотезой. Ставится под замер как МАЛЕНЬКИЙ якорь, бьющий в "
             "класс R у laguna (r1_zavis, r2_krah, r3_loop_word — три предмета подряд). "
             "Риск назван прямо: тема закрыта, автооткат обязателен.",

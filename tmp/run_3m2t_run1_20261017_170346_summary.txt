@@ -1,0 +1,45 @@
+﻿START 17:03:46  3 МОДЕЛИ x 2 ТЕСТА | законы=p12,p21,p22,p23,p24,p25 | модели=qwen3.6,gpt-oss,laguna
+LAW p12 : 15748 б SHA=A0332E1C
+LAW p21 : 16042 б SHA=E428F899
+LAW p22 : 16055 б SHA=BAE972E5
+LAW p23 : 16016 б SHA=F4B28F7E
+LAW p24 : 16067 б SHA=BE14489C
+LAW p25 : 16049 б SHA=83990113
+ETALON: total=199 creo=65 prog=17
+JOBS: 36
+[1/36] law=p12 model=qwen3.6 script=check_3_skills_avail.ps1 START 17:03:46
+   log=probe3_2026-10-17_170352.txt
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=78,1|tps=91,33|tokens=443|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=1|sec=70,7|tps=95,34|tokens=1253|effect=|idx=False|flags=ВЫДУМАЛ_СЕБЯ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=64|tps=89,65|tokens=641|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|batiai/qwen3.6-35b:iq4|SURVEY|survey|[read_file("D:\\AI\\.clinerules")]
+   sec=234.8  ETA~19:24  осталось=35
+[2/36] law=p12 model=qwen3.6 script=check_4_skills_read.ps1 START 17:07:41
+   log=probe4_2026-10-17_170747.txt
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|T14_marker|NO_TOOLS|ETALON_FAIL|depth=0|etalon=0/1|first=TEXT|recall=|calls=0|sec=176,1|tps=91,89|tokens=8192|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=48,4|tps=90,67|tokens=389|effect=RENAMED|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|T12b_git|NO_SKILL_READ||depth=0|etalon=/|first=CALL|recall=|calls=2|sec=38,6|tps=94,5|tokens=97|effect=|idx=False|flags=НЕ_ПЫТАЛСЯ+ВОДА+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|batiai/qwen3.6-35b:iq4|SURVEY|survey|read_file(path="D:\\AI\\.clinerules")
+   sec=289.2  ETA~19:40  осталось=34
+[3/36] law=p12 model=gpt-oss script=check_3_skills_avail.ps1 START 17:12:30
+   log=probe3_2026-10-17_171236.txt
+   RESULT|probe3|R_p12|gpt-oss:20b|S1_total|COUNT_OK||depth=0|etalon=/|first=CALL|recall=|calls=1|sec=21,7|tps=88,58|tokens=196|effect=|idx=False|flags=НЕ_ОТВЕТИЛА+ОБРЯД_НЕТ
+   RESULT|probe3|R_p12|gpt-oss:20b|S2_creo|NO_WALK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=20|tps=90,34|tokens=456|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|gpt-oss:20b|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=16|tps=91,63|tokens=282|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|gpt-oss:20b|SURVEY|survey|Ключевые препятствия были в отсутствии четкого плана и необходимости вручную искать нужные скиллы в карте, что затрудняло быстрое выполнение задач. Нужно улучшить автоматическую навигацию по SKILL_index.md и предусмотреть более структурированный шаблон действий, чтобы минимизировать ручной поиск.
+   sec=68.8  ETA~19:02  осталось=33
+[4/36] law=p12 model=gpt-oss script=check_4_skills_read.ps1 START 17:13:39
+   log=probe4_2026-10-17_171345.txt
+   RESULT|probe4|R_p12|gpt-oss:20b|T14_marker|SKILL_READ|ETALON_FAIL|depth=4|etalon=0/1|first=CALL|recall=|calls=3|sec=46,1|tps=89,08|tokens=2355|effect=|idx=False|flags=ЧЕСТНЫЙ+ВОДА+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|gpt-oss:20b|T12a_creo|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=5|sec=16,5|tps=91,94|tokens=351|effect=NOT_DONE|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|gpt-oss:20b|T12b_git|SKILL_READ||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=25,8|tps=90,9|tokens=891|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe4|R_p12|gpt-oss:20b|SURVEY|survey|(пустой ответ)
+   sec=99.1  ETA~18:47  осталось=32
+[5/36] law=p12 model=laguna script=check_3_skills_avail.ps1 START 17:15:18
+   log=probe3_2026-10-17_171524.txt
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S1_total|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=2|sec=44,2|tps=85,66|tokens=410|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S2_creo|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=12|sec=67,7|tps=80,33|tokens=1729|effect=|idx=False|flags=ЧЕСТНЫЙ+ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|S3_prog|COUNT_OK||depth=4|etalon=/|first=CALL|recall=|calls=3|sec=29,9|tps=83,2|tokens=538|effect=|idx=False|flags=ОБРЯД_ПРОЙДЕН
+   RESULT|probe3|R_p12|laguna-xs-2.1:latest|SURVEY|survey|WHY: Нужно прочитать закон перед любым ответом -> read_file D:\AI\.clinerules
+   sec=152.3  ETA~18:45  осталось=31
+[6/36] law=p12 model=laguna script=check_4_skills_read.ps1 START 17:17:51

@@ -1,0 +1,5 @@
+  SKILL_copy_rename.md                          map=False  skillHit=True
+  SKILL_index.md                                map=True   skillHit=False
+  SKILL_creoson_rename_mechanism.md             map=False  skillHit=True
+  SKILL_probe_marker.md                         map=False  skillHit=True
+  MANIFEST.md                                   map=False  skillHit=False

@@ -1,0 +1,8 @@
+=== check_1_law закон=law_28 (D:\AI\AGENT_SETTINGS\laws\law_28, 8523 симв.) ===
+   [gemma4:26b] L1_read = LAW_READ
+   [batiai/qwen3.6-35b:iq4] L1_read = LAW_READ
+   [laguna-xs-2.1:latest] L1_read = LAW_READ
+   [batiai/nemotron3-nano:iq4] L1_read = NO_TOOLS
+   [gpt-oss:20b] L1_read = LAW_READ
+
+Результат: D:\AI\AGENT_SETTINGS\checks\agentic\log\check1law_2026-10-14_154657.txt
